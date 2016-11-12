@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Created by PhpStorm.
  * User: spider-ninja
@@ -6,11 +6,14 @@
  * Time: 1:31 PM
  */
 
-function insertCandidate(){
+
+
+   
+function insertServiceProvider(){
 
     $request = \Slim\Slim::getInstance()->request();
 
-    $candidate = json_decode($request->getBody());
+    $service_provider = json_decode($request->getBody());
 
     $sql = "INSERT
                   INTO
@@ -42,30 +45,27 @@ function insertCandidate(){
         $candidate->status = "new";
 
         $stmt->bindParam("name", $candidate->name);
-        $stmt->bindParam("mobile", $candidate->mobile);
-        $stmt->bindParam("area", $candidate->area);
-        $stmt->bindParam("age", $candidate->age);
-        $stmt->bindParam("dob", $candidate->dob);
-        $stmt->bindParam("address", $candidate->address);
-        $stmt->bindParam("gender", $candidate->gender);
-        $stmt->bindParam("user_id", $candidate->user_id);
-        $stmt->bindParam("ref_id", $candidate->ref_id);
-        $stmt->bindParam("profession_id", $candidate->profession_id);
-        $stmt->bindParam("native_place", $candidate->native_place);
-        $stmt->bindParam("native_address", $candidate->native_address);
-        $stmt->bindParam("remarks", $candidate->remarks);
-        $stmt->bindParam("status", $candidate->status);
-        $stmt->bindParam("creation", date("Y-m-d H:i:s"));
+        $stmt->bindParam("organization", $candidate->mobile);
+        $stmt->bindParam("description", $candidate->area);
+        $stmt->bindParam("mobile", $candidate->age);
+        $stmt->bindParam("area_id", $candidate->dob);
+        $stmt->bindParam("city_id", $candidate->address);
+        $stmt->bindParam("address", $candidate->gender);
+        $stmt->bindParam("email", $candidate->user_id);
+       
 
         $stmt->execute();
 
-        $candidate->id = $db->lastInsertId();
-        $db = null;
+        $serviceProviders->id = $db->lastInsertId();
+      
 
-        echo '{"candidate": ' . json_encode($candidate) . '}';
 
+
+  $db = null;
+        echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
-        echo '{"error":{"text":"' . $e->getMessage() . '"}}';
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
     }
+
 }
