@@ -9,8 +9,8 @@ function getServiceProviderByType(){
     global $app;
     $type = $app->request()->get('type');
     
-    $gender_str = ($gender!=null)?" AND gender = :gender ":"";
     $sql = "SELECT * FROM `services` as s inner join service_provider_service_mapping as m inner join service_providers as sp WHERE s.`name`  = :type and s.`status` = 'active' and s.id = m.service_id and m.`service_provider_id` = sp.id";
+    
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
