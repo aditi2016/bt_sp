@@ -21,12 +21,11 @@ function insertServiceProvider(){
                       name,
                       organization,
                       description
-                      mobile,
+                      mobile_no.,
                       area_id,
                       city_id
                       address,
                       email
-                    
                       )
                   VALUES (
                       :name,
@@ -45,13 +44,13 @@ function insertServiceProvider(){
         $serviceProviders->status = "new";
 
         $stmt->bindParam("name", $serviceProviders->name);
-        $stmt->bindParam("organization", $serviceProviders->mobile);
-        $stmt->bindParam("description", $serviceProviders->area);
-        $stmt->bindParam("mobile", $serviceProviders->age);
-        $stmt->bindParam("area_id", $serviceProviders->dob);
-        $stmt->bindParam("city_id", $serviceProviders->address);
-        $stmt->bindParam("address", $serviceProviders->gender);
-        $stmt->bindParam("email", $serviceProviders->user_id);
+        $stmt->bindParam("organization", $serviceProviders->organization);
+        $stmt->bindParam("description", $serviceProviders->description);
+        $stmt->bindParam("mobile", $serviceProviders->mobile);
+        $stmt->bindParam("area_id", $serviceProviders->area_id);
+        $stmt->bindParam("city_id", $serviceProviders->city_id);
+        $stmt->bindParam("address", $serviceProviders->address);
+        $stmt->bindParam("email", $serviceProviders->email);
        
 
         $stmt->execute();
