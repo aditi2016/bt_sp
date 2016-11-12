@@ -15,7 +15,7 @@ function insertServiceProvider(){
 
     $service_provider = json_decode($request->getBody());
 
-    $sql = "INSERT INTO service_providers (name, organization, description, mobile_no., area_id, city_id, address, email)
+    $sql = "INSERT INTO service_providers (name, organization, description, mobile_no, area_id, city_id, address, email)
                   VALUES (:name, :organization, :description, :mobile, :area_id, :city_id, :address, :email)";
     try {
         $db = getDB();
@@ -35,11 +35,7 @@ function insertServiceProvider(){
         $stmt->execute();
 
         $service_provider->id = $db->lastInsertId();
-      
-
-
-
-  $db = null;
+        $db = null;
         echo '{"service_providers": ' . json_encode($service_provider) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
