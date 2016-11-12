@@ -13,8 +13,12 @@ function insertServiceProvider(){
 
     $request = \Slim\Slim::getInstance()->request();
 
+
     $serviceProvider = json_decode($request->getBody());
-    
+    if (is_null($serviceProvider))
+      echo '{"error":{"text":"Invalid Json"}}';
+
+
     $sql = "INSERT INTO service_providers (name, organization, description, mobile_no, area_id, city_id, address, email)
                   VALUES (:name, :organization, :description, :mobile, :area_id, :city_id, :address, :email)";
     try {
