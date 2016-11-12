@@ -42,16 +42,16 @@ function insertServiceProvider(){
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
-        $candidate->status = "new";
+        $serviceProviders->status = "new";
 
-        $stmt->bindParam("name", $candidate->name);
-        $stmt->bindParam("organization", $candidate->mobile);
-        $stmt->bindParam("description", $candidate->area);
-        $stmt->bindParam("mobile", $candidate->age);
-        $stmt->bindParam("area_id", $candidate->dob);
-        $stmt->bindParam("city_id", $candidate->address);
-        $stmt->bindParam("address", $candidate->gender);
-        $stmt->bindParam("email", $candidate->user_id);
+        $stmt->bindParam("name", $serviceProviders->name);
+        $stmt->bindParam("organization", $serviceProviders->mobile);
+        $stmt->bindParam("description", $serviceProviders->area);
+        $stmt->bindParam("mobile", $serviceProviders->age);
+        $stmt->bindParam("area_id", $serviceProviders->dob);
+        $stmt->bindParam("city_id", $serviceProviders->address);
+        $stmt->bindParam("address", $serviceProviders->gender);
+        $stmt->bindParam("email", $serviceProviders->user_id);
        
 
         $stmt->execute();
