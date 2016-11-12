@@ -28,29 +28,8 @@ function insertServiceProvider(){
 
 
 
-    $sql = "INSERT
-                  INTO
-                    service_providers(
-                      name,
-                      organization,
-                      description
-                      mobile_no.,
-                      area_id,
-                      city_id
-                      address,
-                      email
-                      )
-                  VALUES (
-                      :name,
-                      :organization
-                      :description
-                      :mobile,
-                      :area_id,
-                      :city_id,
-                      :address,
-                      :email
-                      
-                      )";
+    $sql = "INSERT INTO service_providers (name, organization, description, mobile_no., area_id, city_id, address, email)
+                  VALUES (:name, :organization, :description, :mobile, :area_id, :city_id, :address, :email)";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
