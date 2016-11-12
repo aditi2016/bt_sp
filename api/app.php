@@ -32,7 +32,7 @@ $app->post('/service_provider', 'insertServiceProvider');
 $app->post('/service_provider/:id','updateServiceProvider');
 */
 $app->post('/auth', 'userAuth');
-*/
+
 /* Ending Routes */
 
 $app->run();
