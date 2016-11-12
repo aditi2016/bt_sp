@@ -15,9 +15,22 @@ function insertServiceProvider(){
 
     $service_provider = json_decode($request->getBody());
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     $sql = "INSERT
                   INTO
-                    service_provider(
+                    service_providers(
                       name,
                       organization,
                       description
