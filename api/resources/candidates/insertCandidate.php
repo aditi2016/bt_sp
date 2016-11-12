@@ -14,27 +14,39 @@ function insertCandidate(){
 
     $sql = "INSERT
                   INTO
-                    service_provider(
+                    candidates (
                       name,
-                      organization,
-                      description
                       mobile,
-                      area_id,
-                      city_id
+                      area,
+                      age,
+                      dob,
                       address,
-                      email
-                    
+                      gender,
+                      user_id,
+                      ref_id,
+                      creation,
+                      profession_id,
+                      native_place,
+                      native_address,
+                      remarks,
+                      status
                       )
                   VALUES (
                       :name,
-                      :organization
-                      :description
                       :mobile,
-                      :area_id,
-                      :city_id,
+                      :area,
+                      :age,
+                      :dob,
                       :address,
-                      :email
-                      
+                      :gender,
+                      :user_id,
+                      :ref_id,
+                      :creation,
+                      :profession_id,
+                      :native_place,
+                      :native_address,
+                      :remarks,
+                      :status
                       )";
     try {
         $db = getDB();
