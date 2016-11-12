@@ -24,7 +24,7 @@ $app->response->headers->set('Content-Type', 'application/json');
 /* Starting routes */
 
 $app->get('/service_provider','getServiceProviderByType');
-$app->get('/service_provider/:id','getServiceProviderById');
+/*$app->get('/service_provider/:id','getServiceProviderById');
 
 
 $app->post('/service_provider', 'insertServiceProvider');
@@ -32,7 +32,7 @@ $app->put('/service_provider/:id','updateServiceProvider');
 $app->post('/service_provider/:id','updateServiceProvider');
 
 $app->post('/auth', 'userAuth');
-
+*/
 /* Ending Routes */
 
 $app->run();
