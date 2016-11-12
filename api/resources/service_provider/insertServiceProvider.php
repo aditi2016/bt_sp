@@ -20,7 +20,7 @@ function insertServiceProvider(){
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
-        $service_provider->status = "new";
+        //$service_provider->status = "new";
 
         $stmt->bindParam("name", $service_provider->name);
         $stmt->bindParam("organization", $service_provider->organization);
