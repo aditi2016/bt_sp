@@ -14,7 +14,7 @@ function insertServiceProvider(){
     $request = \Slim\Slim::getInstance()->request();
 
     $serviceProvider = json_decode($request->getBody());
-    var_dump($serviceProvider);
+    var_dump($serviceProvider);die();
 
     $sql = "INSERT INTO service_providers (name, organization, description, mobile_no, area_id, city_id, address, email)
                   VALUES (:name, :organization, :description, :mobile, :area_id, :city_id, :address, :email)";
