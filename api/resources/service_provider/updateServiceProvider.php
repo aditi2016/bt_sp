@@ -49,6 +49,7 @@ function updateServiceProvider($id){
         $stmt->bindParam("address", $serviceProvider->address);
         $stmt->bindParam("email", $serviceProvider->email);
          $stmt->bindParam("profile_pic_id", $serviceProvider->profile_pic_id);
+         $stmt->bindParam("service_providers_id", $id);
        
 
         $stmt->execute();
