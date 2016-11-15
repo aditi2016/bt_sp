@@ -9,7 +9,7 @@
 
 
    
-function updateServiceProvider(){
+function updateServiceProvider($id){
 
     $request = \Slim\Slim::getInstance()->request();
 

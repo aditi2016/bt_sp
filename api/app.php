@@ -28,9 +28,9 @@ $app->get('/service_provider','getServiceProviderByType');
 
 
 $app->post('/service_provider', 'insertServiceProvider');
-/*$app->put('/service_provider/:id','updateServiceProvider');
-$app->post('/service_provider/:id','updateServiceProvider');
-*/
+$app->put('/service_provider/:id','updateServiceProvider');
+/*$app->post('/service_provider/:id','updateServiceProvider');*/
+
 $app->post('/auth', 'userAuth');
 
 /* Ending Routes */
