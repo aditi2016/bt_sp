@@ -9,7 +9,7 @@
 
 
    
-function insertServiceProvider(){
+function updateServiceProvider(){
 
     $request = \Slim\Slim::getInstance()->request();
 
@@ -19,11 +19,23 @@ function insertServiceProvider(){
       echo '{"error":{"text":"Invalid Json"}}';
       die();
     }
+                $sql = "UPDATE 
+                 service_providers 
+                  SET
+                   name =:name, 
+                   organization= :organization,
+                    description=:description,
+                     mobile_no=:mobile,
+                      area_id=:area_id,
+                       city_id=:city_id,
+                        address=:address,
+                         email=:email,
+                         profile_pic_id= :profile_pic_id
+                         WHERE id=:service_providers_id";
 
 
-    $sql = "INSERT INTO service_providers (name, organization, description, mobile_no, area_id, city_id, address, email,profile_pic_id)
-                  VALUES (:name, :organization, :description, :mobile, :area_id, :city_id, :address, :email, :profile_pic_id)";
-    try {
+
+        try {
         $db = getDB();
         $stmt = $db->prepare($sql);
         //$service_provider->status = "new";
@@ -41,7 +53,7 @@ function insertServiceProvider(){
 
         $stmt->execute();
 
-        $serviceProvider->id = $db->lastInsertId();
+       
         $db = null;
         echo '{"service_providers": ' . json_encode($serviceProvider) . '}';
     } catch (PDOException $e) {
