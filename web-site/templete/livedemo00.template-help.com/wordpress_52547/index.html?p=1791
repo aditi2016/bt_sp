@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en-US"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en-US"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en-US"> <![endif]-->
+<!--[if IE 9 ]><html class="ie ie9" lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-US"> <!--<![endif]-->
+<head>
+<title> Video post type</title>
+<meta name="description" content=" &raquo; Video post type | "/>
+<meta charset="UTF-8"/><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"1d4868360423debad27c7b883e19f650",petok:"64bd5e6c40dc4cc593670b29fded06429f8b4aa6-1466406691-86400",zone:"template-help.com",rocket:"0",apps:{"abetterbrowser":{"ie":"7"},"ga_key":{"ua":"UA-7078796-5","ga_bs":"2"}},sha2test:0}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=e982913d31/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(e,t){return function(){o(e,[(new Date).getTime()].concat(a(arguments)),null,t)}}var o=e("handle"),i=e(2),a=e(3);"undefined"==typeof window.newrelic&&(newrelic=NREUM);var u=["setPageViewName","setCustomAttribute","finished","addToTrace","inlineHit"],c=["addPageAction"],f="api-";i(u,function(e,t){newrelic[t]=r(f+t,"api")}),i(c,function(e,t){newrelic[t]=r(f+t)}),t.exports=newrelic,newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),o("err",[e,(new Date).getTime()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(0>o?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?u(e,a,i):i()}function n(n,r,o){e&&e(n,r,o);for(var i=t(o),a=l(n),u=a.length,c=0;u>c;c++)a[c].apply(i,r);var s=f[g[n]];return s&&s.push([m,n,r,i]),i}function p(e,t){w[e]=l(e).concat(t)}function l(e){return w[e]||[]}function d(e){return s[e]=s[e]||o(n)}function v(e,t){c(e,function(e,n){t=t||"feature",g[n]=t,t in f||(f[t]=[])})}var w={},g={},m={on:p,emit:n,get:d,listeners:l,context:t,buffer:v};return m}function i(){return new r}var a="nr@context",u=e("gos"),c=e(2),f={},s={},p=t.exports=o();p.backlog=f},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!w++){var e=v.info=NREUM.info,t=s.getElementsByTagName("script")[0];if(e&&e.licenseKey&&e.applicationID&&t){c(l,function(t,n){e[t]||(e[t]=n)});var n="https"===p.split(":")[0]||e.sslForHttp;v.proto=n?"https://":"http://",u("mark",["onload",a()],null,"api");var r=s.createElement("script");r.src=v.proto+e.agent,t.parentNode.insertBefore(r,t)}}}function o(){"complete"===s.readyState&&i()}function i(){u("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var u=e("handle"),c=e(2),f=window,s=f.document;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:f.XMLHttpRequest,REQ:f.Request,EV:f.Event,PR:f.Promise,MO:f.MutationObserver},e(1);var p=""+location,l={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-943.min.js"},d=window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent),v=t.exports={offset:a(),origin:p,features:{},xhrWrappable:d};s.addEventListener?(s.addEventListener("DOMContentLoaded",i,!1),f.addEventListener("load",r,!1)):(s.attachEvent("onreadystatechange",o),f.attachEvent("onload",r)),u("mark",["firstbyte",a()],null,"api");var w=0},{}]},{},["loader"]);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="profile" href="//gmpg.org/xfn/11"/>
+<link rel="icon" href="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/favicon.ico" type="image/x-icon"/>
+<link rel="pingback" href="http://livedemo00.template-help.com/wordpress_52547/xmlrpc.php"/>
+<link rel="alternate" type="application/rss+xml" title="JobsFinder" href="http://livedemo00.template-help.com/wordpress_52547/feed/"/>
+<link rel="alternate" type="application/atom+xml" title="JobsFinder" href="http://livedemo00.template-help.com/wordpress_52547/feed/atom/"/>
+<link rel="stylesheet" type="text/css" media="all" href="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/bootstrap/css/responsive.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/css/camera.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/style.css"/>
+<link rel="alternate" type="application/rss+xml" title="JobsFinder &raquo; Feed" href="http://livedemo00.template-help.com/wordpress_52547/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="JobsFinder &raquo; Comments Feed" href="http://livedemo00.template-help.com/wordpress_52547/comments/feed/"/>
+<link rel="alternate" type="application/rss+xml" title="JobsFinder &raquo; Video post type Comments Feed" href="http://livedemo00.template-help.com/wordpress_52547/incididunt-ut-labore/video-post-type/feed/"/>
+<link rel='stylesheet' id='flexslider-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/FlexSlider/flexslider.css?ver=2.2.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='owl-carousel-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/owl-carousel/owl.carousel.css?ver=1.24' type='text/css' media='all'/>
+<link rel='stylesheet' id='owl-theme-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/owl-carousel/owl.theme.css?ver=1.24' type='text/css' media='all'/>
+<link rel='stylesheet' id='font-awesome-css' href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css?ver=3.2.1' type='text/css' media='all'/>
+<link rel='stylesheet' id='cherry-plugin-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/includes/css/cherry-plugin.css?ver=1.2.6' type='text/css' media='all'/>
+<link rel='stylesheet' id='cherry-lazy-load-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-lazy-load/css/lazy-load.css?ver=1.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='cherry-parallax-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-parallax/css/parallax.css?ver=1.0.0' type='text/css' media='all'/>
+<link rel='stylesheet' id='contact-form-7-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.8' type='text/css' media='all'/>
+<link rel='stylesheet' id='wp-job-manager-resume-frontend-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/wp-job-manager-resumes/assets/css/frontend.css?ver=4.0.11' type='text/css' media='all'/>
+<link rel='stylesheet' id='chosen-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/wp-job-manager/assets/css/chosen.css?ver=4.0.11' type='text/css' media='all'/>
+<link rel='stylesheet' id='wp-job-manager-frontend-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/wp-job-manager/assets/css/frontend.css?ver=4.0.11' type='text/css' media='all'/>
+<link rel='stylesheet' id='btn-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/css/btn.css?ver=4.0.11' type='text/css' media='all'/>
+<link rel='stylesheet' id='theme52547-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/main-style.css' type='text/css' media='all'/>
+<link rel='stylesheet' id='magnific-popup-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/css/magnific-popup.css?ver=0.9.3' type='text/css' media='all'/>
+<link rel='stylesheet' id='options_typography_Raleway:100-css' href='//fonts.googleapis.com/css?family=Raleway:100&#038;subset=latin' type='text/css' media='all'/>
+<link rel='stylesheet' id='options_typography_Lato-css' href='//fonts.googleapis.com/css?family=Lato&#038;subset=latin' type='text/css' media='all'/>
+<link rel='stylesheet' id='mpce-theme-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/motopress-content-editor/includes/css/theme.css?ver=1.5.6' type='text/css' media='all'/>
+<link rel='stylesheet' id='mpce-bootstrap-grid-css' href='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/motopress-content-editor/bootstrap/bootstrap-grid.min.css?ver=1.5.6' type='text/css' media='all'/>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery-1.7.2.min.js?ver=1.7.2'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/btn.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/my_script.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/jquery.formstyler.min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/jquery.placeholder.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/circles.min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery-migrate-1.2.1.min.js?ver=1.2.1'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-includes/js/swfobject.js?ver=2.2-20120417'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/modernizr.js?ver=2.0.6'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jflickrfeed.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/jquery.easing.1.3.js?ver=1.3'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/custom.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/bootstrap/js/bootstrap.min.js?ver=2.3.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/elasti-carousel/jquery.elastislide.js?ver=1.2.6'></script>
+<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?v=3.exp&#038;sensor=false&#038;ver=4.0.11'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://livedemo00.template-help.com/wordpress_52547/xmlrpc.php?rsd"/>
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://livedemo00.template-help.com/wordpress_52547/wp-includes/wlwmanifest.xml"/>
+<meta name="generator" content="WordPress 4.0.11"/>
+<link rel='canonical' href='http://livedemo00.template-help.com/wordpress_52547/incididunt-ut-labore/video-post-type/'/>
+<link rel='shortlink' href='http://livedemo00.template-help.com/wordpress_52547/?p=1791'/>
+<script>
+ var system_folder = 'http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/admin/data_management/',
+	 CHILD_URL ='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547',
+	 PARENT_URL = 'http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework', 
+	 CURRENT_THEME = 'theme52547'</script>
+<style type='text/css'>body{background-color:#ffffff}.header{background-color:#323232}</style>
+<style type='text/css'>h1{font:normal 65px/77px Raleway;color:#323232;}h2{font:normal 50px/65px Raleway;color:#323232;}h3{font:normal 40px/52px Raleway;color:#323232;}h4{font:normal 35px/45px Raleway;color:#323232;}h5{font:normal 30px/42px Raleway;color:#323232;}h6{font:normal 25px/42px Lato;color:#323232;}body{font-weight:normal;}.logo_h__txt,.logo_link{font:bold 40px/48px Raleway;color:#ffffff;}.sf-menu>li>a{font:normal 19px/24px Raleway;color:#ffffff;}</style>
+<style type='text/css'>.header .nav-wrap.isStuck{background-color:#323232}</style>
+<!--[if lt IE 8]>
+		<div id="ie6-alert" style="width: 100%; text-align:center;">
+			<img src="http://beatie6.frontcube.com/images/ie6.jpg" alt="Upgrade IE 6" width="640" height="344" border="0" usemap="#Map" longdesc="http://die6.frontcube.com" /><map name="Map" id="Map"><area shape="rect" coords="496,201,604,329" href="http://www.microsoft.com/windows/internet-explorer/default.aspx" target="_blank" alt="Download Interent Explorer" /><area shape="rect" coords="380,201,488,329" href="http://www.apple.com/safari/download/" target="_blank" alt="Download Apple Safari" /><area shape="rect" coords="268,202,376,330" href="http://www.opera.com/download/" target="_blank" alt="Download Opera" /><area shape="rect" coords="155,202,263,330" href="http://www.mozilla.com/" target="_blank" alt="Download Firefox" /><area shape="rect" coords="35,201,143,329" href="http://www.google.com/chrome" target="_blank" alt="Download Google Chrome" />
+			</map>
+		</div>
+	<![endif]-->
+<!--[if gte IE 9]><!-->
+<script src="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery.mobile.customized.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+			jQuery(function(){
+				jQuery('.sf-menu').mobileMenu({defaultText: "Navigate to..."});
+			});
+		</script>
+<!--<![endif]-->
+<script type="text/javascript">
+		// Init navigation menu
+		jQuery(function(){
+		// main navigation init
+			jQuery('ul.sf-menu').superfish({
+				delay: 1000, // the delay in milliseconds that the mouse can remain outside a sub-menu without it closing
+				animation: {
+					opacity: "show",
+					height: "show"
+				}, // used to animate the sub-menu open
+				speed: "normal", // animation speed
+				autoArrows: true, // generation of arrow mark-up (for submenu)
+				disableHI: true // to disable hoverIntent detection
+			});
+
+		//Zoom fix
+		//IPad/IPhone
+			var viewportmeta = document.querySelector && document.querySelector('meta[name="viewport"]'),
+				ua = navigator.userAgent,
+				gestureStart = function () {
+					viewportmeta.content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0";
+				},
+				scaleFix = function () {
+					if (viewportmeta && /iPhone|iPad/.test(ua) && !/Opera Mini/.test(ua)) {
+						viewportmeta.content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+						document.addEventListener("gesturestart", gestureStart, false);
+					}
+				};
+			scaleFix();
+		})
+	</script>
+ 
+<script type="text/javascript">
+		jQuery(document).ready(function(){
+			if(!device.mobile() && !device.tablet()){
+				jQuery('header .nav-wrap').tmStickUp({
+					correctionSelector: jQuery('#wpadminbar')
+				,	listenSelector: jQuery('.listenSelector')
+				,	active: true				,	pseudo: true				});
+			}
+		})
+	</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7078796-5']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+</head>
+<body class="single single-post postid-1791 single-format-video cat-1-id theme52547">
+<div id="motopress-main" class="main-holder stuck">
+ 
+<header class="motopress-wrapper header">
+<div class="container">
+<div class="row">
+<div class="span12" data-motopress-wrapper-file="wrapper/wrapper-header.php" data-motopress-wrapper-type="header" data-motopress-id="576796b948e5a">
+<div class="hashAncor" id="homePage"></div>
+<div class="nav-wrap">
+<div class="row">
+<div class="span4" data-motopress-type="static" data-motopress-static-file="static/static-logo.php">
+ 
+<div class="logo pull-left">
+<a href="http://livedemo00.template-help.com/wordpress_52547/" class="logo_h logo_h__img"><img src="http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/images/logo.png" alt="JobsFinder" title=""></a>
+</div>
+  </div>
+<div class="span8" data-motopress-type="static" data-motopress-static-file="static/static-nav.php">
+ 
+<nav class="nav nav__primary clearfix">
+<ul id="topnav" class="sf-menu"><li id="menu-item-1930" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#homePage">Home</a></li>
+<li id="menu-item-1931" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#jobsPage">Jobs</a></li>
+<li id="menu-item-1932" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#candidatesPage">Candidates</a></li>
+<li id="menu-item-1933" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children"><a href="#aboutPage">About</a>
+<ul class="sub-menu">
+<li id="menu-item-1936" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#companiesPage">Companies we’ve helped</a></li>
+<li id="menu-item-1937" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#wordsPage">Kind words from happy clients</a></li>
+<li id="menu-item-1938" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#plansPage">Plans and Pricing</a></li>
+</ul>
+</li>
+<li id="menu-item-1934" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#blogPage">Blog</a></li>
+<li id="menu-item-1935" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="#contactsPage">Contacts</a></li>
+<li class='menu-item auth log-in'><a href="http://livedemo00.template-help.com/wordpress_52547/wp-login.php?action=login&amp;redirect_to=/wordpress_52547/incididunt-ut-labore/video-post-type/" title="Sign In">Sign In</a></li></ul></nav>  </div>
+</div>
+</div>
+<div class="row">
+<div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-title.php">
+<section class="title-section">
+<h1 class="title-header">
+Video post type </h1>
+</section> 
+</div>
+</div>
+</div>
+</div>
+</div>
+</header><div class="motopress-wrapper content-holder clearfix">
+<div class="container">
+<div class="row">
+<div class="span12" data-motopress-wrapper-file="single.php" data-motopress-wrapper-type="content">
+<div class="row">
+<div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-title.php">
+<section class="title-section">
+<h1 class="title-header">
+Video post type </h1>
+</section> 
+</div>
+</div>
+<div class="row">
+<div class="span8 right right" id="content" data-motopress-type="loop" data-motopress-loop-file="loop/loop-single.php">
+<article id="post-1791" class="post-1791 post type-post status-publish format-video has-post-thumbnail hentry category-incididunt-ut-labore post__holder cat-1-id">
+<div class="video-wrap html5-video">
+<script type="text/javascript">
+					jQuery(document).ready(function(){
+						jQuery("#jquery_jplayer_1791").jPlayer({
+							ready: function () {
+								jQuery(this).jPlayer("setMedia", {
+									m4v: "http://livedemo00.template-help.com/wordpress_52547/wp-content/uploads/2012/12/video1.m4v",
+									ogv: "http://livedemo00.template-help.com/wordpress_52547/wp-content/uploads/2012/12/video2.ogv" ,
+									poster: "http://livedemo00.template-help.com/wordpress_52547/wp-content/uploads/2014/12/Depositphotos_12621243_original-770x380.jpg" 								});
+							},
+							swfPath: "http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/flash",
+							solution: "flash, html",
+							supplied: "ogv, m4v, all",
+							cssSelectorAncestor: "#jp_container_1791",
+							size: {
+								width: "100%",
+								height: "100%"
+							}
+						});
+					});
+				</script>
+ 
+<div id="jp_container_1791" class="jp-video fullwidth">
+<div class="jp-type-list-parent">
+<div class="jp-type-single">
+<div id="jquery_jplayer_1791" class="jp-jplayer"></div>
+<div class="jp-gui">
+<div class="jp-video-play">
+<a href="javascript:;" class="jp-video-play-icon" tabindex="1" title="Play">Play</a>
+</div>
+<div class="jp-interface">
+<div class="jp-progress">
+<div class="jp-seek-bar">
+<div class="jp-play-bar"></div>
+</div>
+</div>
+<div class="jp-duration"></div>
+<div class="jp-time-sep"></div>
+<div class="jp-current-time"></div>
+<div class="jp-controls-holder">
+<ul class="jp-controls">
+<li><a href="javascript:;" class="jp-previous" tabindex="1" title="Previous"><span>Previous</span></a></li>
+<li><a href="javascript:;" class="jp-play" tabindex="1" title="Play"><span>Play</span></a></li>
+<li><a href="javascript:;" class="jp-pause" tabindex="1" title="Pause"><span>Pause</span></a></li>
+<li><a href="javascript:;" class="jp-next" tabindex="1" title="Next"><span>Next</span></a></li>
+<li><a href="javascript:;" class="jp-stop" tabindex="1" title="Stop"><span>Stop</span></a></li>
+</ul>
+<div class="jp-volume-bar">
+<div class="jp-volume-bar-value"></div>
+</div>
+<ul class="jp-toggles">
+<li><a href="javascript:;" class="jp-mute" tabindex="1" title="Mute"><span>Mute</span></a></li>
+<li><a href="javascript:;" class="jp-unmute" tabindex="1" title="Unmute"><span>Unmute</span></a></li>
+</ul>
+</div>
+</div>
+<div class="jp-no-solution">
+<span>Update Required. </span>To play the media you will need to either update your browser to a recent version or update your <a href='//get.adobe.com/flashplayer/' target='_blank'>Flash plugin</a>. </div>
+</div>
+</div>
+</div>
+</div> 
+</div>
+ 
+<div class="post_content">
+<div class="clear"></div>
+</div>
+ 
+ 
+<div class="post_meta meta_type_line"><div class="post_meta_unite clearfix"><div class="meta_group clearfix"> <div class="post_category">
+<i class="icon-bookmark"></i>
+<a href="http://livedemo00.template-help.com/wordpress_52547/category/incididunt-ut-labore/" rel="category tag">Incididunt ut labore</a> </div>
+<div class="post_date">
+<i class="icon-calendar"></i>
+<time datetime="2012-12-12T09:01:49">December 12, 2012</time> </div>
+<div class="post_author">
+<i class="icon-user"></i>
+<a href="http://livedemo00.template-help.com/wordpress_52547/author/admin/" title="Posts by admin" rel="author">admin</a> </div>
+<div class="post_comment">
+<i class="icon-comments"></i>
+<a href="http://livedemo00.template-help.com/wordpress_52547/incididunt-ut-labore/video-post-type/#respond" class="comments-link" title="Comment on Video post type">No comments</a> </div>
+</div><div class="meta_group clearfix"></div><div class="meta_group clearfix"></div></div></div> </article>  
+ 
+<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+ 
+<script type="text/javascript">
+			(function() {
+				var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				po.src = '//apis.google.com/js/plusone.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			})();
+		</script>
+<ul class="share-buttons unstyled clearfix">
+<li class="twitter">
+<a href="//twitter.com/share" class="twitter-share-button">Tweet this article</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</li>
+<li class="facebook">
+<div id="fb-root"></div><div class="fb-like" data-href="http://livedemo00.template-help.com/wordpress_52547/incididunt-ut-labore/video-post-type/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>
+</li>
+<li class="google">
+<div class="g-plusone" data-size="medium" data-href="http://livedemo00.template-help.com/wordpress_52547/incididunt-ut-labore/video-post-type/"></div>
+</li>
+<li class="pinterest">
+<a href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','//assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());"><img src='//assets.pinterest.com/images/PinExt.png' alt=""/></a>
+</li>
+</ul> 
+<div class="post-author clearfix">
+<h3 class="post-author_h">Written by <a href="http://livedemo00.template-help.com/wordpress_52547/author/admin/" title="Posts by admin" rel="author">admin</a></h3>
+<p class="post-author_gravatar"><img alt='' src='http://1.gravatar.com/avatar/b263802e2004e058851acabb4111135e?s=80&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D80&amp;r=G' class='avatar avatar-80 photo' height='80' width='80'/></p>
+<div class="post-author_desc">
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Praesent vestibulum molestie lacus. Aenean non ummy hendrerit mauris. Phasellus porta. Fusce suscipit varius mi. Cum sociis sere natoque penati bus et magnis dis. Lorem ipsum dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit lorem. Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris.
+<div class="post-author_link">
+<p>View all posts by: <a href="http://livedemo00.template-help.com/wordpress_52547/author/admin/" title="Posts by admin" rel="author">admin</a></p>
+</div>
+</div>
+</div> 
+ 
+ 
+<p class="nocomments">No Comments Yet.</p>
+<div id="respond">
+<h3>Leave a comment</h3>
+<div class="cancel-comment-reply">
+<small><a rel="nofollow" id="cancel-comment-reply-link" href="/wordpress_52547/incididunt-ut-labore/video-post-type/#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+<form action="http://livedemo00.template-help.com/wordpress_52547/wp-comments-post.php" method="post" id="commentform">
+<p class="field"><input type="text" name="author" id="author" value="Name*" onfocus="if(this.value=='Name*'){this.value=''}" onblur="if(this.value==''){this.value='Name*'}" size="22" tabindex="1" aria-required='true'/></p>
+<p class="field"><input type="text" name="email" id="email" value="Email (will not be published)*" onfocus="if(this.value=='Email (will not be published)*'){this.value=''}" onblur="if(this.value==''){this.value='Email (will not be published)*'}" size="22" tabindex="2" aria-required='true'/></p>
+<p class="field"><input type="text" name="url" id="url" value="Website" onfocus="if(this.value=='Website'){this.value=''}" onblur="if(this.value==''){this.value='Website'}" size="22" tabindex="3"/></p>
+ 
+<p><textarea name="comment" id="comment" cols="58" rows="10" tabindex="4" onfocus="if(this.value=='Your comment*'){this.value=''}" onblur="if(this.value==''){this.value='Your comment*'}">Your comment*</textarea></p>
+<p class="comment_submit"><input name="submit" type="submit" class="btn btn-primary" id="submit" tabindex="5" value="Submit Comment"/>
+<input type='hidden' name='comment_post_ID' value='1791' id='comment_post_ID'/>
+<input type='hidden' name='comment_parent' id='comment_parent' value='0'/>
+</p>
+</form>
+</div>
+ 
+</div>
+<div class="span4 sidebar" id="sidebar" data-motopress-type="static-sidebar" data-motopress-sidebar-file="sidebar.php">
+<div id="categories-2" class="visible-all-devices widget"><h3>Categories</h3> <ul>
+<li class="cat-item cat-item-3"><a href="http://livedemo00.template-help.com/wordpress_52547/category/conse-ctetur-adipisicing/">Conse ctetur adipisicing</a>
+</li>
+<li class="cat-item cat-item-4"><a href="http://livedemo00.template-help.com/wordpress_52547/category/elit-sed-do-eiusmod-tempor/">Elit sed do eiusmod tempor</a>
+</li>
+<li class="cat-item cat-item-5"><a href="http://livedemo00.template-help.com/wordpress_52547/category/et-dolore-magna-aliqua/">Et dolore magna aliqua</a>
+</li>
+<li class="cat-item cat-item-1"><a href="http://livedemo00.template-help.com/wordpress_52547/category/incididunt-ut-labore/">Incididunt ut labore</a>
+</li>
+<li class="cat-item cat-item-2"><a href="http://livedemo00.template-help.com/wordpress_52547/category/lorem-ipsum-dolor-sit-amet/">Lorem ipsum dolor sit amet</a>
+</li>
+<li class="cat-item cat-item-33"><a href="http://livedemo00.template-help.com/wordpress_52547/category/quis-nostrud-exercitation/">Quis nostrud exercitation</a>
+</li>
+<li class="cat-item cat-item-34"><a href="http://livedemo00.template-help.com/wordpress_52547/category/ullamco-laboris-nisi/">Ullamco laboris nisi</a>
+</li>
+<li class="cat-item cat-item-32"><a href="http://livedemo00.template-help.com/wordpress_52547/category/ut-enim-ad-minim-veniam/">Ut enim ad minim veniam</a>
+</li>
+</ul>
+</div><div id="archives-3" class="visible-all-devices widget"><h3>Archives</h3> <ul>
+<li><a href='http://livedemo00.template-help.com/wordpress_52547/2014/05/'>May 2014</a></li>
+<li><a href='http://livedemo00.template-help.com/wordpress_52547/2013/03/'>March 2013</a></li>
+<li><a href='http://livedemo00.template-help.com/wordpress_52547/2013/02/'>February 2013</a></li>
+<li><a href='http://livedemo00.template-help.com/wordpress_52547/2012/12/'>December 2012</a></li>
+<li><a href='http://livedemo00.template-help.com/wordpress_52547/2012/05/'>May 2012</a></li>
+</ul>
+</div> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="motopress-wrapper footer">
+<script>
+			var geocoder;
+			var map;
+
+			function initialize() {
+				geocoder = new google.maps.Geocoder();
+					
+				var mapOptions = {
+					zoom: 10,
+					disableDefaultUI: false,
+					scrollwheel: false,
+					panControl: true,
+					scaleControl: true,
+					draggable: true,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}]
+				}
+
+				map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+				codeAddress();
+			}
+
+			function codeAddress() {
+			  var address = "Brooklyn, New York, USA";
+			  geocoder.geocode( { 'address': address}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					map.setCenter(results[0].geometry.location);
+					var iconBase = 'http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/images/';
+					var marker = new google.maps.Marker({
+				        map: map,
+				        icon: iconBase + 'map-icon.png',
+				        position: results[0].geometry.location
+				    });
+				} else {
+				  alert('Geocode was not successful for the following reason: ' + status);
+				}
+			  });
+			}
+
+			google.maps.event.addDomListener(window, 'load', initialize);
+
+			</script>
+<div class="container">
+<div class="row">
+<div class="span12" data-motopress-wrapper-file="wrapper/wrapper-footer.php" data-motopress-wrapper-type="footer" data-motopress-id="576796b961ca2">
+<div class="row copyright">
+<div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-footer-text.php">
+<div id="footer-text" class="footer-text">
+<a href="http://livedemo00.template-help.com/wordpress_52547/" title="" class="site-name">JobsFinder</a> &copy; 2016. <span><a href="http://livedemo00.template-help.com/wordpress_52547/privacy-policy/" title="Privacy Policy">Privacy Policy</a></span>
+</div> </div>
+<div class="span12" data-motopress-type="static" data-motopress-static-file="static/static-footer-nav.php">
+</div>
+</div> </div>
+</div>
+</div>
+<div id="map-canvas" class=""></div>
+</footer>
+ 
+</div>
+<div id="back-top-wrapper" class="visible-desktop">
+<p id="back-top">
+<a href="#top"><span></span></a> </p>
+</div>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-includes/js/comment-reply.min.js?ver=4.0.11'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-lazy-load/js/cherry.lazy-load.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-lazy-load/js/device.min.js?ver=1.0.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-parallax/js/jquery.mousewheel.min.js?ver=3.0.6'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-parallax/js/jquery.simplr.smoothscroll.min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-parallax/js/cherry.parallax.js?ver=1.0.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.50.0-2014.02.05'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/livedemo00.template-help.com\/wordpress_52547\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=3.8'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/waypoints.min.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/themeScript.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/theme52547/js/scrollShowTime.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/superfish.js?ver=1.5.3'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery.mobilemenu.js?ver=1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery.magnific-popup.min.js?ver=0.9.3'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/lib/js/FlexSlider/jquery.flexslider-min.js?ver=2.2.2'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jplayer.playlist.min.js?ver=2.3.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery.jplayer.min.js?ver=2.6.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/tmstickup.js?ver=1.0.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/device.min.js?ver=1.0.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/jquery.zaccordion.min.js?ver=2.1.0'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/themes/CherryFramework/js/camera.min.js?ver=1.3.4'></script>
+<script type='text/javascript' src='http://livedemo00.template-help.com/wordpress_52547/wp-content/plugins/cherry-plugin/includes/js/cherry-plugin.js?ver=1.2.6'></script>
+<script type="text/javascript">
+				deleteCookie('cf-cookie-banner');
+			</script>
+ 
+<script type="text/javascript">/* CloudFlare analytics upgrade */
+</script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"72d7dcce33","applicationID":"1388850","transactionName":"ZV1TZ0FTVkFVWkwKXlwXcFBHW1dcG0pRDVZeXQ==","queueTime":0,"applicationTime":636,"atts":"SRpQEQlJRU8=","errorBeacon":"bam.nr-data.net","agent":""}</script></body> <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N7VWVN" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push( {'gtm.start': new Date().getTime(),event:'gtm.js'} );var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-N7VWVN');</script>  
+</html>

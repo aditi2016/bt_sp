@@ -1,0 +1,49 @@
+﻿
+.thumbnail {
+    width: 60px;
+    height: 60px;
+}
+
+.image {
+    width: 50px;
+    height: 50px;
+}
+.thumbnail- big {
+    width: 200px;
+    height: 200px;
+}
+
+.image-big {
+    width: 180px;
+    height: 180px;
+}
+.image-big img {
+    -webkit-transition: all 1s ease; /* Safari and Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -ms-transition: all 1s ease; /* IE 9 */
+    -o-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+}
+
+.image-big:hover img {
+    -webkit-transform:scale(3); /* Safari and Chrome */
+    -moz-transform:scale(3); /* Firefox */
+    -ms-transform:scale(3); /* IE 9 */
+    -o-transform:scale(3); /* Opera */
+    transform:scale(3);
+}
+.image img {
+    -webkit-transition: all 1s ease; /* Safari and Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -ms-transition: all 1s ease; /* IE 9 */
+    -o-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+}
+
+.image:hover img {
+    -webkit-transform:scale(5); /* Safari and Chrome */
+    -moz-transform:scale(5); /* Firefox */
+    -ms-transform:scale(5); /* IE 9 */
+    -o-transform:scale(5); /* Opera */
+    transform:scale(5);
+}
