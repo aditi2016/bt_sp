@@ -75,11 +75,11 @@
 
         function Create(user) {
             
-            return $http.post('http://api.sp.blueteam.in/service_provider', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post('http://api.blueteam.in/api/society/', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
-            return $http.put('http://api.shatkonjobs.com/candidates/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('http://api.sp.blueteam.in/service_provider/' + serviceProvider.id).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {
