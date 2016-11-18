@@ -73,10 +73,9 @@
 
 
 
-        function Create(user, societyId) {
-            var root = {};
-            root['root'] = user;
-            return $http.post('http://blueteam.in/api/society/'+societyId+'/addWorker', root).then(handleSuccess, handleError('Error creating user'));
+        function Create(user) {
+            
+            return $http.post('http://api.sp.blueteam.in/service_provider', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {

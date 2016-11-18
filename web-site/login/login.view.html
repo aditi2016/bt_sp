@@ -7,6 +7,158 @@
         <h2>DigiEyeTech</h2>
     </div>
 
+     <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Register
+                        <!--<div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    Actions
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="#">Action</a>
+                                    </li>
+                                    <li><a href="#">Another action</a>
+                                    </li>
+                                    <li><a href="#">Something else here</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>-->
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <form role="form" name="workerReg" ng-submit="vm.registerVendor()" role="form">
+                        <div class="col-lg-6">
+
+
+
+
+                                <fieldset>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.resident_name.$error.required }">
+                                        <input class="form-control" placeholder="Please enter your name" type="text" name="resident_name" id="resident_name" ng-model="vm.vendor.name" required >
+                                        <span ng-show="form.name.$dirty && form.resident_name.$error.required" class="help-block">Please enter your name </span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.organization_name.$dirty && form.organization_name.$error.required }">
+                                        <input class="form-control" placeholder="Please enter your organization name" type="text" name="organization_name" id="organization_name" ng-model="vm.vendor.organization_name" required >
+                                        <span ng-show="form.organization_name.$dirty && form.organization_name.$error.required" class="help-block">Please enter your organization name</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.resident_address.$dirty && form.resident_address.$error.required }">
+                                        <input class="form-control" placeholder="Describe about your organization " type="text" name="describe" id="Describe" ng-model="vm.vendor.Describe" required >
+                                        <span ng-show="form.Describe.$dirty && form.Describe.$error.required" class="help-block">Describe about your organization</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.mobile_number.$dirty && form.Mobile_number.$error.required }">
+                                        <input class="form-control" placeholder="Please enter you number" type="number" name="mobile_number" id="mobile_number" ng-model="vm.vendor.mobile_number" required >
+                                        <span ng-show="form.mobile_number.$dirty && form.mobile_number.$error.required" class="help-block">Please enter you number</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.area_name.$dirty && form.area_name.$error.required }">
+                                        <input class="form-control" placeholder="Please enter the area" type="text" name="area_name" id="area_name" ng-model="vm.vendor.area_name" required >
+                                        <span ng-show="form.area_name.$dirty && form.area_name.$error.required" class="help-block">Please enter the area</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.city_name.$dirty && form.city_name.$error.required }">
+                                        <input class="form-control" placeholder="Please enter the city" type="text" name="city_name" id="city_name" ng-model="vm.vendor.city_name" required >
+                                        <span ng-show="form.city_name.$dirty && form.city_name.$error.required" class="help-block">Please enter the city</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">
+                                        <input class="form-control" placeholder="Please enter your address" type="text" name="address" id="address" ng-model="vm.vendor.address" required >
+                                        <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">Please enter your address</span>
+                                    </div>
+
+                                    <div class="form-group" ng-class="{ 'has-error': form.email_address.$dirty && form.email_address.$error.required }">
+                                        <input class="form-control" placeholder="Please enter your email address" type="text" name="email_address" id="email_address" ng-model="vm.vendor.email_address" required >
+                                        <span ng-show="form.email_address.$dirty && form.email_address.$error.required" class="help-block">Please enter your email address</span>
+                                    </div>
+                                   <!--  <div class="form-group" ng-class="{ 'has-error': form.worker_emergency_no.$dirty && form.worker_emergency_no.$error.required }">
+                                        <input class="form-control" placeholder="Worker emergency contact number" type="number" name="worker_emergency_no" id="worker_emergency_no" ng-model="vm.worker.worker_emergency_no" required >
+                                        <span ng-show="form.worker_emergency_no.$dirty && form.worker_emergency_no.$error.required" class="help-block">Worker emergency contact number is required</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_native_add.$dirty && form.worker_native_add.$error.required }">
+                                        <input class="form-control" placeholder="Worker native address" type="text" name="worker_native_add" id="worker_native_add" ng-model="vm.worker.worker_native_add" required >
+                                        <span ng-show="form.worker_native_add.$dirty && form.worker_native_add.$error.required" class="help-block">Worker native address is required</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_pv_uid.$dirty && form.worker_pv_uid.$error.required }">
+                                        <input class="form-control" placeholder="Police Verification Number" type="text" name="worker_pv_uid" id="worker_pv_uid" ng-model="vm.worker.worker_pv_uid" >
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_ac_uid.$dirty && form.worker_ac_uid.$error.required }">
+                                        <input class="form-control" placeholder="Adhar Card Number" type="text" name="worker_ac_uid" id="worker_ac_uid" ng-model="vm.worker.worker_ac_uid" >
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_vc_uid.$dirty && form.worker_vc_uid.$error.required }">
+                                        <input class="form-control" placeholder="Voter I-card Number" type="text" name="worker_vc_uid" id="worker_vc_uid" ng-model="vm.worker.worker_vc_uid" >
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_dl_uid.$dirty && form.worker_dl_uid.$error.required }">
+                                        <input class="form-control" placeholder="Driving License Number" type="text" name="worker_dl_uid" id="worker_dl_uid" ng-model="vm.worker.worker_dl_uid" >
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.worker_pc_uid.$dirty && form.worker_pc_uid.$error.required }">
+                                        <input class="form-control" placeholder="Pan Card Number" type="text" name="worker_pc_uid" id="worker_pc_uid" ng-model="vm.worker.worker_pc_uid" >
+                                    </div> -->
+                                        <!-- <div class="form-group" ng-class="{ 'has-error': form.worker_photo.$dirty && form.worker_photo.$error.required }">
+                                        <input class="form-control" placeholder="Worker Photo" type="file" name="worker_photo" id="worker_photo" ng-model="vm.worker.worker_photo" required >
+                                        <span ng-show="form.worker_photo.$dirty && form.worker_photo.$error.required" class="help-block">Worker photo is required</span>
+                                    </div> -->
+                                    <div>
+                                        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-lg btn-success btn-block">Add Worker</button>
+                                        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                                    </div>
+
+
+                                </fieldset>
+
+                        </div>
+                        <!-- <div class="col-lg-6">
+                            <div class="form-group">
+                                Worker Photo
+                                <input class="form-group-lg" name="fileToUpload" id="photo"   type="file" />
+                            </div>
+                            <div class="form-group">
+                                Voter Card
+                                <input class="form-group-lg" name="fileToUpload"  id="vc"   type="file" />
+                            </div>
+                            <div class="form-group">
+                                Adhar Card
+                                <input class="form-group-lg" name="fileToUpload" id="ac"   type="file" />
+                            </div>
+                            <div class="form-group">
+                                Driving Licence
+                                <input class="form-group-lg" name="fileToUpload" id="dl"   type="file" />
+                            </div>
+                            <div class="form-group">
+                                Police Verification
+                                <input class="form-group-lg" name="fileToUpload"  id="pv"   type="file" />
+                            </div>
+                            <div class="form-group">
+                                PAN Card
+                                <input class="form-group-lg" name="fileToUpload"  id="pc"   type="file" />
+                            </div>
+
+                        </div> -->
+
+                        </form>
+                    </div>
+
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+
+
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
+
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
