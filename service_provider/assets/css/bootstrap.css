@@ -5415,7 +5415,7 @@ button.close {
 .carousel-inner {
   position: relative;
   width: 100%;
-  min-height: 800px;
+  min-height: 600px;
   overflow: hidden;
 }
 .carousel-inner > .item {
@@ -5429,7 +5429,7 @@ button.close {
 .carousel-inner > .item > a > img {
   display: block;
   width: 100% !important;
-  height: 800px;
+  height: 600px;
   line-height: 2;
 }
 .carousel-inner > .active,
@@ -5464,7 +5464,7 @@ button.close {
 }
 .carousel-control {
   position: absolute;
-  top: 300px;
+  top: 250px;
   bottom: 0;
   left: 0;
   width: 15%;

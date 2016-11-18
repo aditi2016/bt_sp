@@ -18,18 +18,19 @@ body {
 
  #wrapper {
     width: 100%;
-    background:#202020;
+    margin:0 300px 0 0;
+    background:#fff;
 }
 
 #page-wrapper    {
-    padding: 15px 15px;
+    margin: 0 300px 0 0;
     min-height: 600px;
     background:#F3F3F3;
    
 }
 #page-inner {
     width:100%;
-    margin:10px 20px 10px 0px;
+    margin:10px 10px 10px 0px;
     background-color:#fff!important;
     padding:10px;
     min-height:1200px;
@@ -57,7 +58,7 @@ border-radius: 0px;
 p {
     font-size:16px;
     line-height:25px;
-    padding-top:20px;
+    padding-top:8px;
 }
 /*==============================================
    DASHBOARD STYLES    
@@ -68,19 +69,19 @@ p {
 }
    .noti-box {
 min-height: 100px;
-padding: 20px;
+padding: 10px;
 }
 
     .noti-box .icon-box {
 display: block;
 float: left;
-margin: 0 15px 10px 0;
-width: 70px;
-height: 70px;
-line-height: 75px;
+margin: 0 10px 5px 0 ;
+width: 60px;
+height: 60px;
+line-height: 65px;
 vertical-align: middle;
 text-align: center;
-font-size: 40px;
+font-size: 35px;
 }
 .text-box p{
     margin: 0 0 3px;
@@ -95,13 +96,13 @@ font-size: 40px;
 border-radius: 50px;
 
 }
-    .bg-color-green {
+.bg-color-green {
 background-color: #00CE6F;
 color: #fff;
 }
  .bg-color-blue {
-background-color: #A95DF0;
-color: #fff;
+background-color: #4080ff;
+color: #4080ff;
 }
   .bg-color-red {
 background-color: #DB0630;
@@ -216,7 +217,7 @@ width:170px;
 .service-name{
     position: absolute;
     font-size: 12px;
-    color: lightblue;
+    color: blue;
     top: 80px;
     left: 50px
 }
@@ -230,7 +231,7 @@ font-size: 30px;
 font-weight: 700;
 }
 .active-menu {
-    background-color:#C90000!important;
+    background-color:#4080ff!important;
 }
 
 .arrow {
@@ -372,6 +373,11 @@ line-height: 1.428571429;
     =============================================*/
  
  @media(min-width:768px) {
+    #wrapper {
+        width: 100%;
+        margin:0 300px 0 0;
+        background:#fff;
+    }
      #page-wrapper{
         margin: 0 300px 0 0;
         padding: 15px 15px;
@@ -379,11 +385,11 @@ line-height: 1.428571429;
 		
     }
 	
-	
     .navbar-side {
         z-index: 1;
         position: relative;
         width: 300px;
+        background: #fff;
     }
 
    .navbar {
