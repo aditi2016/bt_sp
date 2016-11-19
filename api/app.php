@@ -24,8 +24,7 @@ $app->response->headers->set('Content-Type', 'application/json');
 /* Starting routes */
 
 $app->get('/service_provider','getServiceProviderByType');
-$app->get('/services/category/:id','getAllServicesByCategory');
-$app->get('/services/category','getAllServices');
+$app->get('/services','getAllServices');
 $app->get('/service/:id','getAllServiceProviders');
 /*$app->get('/service_provider/:id','getServiceProviderById');*/
 
