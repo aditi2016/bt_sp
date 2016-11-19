@@ -20,7 +20,6 @@ function getAllServicesByCategory($id){
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $services = $stmt->fetchAll(PDO::FETCH_OBJ);
-        var_dump($categories);
         $db = null;
         echo '{"services": ' . json_encode($services) . '}';
     } catch (PDOException $e) {
