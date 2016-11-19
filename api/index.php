@@ -13,6 +13,8 @@ require_once "resources/auth/postUserAuth.php";
 require_once "resources/service_provider/getServiceProviderByType.php";
 require_once"resources/service_provider/insertServiceProvider.php";
 require_once"resources/service_provider/updateServiceProvider.php";
+require_once"resources/services/getAllServices.php";
+require_once"resources/services/getAllServicesByCategory.php";
 
 
 //app
