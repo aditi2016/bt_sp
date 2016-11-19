@@ -18,6 +18,26 @@ function getAllServices(){
         $db = getDB();
         $stmt = $db->prepare($sql);
         $stmt->execute();
+        $categories = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        foreach ($categories as $key => $category) {
+            $id = $category->id;
+
+            $stmt = $db->prepare($servicesql);
+        
+            $stmt->bindParam("id", $id);
+            
+            $stmt->execute();
+            $category->services = $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+
+        $db = null;
+        echo '{"allServices": ' . json_encode($categories) . '}';
+       
+    /*try {
+        $db = getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $allServices = array();
         foreach ($categories as $key => $value) {
@@ -32,7 +52,7 @@ function getAllServices(){
             $allServices[] = array("id"=> $category_id , "name" => $value['name'], "icon_id" => $value['icon_id'] , "services " => $services);
         }
         
-        echo '{"allServices": ' . json_encode($allServices) . '}';
+        echo '{"allServices": ' . json_encode($allServices) . '}';*/
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
