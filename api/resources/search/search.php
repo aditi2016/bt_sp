@@ -11,7 +11,7 @@ function search($keywords)
 
     $ip = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 
-    $sql = "SELECT name, id, pic_id, description FROM services WHERE name LIKE '%:keywords%' ";
+    $sql = "SELECT name, id, pic_id, description FROM services WHERE name LIKE :keywords ";
 
     $insertSql = "INSERT INTO `blueteam_service_providers`.`searchs` (`id`, `string`, `creation`, `ip`)
                         VALUES (NULL, :keywords, CURRENT_TIMESTAMP, :ip);";
@@ -24,6 +24,8 @@ function search($keywords)
         $stmt->bindParam("ip", $ip);
 
         $stmt->execute();
+
+        $keywords = "%$keywords%";
 
         $stmt = $db->prepare($sql);
         $stmt->bindParam("keywords", $keywords);
