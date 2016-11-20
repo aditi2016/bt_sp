@@ -35,6 +35,16 @@ $app->put('/service_provider/:id','updateServiceProvider');
 
 $app->post('/auth', 'userAuth');
 
+// search api
+$app->get('/search/:keywords','search');
+
+// invoice api
+$app->post('/service_provider/:id/invoice', 'insertServiceProviderInvoice');
+$app->get('/service_provider/:id/invoice', 'getServiceProviderInvoice');
+
+// take feedback request api
+$app->post('/service_provider/:id/feedback_request', 'insertServiceProviderFeedbackRequest');
+
 /* Ending Routes */
 
 $app->run();
