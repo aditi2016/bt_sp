@@ -33,8 +33,9 @@ if(isset($_POST['feedback'])){
                     VALUES (
                     'bt-sp-$id', 1, '$feedback','$type',1
                     );";
+    mysqli_query($dbHandle, $sql);
 
-    header('Location: /2');
+    header('Location: '.$id.'/2');
 }
 
 if(isset($_POST['reliability'])){
