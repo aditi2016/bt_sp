@@ -72,6 +72,7 @@ if(isset($_POST['reliability'])){
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
 
+    <?php if($fbRequestData['email'] = ""){ ?>
     <?php if(!isset($route[2])){ ?>
     <form id="waterform" method="post">
 
@@ -117,6 +118,32 @@ if(isset($_POST['reliability'])){
                 <input type="submit" name="reliability" value="Too late" style="width: 130px;display: inline-block" />
 
             </div>
+        </div>
+
+
+    </form>
+    <?php } } else{ ?>
+
+    <form id="waterform" method="post">
+
+        <!--<div class="formgroup" id="name-form">
+            <label for="name">Your name*</label>
+            <input type="text" id="name" name="name" />
+        </div>-->
+
+        <div class="formgroup" id="email-form">
+            <label for="email">This feedback have already give, if you have not given it. </label>
+            <label for="email">Please give your Mobile no.</label>
+            <input type="number" id="email" name="email" />
+        </div>
+
+
+
+        <div class="formgroup" id="email-form" >
+
+            <div style="display:inline-block; vertical-align: middle;">
+                <input type="submit" name="feedback_issue" value="Awesome" style="width: 130px;display: inline-block"/>
+                </div>
         </div>
 
 
