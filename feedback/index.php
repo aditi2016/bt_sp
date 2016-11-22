@@ -2,7 +2,7 @@
 
 $fist = explode("?", $_SERVER['REQUEST_URI']);
 $route = explode("/", $fist[0]);
-//var_dump($route);die();
+var_dump($route);die();
 
 $id = $route[1];
 
