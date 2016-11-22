@@ -1,15 +1,35 @@
+<?php
+
+$fist = explode("?", $_SERVER['REQUEST_URI']);
+$route = explode("/", $fist[0]);
+//var_dump($route);die();
+
+$id = $route[1];
+
+$dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
+
+$fbRequest = mysqli_query($dbHandle, "SELECT *
+                                              FROM `feedback_requests`
+                                                WHERE id = '$id' ;");
+$fbRequestData = mysqli_fetch_array($serviceProvider);
+
+$customerName = $fbRequestData['customer_name'];
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Feedback</title>
     <link href="./feedback.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
 
 <header>
-    <h1>Hello, Rahul</h1>
+    <h1>Hello, <?= $customerName ?> </h1>
 </header>
 
 
@@ -78,11 +98,11 @@
 
     //'complain','suggestion','appreciation','marvelous'
     function sendFeedback() {
-        var person = {
+        /*var person = {
             name: $("#id-name").val(),
             address:$("#id-address").val(),
             phone:$("#id-phone").val()
-        }
+        }*/
 
         var feedback = {
             "digieye_user_id":"1",
@@ -93,7 +113,7 @@
         $('#target').html('sending..');
 
         $.ajax({
-            url: 'http://api.wazir.shatkonlabs.com/feedbacks/1/bt-sp-1',
+            url: 'http://api.wazir.shatkonlabs.com/feedbacks/1/bt-sp-<?= $id ?>',
             type: 'post',
             dataType: 'json',
             success: function (data) {
