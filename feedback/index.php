@@ -16,7 +16,7 @@ $customerName = $fbRequestData['customer_name'];
 if(isset($_POST['feedback'])){
     $feedback =$_POST['feedback'];
     $email = $_POST['email'];
-    $type = $_POST['feedback_t'];
+    $type = $_POST['feedback_s'];
     //'complain','suggestion','appreciation','marvelous'
     $typeEnum = array('Awesome' => 'complain', 'Good' =>'suggestion', 'Ok' => 'appreciation','Not Satisfied' => 'marvelous');
     $type = $typeEnum[$type];
@@ -33,6 +33,8 @@ if(isset($_POST['feedback'])){
                     VALUES (
                     'bt-sp-$id', 1, '$feedback','$type',1
                     );";
+
+    header('Location: /2');
 }
 
 if(isset($_POST['reliability'])){
