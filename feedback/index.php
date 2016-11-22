@@ -13,6 +13,40 @@ $fbRequestData = mysqli_fetch_array($fbRequest);
 
 $customerName = $fbRequestData['customer_name'];
 
+if(isset($_POST['feedback'])){
+    $feedback =$_POST['feedback'];
+    $email = $_POST['email'];
+    $type = $_POST['feedback_t'];
+    //'complain','suggestion','appreciation','marvelous'
+    $typeEnum = array('Awesome' => 'complain', 'Good' =>'suggestion', 'Ok' => 'appreciation','Not Satisfied' => 'marvelous');
+    $type = $typeEnum[$type];
+
+    mysqli_query($dbHandle, "UPDATE `blueteam_service_providers`.`feedback_requests` SET `customer_email` = '$email' WHERE `feedback_requests`.`id` =$id;");
+    $sql = "INSERT INTO `wazir`.`feedbacks` (
+
+                    `object_id` ,
+                    `user_id` ,
+                    `feedback`,
+                    `type`,
+                    digieye_user_id
+                    )
+                    VALUES (
+                    'bt-sp-$id', 1, '$feedback','$type',1
+                    );";
+}
+
+if(isset($_POST['reliability'])){
+
+    $reliablityEnum = array('Yes' => 4, 'Nearly' => 3, 'Too late' => 1);
+    //UPDATE `blueteam_service_providers`.`service_providers` SET `reliability_score` = '1' WHERE `service_providers`.`id` =1;
+
+    $score = $reliablityEnum[$_POST['reliability']];
+    mysqli_query($dbHandle, "UPDATE `blueteam_service_providers`.`service_providers`
+                SET `reliability_score` = `reliability_score` + $score, `reliability_count` = `reliability_count` + 1
+                          WHERE `service_providers`.`id` =".$fbRequestData['service_provider_id'].";");
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +69,7 @@ $customerName = $fbRequestData['customer_name'];
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
 
+    <?php if(!isset($route[2])){ ?>
     <form id="waterform" method="post">
 
         <!--<div class="formgroup" id="name-form">
@@ -55,31 +90,35 @@ $customerName = $fbRequestData['customer_name'];
         <div class="formgroup" id="email-form" >
             <label for="email">Did you liked my work?</label>
             <div style="display:inline-block; vertical-align: middle;">
-            <input type="submit" value="Awesome" style="width: 130px;display: inline-block"/>
-            <input type="submit" value="Good" style="width: 130px;display: inline-block" />
-            <input type="submit" value="Ok" style="width: 130px;display: inline-block" />
-            <input type="submit" value="Not Satisfied" style="width: 140px;display: inline-block"/>
+            <input type="submit" name="feedback_s" value="Awesome" style="width: 130px;display: inline-block"/>
+            <input type="submit" name="feedback_s" value="Good" style="width: 130px;display: inline-block" />
+            <input type="submit" name="feedback_s" value="Ok" style="width: 130px;display: inline-block" />
+            <input type="submit" name="feedback_s" value="Not Satisfied" style="width: 140px;display: inline-block"/>
                 </div>
         </div>
 
 
     </form>
 
+    <?php } ?>
+
+    <?php if(isset($route[2])){ ?>
     <form id="onTime" method="post">
 
 
         <div class="formgroup" id="email-form" >
             <label for="email">Did I reached on time?</label>
             <div style="display:inline-block; vertical-align: middle;">
-                <input type="submit" value="Yes" style="width: 130px;display: inline-block"/>
-                <input type="submit" value="Nearly" style="width: 130px;display: inline-block" />
-                <input type="submit" value="Too late" style="width: 130px;display: inline-block" />
+                <input type="submit" name="reliability" value="Yes" style="width: 130px;display: inline-block"/>
+                <input type="submit" name="reliability" value="Nearly" style="width: 130px;display: inline-block" />
+                <input type="submit" name="reliability" value="Too late" style="width: 130px;display: inline-block" />
 
             </div>
         </div>
 
 
     </form>
+    <?php } ?>
 </div>
 
 <script src="./feedback.js"></script>
