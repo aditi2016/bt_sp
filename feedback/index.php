@@ -56,7 +56,7 @@ if(isset($_POST['reliability'])){
 <head>
     <meta charset="UTF-8">
     <title>Feedback</title>
-    <link href="./feedback.css" rel="stylesheet">
+    <link href="http://f.blueteam.in/feedback.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
@@ -124,7 +124,7 @@ if(isset($_POST['reliability'])){
     <?php } ?>
 </div>
 
-<script src="./feedback.js"></script>
+<script src="http://f.blueteam.in/feedback.js"></script>
 
 <script type="text/javascript">
     //send user email
