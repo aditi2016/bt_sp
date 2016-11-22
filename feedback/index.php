@@ -8,14 +8,10 @@ $id = $route[1];
 
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
-$fbRequest = mysqli_query($dbHandle, "SELECT *
-                                              FROM `feedback_requests`
-                                                WHERE id = '$id' ;");
-$fbRequestData = mysqli_fetch_array($serviceProvider);
+$fbRequest = mysqli_query($dbHandle, "SELECT * FROM `feedback_requests` WHERE id = '$id' ;");
+$fbRequestData = mysqli_fetch_array($fbRequest);
 
 $customerName = $fbRequestData['customer_name'];
-
-
 
 ?>
 <!DOCTYPE html>
