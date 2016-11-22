@@ -2,11 +2,11 @@
 
 $fist = explode("?", $_SERVER['REQUEST_URI']);
 $route = explode("/", $fist[0]);
-var_dump($route);die();
+//var_dump($route);die();
 
 $id = $route[1];
 
-$dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
+$dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
 $fbRequest = mysqli_query($dbHandle, "SELECT *
                                               FROM `feedback_requests`
