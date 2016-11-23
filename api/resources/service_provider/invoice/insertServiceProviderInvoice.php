@@ -51,6 +51,11 @@ function insertServiceProviderInvoice($id){
         $stmt->execute();
 
         $invoice->id = $db->lastInsertId();
+
+        $message = "Thanks for using service\nYou have paid $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
+
+        sendSMS($invoice->customer_mobile, $message);
+
         $db = null;
         echo '{"service_providers": ' . json_encode($invoice) . '}';
     } catch (PDOException $e) {

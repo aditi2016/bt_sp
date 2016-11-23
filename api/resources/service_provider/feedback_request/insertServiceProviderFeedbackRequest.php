@@ -49,11 +49,7 @@ function insertServiceProviderFeedbackRequest($id){
 
         // more better message can be written and by decreasing words length we can reduce the cost.
 
-        $message = "Hello,
-                    Its nice to server you.
-                    Can I know, how I did it?
-                    So, I can improve and get more customers.
-                    Feedback at http://f.blueteam.in/".$feedbackRequest->id;
+        $message = "Hello,\nIts nice to server you.\nCan I know, how I did it?\nSo, I can improve and get more customers.\nFeedback at http://f.blueteam.in/".$feedbackRequest->id;
 
         sendSMS($feedbackRequest->customer_mobile, $message);
 
