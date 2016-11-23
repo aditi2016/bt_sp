@@ -56,6 +56,9 @@ if(isset($_POST['reliability'])){
                 SET `reliability_score` = `reliability_score` + $score, `reliability_count` = `reliability_count` + 1
                           WHERE `service_providers`.`id` =".$fbRequestData['service_provider_id'].";");
 
+    header('Location: http://blueteam.in/app/');
+    die();
+
 }
 
 ?>
