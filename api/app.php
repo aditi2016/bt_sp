@@ -24,6 +24,7 @@ $app->response->headers->set('Content-Type', 'application/json');
 /* Starting routes */
 
 $app->get('/service_provider','getServiceProviderByType');
+$app->get('/service_provider/:id','getServiceProvider');
 $app->get('/services','getAllServices');
 $app->get('/service/:id','getAllServiceProviders');
 /*$app->get('/service_provider/:id','getServiceProviderById');*/
@@ -34,6 +35,16 @@ $app->put('/service_provider/:id','updateServiceProvider');
 /*$app->post('/service_provider/:id','updateServiceProvider');*/
 
 $app->post('/auth', 'userAuth');
+
+// search api
+$app->get('/search/:keywords','search');
+
+// invoice api
+$app->post('/service_provider/:id/invoice', 'insertServiceProviderInvoice');
+$app->get('/service_provider/:id/invoice', 'getServiceProviderInvoice');
+
+// take feedback request api
+$app->post('/service_provider/:id/feedback_request', 'insertServiceProviderFeedbackRequest');
 
 /* Ending Routes */
 
