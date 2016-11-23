@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //input
 // url: http://blueteam.in/service/index.php?load=cleaning-1-gurgaon
 // url: http://blueteam.in/service_provider/index.php?load=anil%20kumar-1-gurgaon
@@ -11,6 +11,8 @@ $url = explode("-",$_GET['load']);
 $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
 $cityName = $url[2];
+$userId = 1;
+$objectId = 'asdfasa';
 $serviceProvider = mysqli_query($dbHandle, "SELECT * FROM service_providers 
                                     WHERE id = '$serviceProviderId' ;");
 $serviceProviderData = mysqli_fetch_array($serviceProvider);
@@ -28,7 +30,31 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.nagotiable, b.
                                             FROM service_provider_service_mapping AS a
                                             JOIN services AS b
                                             WHERE a.service_id = b.id AND b.status = 'active' 
-                                            ORDER BY RAND() LIMIT 5;");
+                                            ORDER BY RAND() LIMIT 4;");
+
+function httpGet($url){
+    $ch = curl_init();
+
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+//  curl_setopt($ch,CURLOPT_HEADER, false);
+
+    $output=curl_exec($ch);
+
+    curl_close($ch);
+    return $output;
+}
+$commentsCountUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId."/count";
+$commentsCounts = json_decode(httpGet($commentsCountUrl), true)['counts'];
+
+foreach ($commentsCounts as $key => $value) {
+    if($value['type'] == 'marvelous') $marvelous = $value['count'];
+    elseif($value['type'] == 'appreciation') $appreciation = $value['count'];
+    elseif($value['type'] == 'suggestion') $suggestion = $value['count'];
+    else $complain = $value['count'];
+}
+$commentsUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId;
+$comments = json_decode(httpGet($commentsUrl), true)['feedbacks'];
 
 // vendor other service
 //$otherServices
@@ -47,318 +73,356 @@ $donotLikeCount*/
 
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BlueTeam</title>
-	<!-- BOOTSTRAP STYLES-->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FONTAWESOME STYLES-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-     <!-- MORRIS CHART STYLES-->
-    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
-    <link href="assets/css/custom.css" rel="stylesheet" />
-     <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+<html data-placeholder-focus="false" lang="en"><head>
+	<link type="text/css" rel="stylesheet" href="index_files/fonts.css">
+	<meta charset="utf-8">
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="index_files/custom.css" type="text/css" media="screen">	
+	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
+	<link href="" type="image/png" rel="shortcut icon">
+	<link href="" type="image/png" rel="apple-touch-icon">
+	<title>service provider</title>
+	
 </head>
-<body>
-    
-    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header" style="float: right;">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" ><?=$serviceProviderData['name']; ?></a> 
-        </div>
-        <div style="color: white;padding: 15px 50px 5px 50px;float: left;font-size: 16px;"> 
-            Last access : 30 May 2014 &nbsp; 
-            <a href="#" class="btn btn-danger square-btn-adjust">Logout</a> 
-        </div>
-    </nav>   
-    <!-- /. NAV TOP  -->
-    <nav class="navbar-default navbar-side pull-right" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
-                <li class="text-center">
-                    <img src="<?=$profilePic; ?>" class="user-image img-responsive"/>
-                </li>
-                <li>
-                    <a class="active-menu"  ><i class="fa fa-flag fa-2x"></i> 
-                    <?=$serviceProviderData['organization']; ?></a>
-                </li>
-                 <li>
-                    <a  ><i class="fa fa-bars fa-2x"></i>
-                    <?=$serviceProviderData['description']; ?></a>
-                </li>
-                <li>
-                    <a  ><i class="fa fa-home fa-2x"></i>
-                    <?=$serviceProviderData['address']; ?></a>
-                </li>
-                
-            </ul>
-            
-            
-            
-        </div>
-        
-    </nav>  
-        <!-- /. NAV SIDE  -->
-    <div id="wrapper">
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <section id="carouselSection" style="text-align:center">
-                            <div id="myCarousel" class="carousel slide">
-                                <div class="carousel-inner">
-                                <?php
-                                $flag = true;
-                                while ( $photos = mysqli_fetch_array($photosArray)) {
-                                    if($flag){
-                                     echo "<div  style='text-align:center'  class='item active'>
-                                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business webebsite template'>
-                                           </div>";
-                                    }
-                                    else {
-                                     echo "<div  style='text-align:center'  class='item'>
-                                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
-                                           </div>";  
-                                    }
-                                    $flag = false;
-                                 } 
-                                ?>
-                                </div>
-                                <a class="left carousel-control"  href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                                <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
-                            </div>
-                        </section>
-                    </div>
-                </div>              
-                 <!-- /. ROW  -->
-                <hr />
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-blue set-icon">
-                                <i class="fa fa-rocket"></i>
-                            </span>
-                            <div class="text-box" >
-                                <p class="text-muted">Awesome</p>
-                                <p style="margin-left: 80px" class="main-text">120</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-green set-icon">
-                                <i class="fa fa-heart"></i>
-                            </span>
-                            <div class="text-box" >
-                                <p class="text-muted">Good</p>
-                                <p style="margin-left: 80px" class="main-text">30</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-brown set-icon">
-                                <i class="fa fa-check"></i>
-                            </span>
-                            <div class="text-box" >
-                                <p class="text-muted">Average</p>
-                                <p style="margin-left: 80px" class="main-text">240</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6">           
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-thumbs-o-down"></i>
-                            </span>
-                            <div class="text-box" >
-                                <p class="text-muted">Not Good</p>
-                                <p style="margin-left: 80px" class="main-text">3 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /. ROW  -->
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="chat-panel panel panel-default chat-boder chat-panel-head" >
-                            <div class="panel-heading">
-                                
-                                <textarea id="btn-input" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea>
-                            
-
-                            </div>
-
-                            <div class="panel-body">
-                                
-                                <ul class="chat-box">
-                                    <li class="left clearfix">
-                                        <span class="chat-img pull-left">
-                                            <img src="assets/img/1.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body">                                        
-                                                <strong >Jack Sparrow</strong>
-                                                <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>12 mins ago
-                                                </small>                                      
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="right clearfix">
-                                        <span class="chat-img pull-right">
-
-                                            <img src="assets/img/2.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            
-                                                <small class=" text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                                <strong class="pull-right">Jhonson Deed</strong>
-                                          
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="left clearfix">
-                                        <span class="chat-img pull-left">
-                                             <img src="assets/img/3.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            
-                                                <strong >Jack Sparrow</strong>
-                                                <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>14 mins ago</small>
-                                            
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="right clearfix">
-                                        <span class="chat-img pull-right">
-                                             <img src="assets/img/4.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                          
-                                                <small class=" text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>15 mins ago</small>
-                                                <strong class="pull-right">Jhonson Deed</strong>
-                                           
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                        <li class="left clearfix">
-                                        <span class="chat-img pull-left">
-                                            <img src="assets/img/1.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body">                                        
-                                                <strong >Jack Sparrow</strong>
-                                                <small class="pull-right text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>12 mins ago
-                                                </small>                                      
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="right clearfix">
-                                        <span class="chat-img pull-right">
-                                           <img src="assets/img/2.png" alt="User" class="img-circle" />
-                                        </span>
-                                        <div class="chat-body clearfix">
-                                            
-                                                <small class=" text-muted">
-                                                    <i class="fa fa-clock-o fa-fw"></i>13 mins ago</small>
-                                                <strong class="pull-right">Jhonson Deed</strong>
-                                          
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        
-                    </div>
-                    
-                </div>     
-                <!-- /. ROW  -->
-                <hr />
-                Other Services 
-                <div class="row">
-                <?php
-                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
-                        echo "<div class='col-md-3 col-sm-6 col-xs-12'>
-                                <div class='panel panel-primary text-center no-boder bg-color-blue'>
-                                    <div class='panel-body'>
-                                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id']."' class='service-image img-responsive'/>
-                                        <span class='service-name'>".$allServicesOfVendor['price']." Rs per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['nagotiable'])." </span>
-                                    </div>
-                                    <div class='panel-footer back-footer-blue'>
-                                       ".$allServicesOfVendor['name']." <br/>
-                                       ".$allServicesOfVendor['description']."<br/>
-                                       <a href='bluetem.in/app/' class='btn btn-info'>Book Now</a>
-                                    </div>
-                                </div>
-                            </div>";
-                    }
-                ?>
-                </div>
-                <hr/>
-                Recommended Services
-                <div class="row">
-                
-            <?php
-                while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
-                    echo "<div class='col-md-3 col-sm-6 col-xs-12'>
-                            <div class='panel panel-primary text-center no-boder bg-color-blue'>
-                                <div class='panel-body'>
-                                    <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id']."' class='service-image img-responsive'/>
-                                    <span class='service-name'>".$allRecommendedServices['price']." Rs per Hour <br/>Nagotiable : ".strtoupper($allRecommendedServices['nagotiable'])." </span>
-                                </div>
-                                <div class='panel-footer back-footer-blue'>
-                                   ".$allRecommendedServices['name']." <br/>
-                                   ".$allRecommendedServices['description']."<br/>
-                                   <a href='bluetem.in/app/' class='btn btn-info'>Book Now</a>
-                                </div>
-                            </div>
-                        </div>";
-                }
-            ?>      
-                </div>           
-            </div>
-            <!-- /. PAGE INNER  -->
-        </div>
-        <!-- /. PAGE WRAPPER  -->
+<body style="font-family:Gotham SSm A,Gotham SSm B,Halvetica,sans-serif;letter-spacing:normal" class="buy-service projects dedicated-page" data-device-type="">
+	<div id="dummy-react"><!-- react-empty: 1 --></div>
+	<div id="header">
+	  <header class="" data-reactroot="" data-reactid="1" data-react-checksum="-85391792">
+	  	<div class="city-select" data-reactid="2">
+		  <div class="header" data-reactid="3"></div>
+		  <i class="icon-close close-city-selection" data-reactid="4"></i>
+		  <div data-reactid="5">
+		    <div class="search-city-container" data-reactid="6">
+			  <div class="Select is-searchable" data-reactid="7">
+			    <div class="Select-control" data-reactid="8">
+				  <div class="Select-placeholder" data-reactid="9">Type Your City</div>
+				  <div class="Select-input" style="display:inline-block;" data-reactid="10">
+				    <input style="width: 2px; box-sizing: content-box;" data-reactid="11">
+				    <div style="position: absolute; visibility: hidden; height: 0px; width: 0px; overflow: scroll; white-space: nowrap; font-size: 12px; font-family: sans-serif; font-weight: 400; font-style: normal; letter-spacing: normal;" data-reactid="12">
+				    </div>
+				  </div>
+				  
+			    </div>
+			  </div>
+		    </div>
+		    
+		  </div>
+	    </div>
+	    <div class="header-group header-main" data-reactid="21">
+	      <div class="header-item header-logo" data-reactid="22">
+	        <a class="housing-logo" title="blueteam" href="http://blueteam.in/app/" data-reactid="23"></a>
+	      </div>
+	    </div>
+	    
+	    <div class="header-search" data-reactid="49">
+	      <div class="tag-container header-search-input" data-reactid="50"></div>
+	      <i class="icon-search" data-reactid="51"></i>
+	    </div>
+	  </header>
     </div>
-    <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/business_ltd_1.0.js"></script>
-    <!-- METISMENU SCRIPTS -->
-      <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-    
-   
+		
+	<div class="loading-animation">
+		<div class="background-container">
+			<div class="apex-loading"></div>
+		</div>
+		<div class="housing-logo"></div>
+		<span class="content"></span>
+	</div>
+	<div id="notification-container"></div>
+	<div id="main-content"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
+	  <div id="dedicated-buy-np-container" data-source="non_quickview" data-uuid="5e353c8965c64df3b546" itemscope="" itemtype="">
+		<div class="banner-section mw">
+		  
+		  <div class="image-info mw">
+			<div class="image-info-inner">
+			  <div class="price-details">
+				<span class="price-info" data-currency="inr" data-value="15400000" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+			  	  <meta itemprop="priceCurrency" content="INR">
+				  <span class="price-display-type">Reliability :</span>
+				  
+				  <span class="value" ><?php echo $serviceProviderData['reliability_score']."/".$serviceProviderData['reliability_count']; ?></span>
+				  
+				  
+				</span>
+				<!-- <div class="pp-container">
+				  <span class="hide-embed rate">
+				    <span class="icon icon-rupee"></span>11,500+ per sqft.
+				  </span>
+				</div> -->
+			  </div>
+			  <div class="clearfix property-info">
+				<h1 class="main-text" itemprop="name"><?=$serviceProviderData['name']; ?></h1>
+				<h2 class="builder-text">
+				  <span itemprop="brand"><?=$serviceProviderData['organization']; ?></span>
+				</h2>
+				<div class="location-info"><?=$serviceProviderData['address']; ?></div>
+				<div class="location-info"><?=$serviceProviderData['description']; ?></div>
+				<!-- <div class="offer-bar-container">
+				  <div class="offer-bar">
+					<div class="left-cont">
+					  <span class="btn offer-btn small tertiary">OFFER</span>
+				    </div>
+				    <div class="right-cont">
+					  <span class="offer-text">Base Rate now@ Rs 11500 per sq ft. Possession Date For ABC-Dec-2016 &amp; D-March-2017</span>
+					</div>
+				  </div>
+				</div> -->
+			  </div>
+			</div>
+		  </div>
+		  
+	    <section id="carouselSection" style="text-align:center">
+          <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+            <?php
+            $flag = true;
+            while ( $photos = mysqli_fetch_array($photosArray)) {
+                if($flag){
+                 echo "<div  style='text-align:center'  class='item active'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business webebsite template'>
+                       </div>";
+                }
+                else {
+                 echo "<div  style='text-align:center'  class='item'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
+                       </div>";  
+                }
+                $flag = false;
+             } 
+            ?>
+            </div>
+            <a class="left carousel-control"  href="#myCarousel" data-slide="prev">&lsaquo;</a>
+            <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
+          </div>
+        </section>
+		  
+		  <div class="project-info-container">
+		    <div class="info-col"><i class="glyphicon glyphicon-star"></i>
+			  <div class="info-value">Awesome</div>
+			  <div class="info-description"><?=$marvelous; ?></div>
+			</div>
+			<div class="info-col"><i class="glyphicon glyphicon-heart"></i>
+		  	  <div class="info-value">Good</div>
+		  	  <div class="info-description"><?=$appreciation; ?></div>
+			</div>
+			<div class="info-col"><i class="glyphicon glyphicon-ok-circle"></i>
+		  	  <div class="info-value"><span>Average</span></div>
+		  	  <div class="info-description"><?=$suggestion; ?></div>
+			</div>
+			<div class="info-col"><i class="glyphicon glyphicon-thumbs-down"></i>
+		  	  <div class="info-value">Not Good</div>
+		  	  <div class="info-description"><?=$complain; ?></div>
+			</div>
+	  	  </div>
+		</div>
+		
+		<div class="clearfix dummy sticky-container" style="height: 60px;"></div>
+		  <div class="body-elem">
+			<div class="inner-body mw">
+			  <div class="main-layout">
+				<div class="bordered-card card-cont hide" id="discussions-card"></div>
+				<div class="hide-embed" id="similar-card">
+				  <div class="bordered-card card-cont mw similar-flat-card">
+					<h2 class="header-cont">Comments</h2>
+					<div class="body-cont">
+					  <div class="flat-container">
+					  	<form  type="post">
+	                        <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
+	                        <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i></button>
+	                        <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i></button>
+	                        <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i></button>
+	                        <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i></button>
+	                    </form>
+					  <hr/>
+					  	
+                    <?php
+                    foreach ($comments as $key => $value) {
+                       
+	                    echo "<div class='left clearfix'>
+	                            <span class='chat-img pull-left'>
+	                                <img src='index_files/icon.png'  class='img-circle'/>
+	                            </span>
+	                            <div class='chat-body'>                                        
+	                                <strong >Jack Sparrow</strong>
+	                                <small class='pull-right text-muted' style='margin-top:-25px;'>
+	                                    <i class='glyphicon glyphicon-time'></i> ".$value['creation']."
+	                                </small>                                      
+	                                <p style='margin-top:10px;'>
+	                                    ".$value['feedback']."
+	                                </p>
+	                            </div>
+	                        </div><hr/>" ;
+                      
+                    }
+                        ?>
+                       
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="hide-embed" id="similar-card">
+				  <div class="bordered-card card-cont mw similar-flat-card">
+					<h2 class="header-cont">Other Services</h2>
+					<div class="body-cont">
+					  <div class="flat-container">
+					  <?php
+	                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
+	                        echo "<a class='flat-link' href='http://blueteam.in/app/'>
+	                                <div class='flat-img'>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id'].")'></div>
+									  <div class='name-info'>
+									  	<div class='project-info'>".$allServicesOfVendor['name']."</div>
+									  </div>
+								  	</div>
+	                                <div class='apt-info text'>".$allServicesOfVendor['description']."</div>
+									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
+									<div class='price'>
+									  <span class='value'>".$allServicesOfVendor['price']." 
+									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['nagotiable'])."</span>
+									</div>
+								  </a>"; 
+	                    }
+	                  ?>
+					   
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="hide-embed" id="similar-card">
+				  <div class="bordered-card card-cont mw similar-flat-card">
+					<h2 class="header-cont">Recommended Services</h2>
+					<div class="body-cont">
+					  <div class="flat-container">
+					  <?php
+	                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
+	                        echo "<a class='flat-link' href='http://blueteam.in/app/'>
+	                                <div class='flat-img'>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id'].")'></div>
+									  <div class='name-info'>
+									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
+									  </div>
+								  	</div>
+	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
+									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
+									<div class='price'>
+									  
+									  <span class='value'>".$allRecommendedServices['price']." 
+									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allRecommendedServices['nagotiable'])."</span>
+									</div>
+								  </a>"; 
+	                    }
+	                  ?>
+					   
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="right-elem sticky" >
+				<div id="booking-container-card"></div>
+				<div class="bordered-card" id="card-contact">
+				  <div class="container">
+					<div class="top-container">
+					  <div class="clearfix person-controls">
+						<div class="pull-left seller-count">Sellers (1)</div>
+						<div class="navbar pull-right" data-length="0">
+					 	  <div class="disabled icon-arrow-left left-nav nav" data-action="prev"></div>
+						  <div class="icon-arrow-right nav right-nav" data-action="next"></div>
+						</div>
+					  </div>
+					  <div class="all-person-holder">
+						<div class="all-person-translator">
+						  <div class="person-container selected" data-id="16301c17-a405-4178-b4a1-0135c2bb7708" data-type="Developer">
+							<img class="img normal" src="index_files/icon.png" alt="Spenta Group logo">
+							<div class="info">
+							  <a class="name" href=""  data-bypass="">BlueTeam.in</a>
+							  <div class="type">Shatkon Labs Pvt Ltd</div>
+							  <div class="dummy number paid" data-uuid="">+91 9599075355</div>
+							</div>
+							<div class="select-contact">
+							  <i class="icon icon-checkbox"></i>
+							  <i class="icon icon-checkbox-filled"></i>
+							</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+					<div class="input-container">
+					  <div class="not-sent">
+						<div class="dd-bhk-container tags">
+						  <div class="prev-text tl">I would like to know more about</div>
+							<div class="generic-tag-container">
+							  
+							  <div class="dummy-form-elem form-element">
+							  	<div class="input-helper">
+								  <div class="up-arrow"></div>
+								  <div class="helper-text">Please select a preference</div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						  <form class="contact-form" >
+							
+							<div class="form-element with-country-code invalid filled">
+							  <div class="placeholder">Phone</div>
+							  <input class="input country-code" id="inputCountryCode" value="+91" name="country_code" required="" readonly="readonly" data-text="true" data-length="3" data-url_name="in" type="select">
+							  <input class="input phone" id="inputContact" required="" name="phone" country-code="true" pattern="^[0-9]{10}$" type="tel">
+							</div>  
+							  
+							  <div class="form-field sent-button-container">
+								<input class="btn primary submit-button" value="Get In Touch" onclick="getInTouch();">
+							  </div>
+							  <div class="hide on-error-container"></div>
+						  	
+						  </form>
+						  
+						</div>
+						
+					  </div>
+					  <div class="otp-container"></div>
+					</div>
+					
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+	  <script type="text/javascript">
+	  	function getInTouch() {
+	  		var mobile = $('#inputContact').val();
+	  		alert(mobile);
+	  	}
+	  	function postComment(type){
+
+		    $("#complain").attr('disabled','disabled');
+		    $("#suggestion").attr('disabled','disabled');
+		    $("#appreciation").attr('disabled','disabled');
+		    $("#marvelous").attr('disabled','disabled');
+		    var comment = $("#comment").val();
+		    alert(comment + '-'+type);
+		    /*var xmlhttp;
+		    if (window.XMLHttpRequest){
+		        xmlhttp=new XMLHttpRequest();
+		    } 
+		    else {
+		        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		    }
+		    xmlhttp.onreadystatechange=function(){
+		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		            document.getElementById("status_email").innerHTML=xmlhttp.responseText;
+		        }
+		    };
+		    xmlhttp.open("GET","ajax/email_availability.php?email="+encodeURIComponent(email.value),true);
+		    xmlhttp.send();*/
+		}
+	  </script>
+	<script src="index_files/jquery-1.10.2.js"></script>
+	  <!-- BOOTSTRAP SCRIPTS -->
+	<script src="index_files/bootstrap.min.js"></script>
+	<script src="index_files/business_ltd_1.0.js"></script>
 </body>
 </html>
