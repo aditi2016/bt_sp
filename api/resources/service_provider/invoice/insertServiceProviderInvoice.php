@@ -52,7 +52,7 @@ function insertServiceProviderInvoice($id){
 
         $invoice->id = $db->lastInsertId();
 
-        $message = "Thanks for using service\nYou have paid $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
+        $message = "Thanks for using service\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
 
         sendSMS($invoice->customer_mobile, $message);
 

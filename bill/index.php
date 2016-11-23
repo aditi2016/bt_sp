@@ -1,6 +1,6 @@
 <?php
 
-require_once "../includes/error.php";
+require_once "../api/includes/error.php";
 
 $fist = explode("?", $_SERVER['REQUEST_URI']);
 $route = explode("/", $fist[0]);
