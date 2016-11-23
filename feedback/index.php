@@ -72,7 +72,7 @@ if(isset($_POST['reliability'])){
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
 
-    <?php if($fbRequestData['customer_email'] = ""){ ?>
+    <?php if($fbRequestData['customer_email'] == "" || $fbRequestData['customer_email'] == null){ ?>
     <?php if(!isset($route[2])){ ?>
     <form id="waterform" method="post">
 
