@@ -12,9 +12,13 @@ require_once "includes/sms.php";
 
 require_once "resources/auth/postUserAuth.php";
 
+//service provide resource
 require_once "resources/service_provider/getServiceProviderByType.php";
 require_once"resources/service_provider/insertServiceProvider.php";
 require_once"resources/service_provider/updateServiceProvider.php";
+require_once"resources/service_provider/getServiceProvider.php";
+
+
 require_once"resources/services/getAllServices.php";
 require_once"resources/services/getAllServicesByCategory.php";
 require_once"resources/service_provider/getAllServiceProviders.php";
