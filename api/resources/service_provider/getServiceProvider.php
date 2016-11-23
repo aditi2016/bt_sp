@@ -11,7 +11,7 @@ function getServiceProvider($id){
     $sql = "SELECT name, organization, description, experience, id, profile_pic_id, `reliability_score`, `reliability_count`
                 FROM service_providers WHERE id = :id ";
 
-    $sqlAmount = "SELECT sum(`amount`) FROM `invoice` WHERE `service_provider_id` = :id";
+    $sqlAmount = "SELECT sum(`amount`) as sum FROM `invoice` WHERE `service_provider_id` = :id";
 
 
 
@@ -31,7 +31,7 @@ function getServiceProvider($id){
         $stmt->execute();
         $amount = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        $serviceProviders[0]->amount = $amount;
+        $serviceProviders[0]->amount = $amount[0]->sum;
 
 
         $db = null;
