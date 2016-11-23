@@ -8,7 +8,7 @@
 
 function getServiceProvider($id){
 
-    $sql = "SELECT name, organization, description, experience, id, profile_pic_id, `reliability_score`, `reliability_count`,
+    $sql = "SELECT name, organization, description, experience, id, profile_pic_id, `reliability_score`, `reliability_count`
                 FROM service_providers WHERE id = :id ";
 
 
