@@ -46,6 +46,17 @@ function insertServiceProviderFeedbackRequest($id){
         $stmt->execute();
 
         $feedbackRequest->id = $db->lastInsertId();
+
+        // more better message can be written and by decreasing words length we can reduce the cost.
+
+        $message = "Hello,
+                    Its nice to server you.
+                    Can I know, how I did it?
+                    So, I can improve and get more customers.
+                    Feedback at http://f.blueteam.in/".$feedbackRequest->id;
+
+        sendSMS($feedbackRequest->customer_mobile, $message);
+
         $db = null;
         echo '{"feedback_request": ' . json_encode($feedbackRequest) . '}';
     } catch (PDOException $e) {

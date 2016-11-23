@@ -5,6 +5,8 @@ require_once "header.php";
 include 'db.php';
 require 'Slim/Slim.php';
 
+//sms lib
+require_once "includes/sms.php";
 
 //candidates resource
 

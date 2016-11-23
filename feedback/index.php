@@ -72,7 +72,7 @@ if(isset($_POST['reliability'])){
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
 
-    <?php if($fbRequestData['email'] = ""){ ?>
+    <?php if($fbRequestData['customer_email'] = ""){ ?>
     <?php if(!isset($route[2])){ ?>
     <form id="waterform" method="post">
 
@@ -142,7 +142,7 @@ if(isset($_POST['reliability'])){
         <div class="formgroup" id="email-form" >
 
             <div style="display:inline-block; vertical-align: middle;">
-                <input type="submit" name="feedback_issue" value="Awesome" style="width: 130px;display: inline-block"/>
+                <input type="submit" name="feedback_issue" value="Submit" style="width: 130px;display: inline-block"/>
                 </div>
         </div>
 
