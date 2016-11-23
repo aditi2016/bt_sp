@@ -31,7 +31,7 @@ function getServiceProvider($id){
         $stmt->execute();
         $amount = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        $serviceProviders[0]["amount"] = $amount;
+        $serviceProviders[0]->amount = $amount;
 
 
         $db = null;
