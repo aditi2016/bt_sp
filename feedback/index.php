@@ -45,6 +45,9 @@ if(isset($_POST['feedback'])){
 
 if(isset($_POST['reliability'])){
 
+    mysqli_query($dbHandle, "UPDATE `blueteam_service_providers`.`feedback_requests` SET `reliability_score` = 1 WHERE `feedback_requests`.`id` =$id;");
+
+
     $reliablityEnum = array('Yes' => 4, 'Nearly' => 3, 'Too late' => 1);
     //UPDATE `blueteam_service_providers`.`service_providers` SET `reliability_score` = '1' WHERE `service_providers`.`id` =1;
 
@@ -77,7 +80,8 @@ if(isset($_POST['reliability'])){
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
 
-    <?php if(($fbRequestData['customer_email'] == "" || $fbRequestData['customer_email'] == null) || (isset($route[2]) && $route[2] == "2" ) ){ ?>
+    <?php if(($fbRequestData['customer_email'] == "" || $fbRequestData['customer_email'] == null)
+            || ($fbRequestData['reliability_score'] == 0 && isset($route[2]) && $route[2] == "2" ) ){ ?>
     <?php if(!isset($route[2])){ ?>
     <form id="waterform" method="post">
 
