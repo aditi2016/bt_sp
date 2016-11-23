@@ -9,6 +9,11 @@ $id = $route[1];
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
 $fbRequest = mysqli_query($dbHandle, "SELECT * FROM `feedback_requests` WHERE id = '$id' ;");
+$count = mysqli_num_rows($fbRequest);
+if($count == 0) {
+    header('Location: http://blueteam.in/app/');
+    die();
+}
 $fbRequestData = mysqli_fetch_array($fbRequest);
 
 $customerName = $fbRequestData['customer_name'];
