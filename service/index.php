@@ -8,23 +8,24 @@
 session_start();
 $dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
 $url = explode("-",$_GET['load']);
-$serviceProviderName = $url[0];
-$serviceProviderId = $url[1];
+$serviceName = $url[0];
 $cityName = $url[2];
 $userId = 1;
-$objectId = 'asdfasa';
-$serviceProvider = mysqli_query($dbHandle, "SELECT * FROM service_providers 
-                                    WHERE id = '$serviceProviderId' ;");
-$serviceProviderData = mysqli_fetch_array($serviceProvider);
-$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviderData['profile_pic_id'];
-$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
-                                        service_provider_id = '$serviceProviderId' ;");
 
-$allServices = mysqli_query($dbHandle, "SELECT a.price, a.nagotiable, b.name, b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a
-                                            JOIN services AS b
-                                            WHERE a.service_provider_id = '$serviceProviderId'
-                                            AND a.service_id = b.id AND b.status = 'active' ;");
+$service = mysqli_query($dbHandle, "SELECT * FROM service_providers 
+                                    WHERE name = '$serviceName' ;");
+$serviceData = mysqli_fetch_array($service);
+$serviceId = $serviceData['id'];
+$objectId = 'bt-sp-'.$serviceId;
+$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['pic_id'];
+$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
+                                        service_provider_id IN (SELECT service_provider_id FROM
+                                        service_provider_service_mapping WHERE service_id = '$serviceId') ;");
+
+$allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
+											b.price, b.nagotiable, b.hourly FROM service_providers AS a
+											JOIN service_provider_service_mapping AS b WHERE 
+											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");
 
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.nagotiable, b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a
@@ -56,6 +57,9 @@ foreach ($commentsCounts as $key => $value) {
 $commentsUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId;
 $comments = json_decode(httpGet($commentsUrl), true)['feedbacks'];
 
+$quality = $marvelous+$appreciation+$suggestion+$complain ;
+$qualityTotal = ($marvelous*4)+($appreciation*3)+($suggestion*2)+($complain) ;
+$qualityScore = ($quality/$qualityTotal)*100 ;
 // vendor other service
 //$otherServices
 //service {pic, title, description, price}
@@ -95,7 +99,7 @@ $donotLikeCount*/
 	  	<div class="city-select" data-reactid="2">
 		  <div class="header" data-reactid="3"></div>
 		  <i class="icon-close close-city-selection" data-reactid="4"></i>
-		  <div data-reactid="5">
+		  <!-- <div data-reactid="5">
 		    <div class="search-city-container" data-reactid="6">
 			  <div class="Select is-searchable" data-reactid="7">
 			    <div class="Select-control" data-reactid="8">
@@ -110,7 +114,7 @@ $donotLikeCount*/
 			  </div>
 		    </div>
 		    
-		  </div>
+		  </div> -->
 	    </div>
 	    <div class="header-group header-main" data-reactid="21">
 	      <div class="header-item header-logo" data-reactid="22">
@@ -142,25 +146,18 @@ $donotLikeCount*/
 			  <div class="price-details">
 				<span class="price-info" data-currency="inr" data-value="15400000" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
 			  	  <meta itemprop="priceCurrency" content="INR">
-				  <span class="price-display-type">Reliability :</span>
 				  
-				  <span class="value" ><?php echo $serviceProviderData['reliability_score']."/".$serviceProviderData['reliability_count']; ?></span>
-				  
-				  
+				  		  
 				</span>
-				<!-- <div class="pp-container">
-				  <span class="hide-embed rate">
-				    <span class="icon icon-rupee"></span>11,500+ per sqft.
-				  </span>
-				</div> -->
+				<div class="pp-container">
+				  <span class="hide-embed rate">Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span>
+				</div>
 			  </div>
 			  <div class="clearfix property-info">
-				<h1 class="main-text" itemprop="name"><?=$serviceProviderData['name']; ?></h1>
-				<h2 class="builder-text">
-				  <span itemprop="brand"><?=$serviceProviderData['organization']; ?></span>
-				</h2>
-				<div class="location-info"><?=$serviceProviderData['address']; ?></div>
-				<div class="location-info"><?=$serviceProviderData['description']; ?></div>
+			  	<span class="prifile-img"><img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;'></span>
+				<h1 class="main-text" itemprop="name"><?=$serviceData['name']; ?></h1>
+				
+				<div class="location-info"><?=$serviceData['description']; ?></div>
 				<!-- <div class="offer-bar-container">
 				  <div class="offer-bar">
 					<div class="left-cont">
@@ -230,13 +227,13 @@ $donotLikeCount*/
 					<h2 class="header-cont">Comments</h2>
 					<div class="body-cont">
 					  <div class="flat-container">
-					  	<form  type="post">
-	                        <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
-	                        <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i></button>
-	                        <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i></button>
-	                        <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i></button>
-	                        <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i></button>
-	                    </form>
+					  	
+                        <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
+                        <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i></button>
+                        <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i></button>
+                        <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i></button>
+                        <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i></button>
+	                    
 					  <hr/>
 					  	
                     <?php
@@ -266,23 +263,23 @@ $donotLikeCount*/
 				</div>
 				<div class="hide-embed" id="similar-card">
 				  <div class="bordered-card card-cont mw similar-flat-card">
-					<h2 class="header-cont">Other Services</h2>
+					<h2 class="header-cont">Service Providers</h2>
 					<div class="body-cont">
 					  <div class="flat-container">
 					  <?php
-	                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
+	                    while ($serviceProviders = mysqli_fetch_array($allServiceProviders)) {
 	                        echo "<a class='flat-link' href='http://blueteam.in/app/'>
 	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id'].")'></div>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviders['profile_pic_id'].")'></div>
 									  <div class='name-info'>
-									  	<div class='project-info'>".$allServicesOfVendor['name']."</div>
+									  	<div class='project-info'>".$serviceProviders['name']."</div>
 									  </div>
 								  	</div>
-	                                <div class='apt-info text'>".$allServicesOfVendor['description']."</div>
+	                                <div class='apt-info text'>".$serviceProviders['organization']."</div>
 									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
 									<div class='price'>
-									  <span class='value'>".$allServicesOfVendor['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['nagotiable'])."</span>
+									  <span class='value'>".$serviceProviders['price']." 
+									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($serviceProviders['nagotiable'])."</span>
 									</div>
 								  </a>"; 
 	                    }
@@ -341,7 +338,6 @@ $donotLikeCount*/
 							<div class="info">
 							  <a class="name" href=""  data-bypass="">BlueTeam.in</a>
 							  <div class="type">Shatkon Labs Pvt Ltd</div>
-							  <div class="dummy number paid" data-uuid="">+91 9599075355</div>
 							</div>
 							<div class="select-contact">
 							  <i class="icon icon-checkbox"></i>
@@ -365,20 +361,18 @@ $donotLikeCount*/
 							  </div>
 							</div>
 						  </div>
-						  <form class="contact-form" >
-							
+						  
 							<div class="form-element with-country-code invalid filled">
 							  <div class="placeholder">Phone</div>
-							  <input class="input country-code" id="inputCountryCode" value="+91" name="country_code" required="" readonly="readonly" data-text="true" data-length="3" data-url_name="in" type="select">
+							  <input class="input country-code"  value="+91" name="country_code" readonly="readonly" data-text="true" data-length="3" data-url_name="in" type="select">
 							  <input class="input phone" id="inputContact" required="" name="phone" country-code="true" pattern="^[0-9]{10}$" type="tel">
 							</div>  
 							  
 							  <div class="form-field sent-button-container">
-								<input class="btn primary submit-button" value="Get In Touch" onclick="getInTouch();">
+								<button id="getInTouch" class="btn primary"onclick="getInTouch();">Get In Touch</button>
 							  </div>
 							  <div class="hide on-error-container"></div>
 						  	
-						  </form>
 						  
 						</div>
 						
@@ -393,31 +387,89 @@ $donotLikeCount*/
 		  </div>
 	  <script type="text/javascript">
 	  	function getInTouch() {
+	  		$("#getInTouch").attr('disabled','disabled');
 	  		var mobile = $('#inputContact').val();
 	  		alert(mobile);
+	  		if(validatePhone(mobile)){
+				$.ajax({
+					type: "POST",
+					url: "ajax/get_in_touch.php",
+					data: 'mobile='+ mobile,
+					cache: false,
+					success: function(result){
+						if(result=='Succesfully'){
+							alert("Thanks for contacting us. \n We will connect with you Shortly");
+						}
+					}
+				});
+				$('#inputContact').val("");
+			}
+			else {
+				alert("Please enter valid mobile number");
+			}
+			$("#getInTouch").removeAttr('disabled');
+			return false;
 	  	}
-	  	function postComment(type){
-
-		    $("#complain").attr('disabled','disabled');
+	  	
+	  	function postComment(type) {
+       		
+       		$("#complain").attr('disabled','disabled');
 		    $("#suggestion").attr('disabled','disabled');
 		    $("#appreciation").attr('disabled','disabled');
 		    $("#marvelous").attr('disabled','disabled');
-		    var comment = $("#comment").val();
-		    alert(comment + '-'+type);
-		    /*var xmlhttp;
-		    if (window.XMLHttpRequest){
-		        xmlhttp=new XMLHttpRequest();
-		    } 
-		    else {
-		        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	        var feedback = {
+	            "digieye_user_id":"1",
+	            "feedback":$("#comment").val(),
+	            "type": type
+	        }
+
+	        var comment = replaceAll('\\s', '', $("#comment").val());
+		    if(comment.length < 5){
+				alert ('Minimum words length is 10');
+			}
+			else {
+
+		        $.ajax({
+		            url: 'http://api.wazir.shatkonlabs.com/feedbacks/1/<?= $objectId ?>',
+		            type: 'post',
+		            dataType: 'json',
+		            success: function (data) {
+		                $('#comment').val("");
+						alert("Thanks for valuable feedback ");
+		            },
+		            data: feedback
+		        });
 		    }
-		    xmlhttp.onreadystatechange=function(){
-		        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-		            document.getElementById("status_email").innerHTML=xmlhttp.responseText;
-		        }
-		    };
-		    xmlhttp.open("GET","ajax/email_availability.php?email="+encodeURIComponent(email.value),true);
-		    xmlhttp.send();*/
+		    return false;
+		    $("#complain").removeAttr('disabled');
+			$("#suggestion").removeAttr('disabled');
+			$("#appreciation").removeAttr('disabled');
+			$("#marvelous").removeAttr('disabled');
+	    }
+		function validatePhone(fld) {    
+		  var res = fld.split(",");
+		  var filter = /^([7-9][0-9]{9})+$/;
+		  var result = "" ;
+		  for(var i = 0; i < res.length; i++) {
+		    var stripped = res[i];
+		    if (stripped.value == "") {
+		      result = false;
+		    } 
+		    else if (!(filter.test(stripped))) {
+		      result = false ;
+		    } 
+		    else if (!(stripped.length == 10)) {
+		      result = false;
+		    }
+		    else result = true ;
+		  }
+		  return result;
+		}
+		function replaceAll(find, replace, str) {
+			if(str == null) {
+				str = "";
+			}
+			return str.replace(new RegExp(find, 'g'), replace);
 		}
 	  </script>
 	<script src="index_files/jquery-1.10.2.js"></script>
