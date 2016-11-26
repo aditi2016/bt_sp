@@ -20,7 +20,7 @@ function getAllServices(){
 
     if(isset($category)) {
 
-        $sql = "SELECT id, name, icon_id FROM categories WHERE 1";
+        $sql = "SELECT id, name, icon_id, img FROM categories WHERE 1";
         $servicesql = "SELECT a.name, a.id, a.pic_id, a.description FROM services AS a JOIN 
                         service_category_mapping AS b WHERE a.id = b.service_id AND a.status = 'active' 
                         AND b.status= 'active' AND b.category_id = :id ";

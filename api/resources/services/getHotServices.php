@@ -10,7 +10,7 @@
 
 function getHotServices(){
 
-    $sql = "SELECT name, id, pic_id, description FROM services WHERE status = 'active' ORDER BY `accesses` DESC LIMIT 0 , 10 ";
+    $sql = "SELECT name, id, pic_id, description FROM services WHERE status = 'active' ORDER BY `accesses` DESC LIMIT 0 , 8 ";
 
     try {
         $db = getDB();
