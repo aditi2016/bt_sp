@@ -24,6 +24,11 @@ function getAllServices(){
         $servicesql = "SELECT a.name, a.id, a.pic_id, a.description FROM services AS a JOIN 
                         service_category_mapping AS b WHERE a.id = b.service_id AND a.status = 'active' 
                         AND b.status= 'active' AND b.category_id = :id ";
+
+        $serviceProviderSql = "SELECT a.name, a.organization, a.description, a.experience, a.id, a.profile_pic_id, a.`reliability_score`, a.`reliability_count`, b.price,
+            b.nagotiable, b.hourly, b.status FROM service_providers AS a JOIN service_provider_service_mapping
+            AS b WHERE a.id = b.service_provider_id AND b.service_id = :id ";
+
         try {
             $db = getDB();
             $stmt = $db->prepare($sql);
@@ -38,7 +43,27 @@ function getAllServices(){
                 $stmt->bindParam("id", $id);
                 
                 $stmt->execute();
-                $category->services = $stmt->fetchAll(PDO::FETCH_OBJ);
+                $services = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+                foreach($services as $key1 => $service){
+
+                    $stmt = $db->prepare($serviceProviderSql);
+
+                    $stmt->bindParam("id", $service->id);
+
+                    $stmt->execute();
+                    if ( count( $stmt->fetchAll(PDO::FETCH_OBJ)) == 0){
+                        unset($services[$key1]);
+                    }
+
+                }
+
+                if(count($services) == 0){
+
+                    unset($categories[$key]);
+                } else
+
+                $category->services = $services;
             }
 
             $db = null;
