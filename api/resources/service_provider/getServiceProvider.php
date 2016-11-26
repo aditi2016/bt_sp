@@ -8,7 +8,8 @@
 
 function getServiceProvider($id){
 
-    $sql = "SELECT name, organization, description, experience, id, profile_pic_id, `reliability_score`, `reliability_count`
+    $sql = "SELECT name, organization, description, experience, id, profile_pic_id, `reliability_score`, `reliability_count`,
+              sms_credit, email_credit, campaign_credit_status
                 FROM service_providers WHERE id = :id ";
 
     $sqlAmount = "SELECT sum(`amount`) as sum FROM `invoice` WHERE `service_provider_id` = :id";
