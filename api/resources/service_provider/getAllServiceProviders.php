@@ -11,7 +11,7 @@
    
 function getAllServiceProviders($id){
 
-    $sql = "SELECT a.name, a.organization, a.description, a.experience, a.id, a.profile_pic_id, b.price,
+    $sql = "SELECT a.name, a.organization, a.description, a.experience, a.id, a.profile_pic_id, a.`reliability_score`, a.`reliability_count` b.price,
             b.nagotiable, b.hourly, b.status FROM service_providers AS a JOIN service_provider_service_mapping 
             AS b WHERE a.id = b.service_provider_id AND b.service_id = :id ";
     
