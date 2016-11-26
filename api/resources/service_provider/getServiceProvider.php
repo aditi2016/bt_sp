@@ -15,8 +15,14 @@ function getServiceProvider($id){
 
 
 
+
     try {
         $db = getDB();
+
+
+
+        //getting service provider
+
         $stmt = $db->prepare($sql);
 
         $stmt->bindParam("id", $id);

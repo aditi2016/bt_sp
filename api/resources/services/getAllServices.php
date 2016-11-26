@@ -11,6 +11,13 @@
 function getAllServices(){
     global $app;
     $category = $app->request()->get('category');
+    $type = $app->request()->get('type');
+
+    if(isset($type)&&$type == "hot"){
+        getHotServices();
+        die();
+    }
+
     if(isset($category)) {
 
         $sql = "SELECT id, name, icon_id FROM categories WHERE 1";

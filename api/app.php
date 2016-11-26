@@ -25,6 +25,8 @@ $app->response->headers->set('Content-Type', 'application/json');
 
 $app->get('/service_provider','getServiceProviderByType');
 $app->get('/service_provider/:id','getServiceProvider');
+
+// services resource
 $app->get('/services','getAllServices');
 $app->get('/service/:id','getAllServiceProviders');
 /*$app->get('/service_provider/:id','getServiceProviderById');*/

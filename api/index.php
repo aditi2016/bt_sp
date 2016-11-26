@@ -19,7 +19,9 @@ require_once"resources/service_provider/updateServiceProvider.php";
 require_once"resources/service_provider/getServiceProvider.php";
 
 
+
 require_once"resources/services/getAllServices.php";
+require_once"resources/services/getHotServices.php";
 require_once"resources/services/getAllServicesByCategory.php";
 require_once"resources/service_provider/getAllServiceProviders.php";
 

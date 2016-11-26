@@ -16,9 +16,20 @@ function getAllServiceProviders($id){
             AS b WHERE a.id = b.service_provider_id AND b.service_id = :id ";
     
     $photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
-    
+
+    $sqlUpdateAccess = "UPDATE `blueteam_service_providers`.`services` SET `accesses` = accesses + 1 WHERE `id` =:id";
+
     try {
         $db = getDB();
+
+        //updating accesses
+        $stmt = $db->prepare($sqlUpdateAccess);
+
+        $stmt->bindParam("id", $id);
+
+        $stmt->execute();
+
+        //get all service providers of the id
         $stmt = $db->prepare($sql);
         
         $stmt->bindParam("id", $id);
