@@ -1,0 +1,52 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: spider-ninja
+ * Date: 11/27/16
+ * Time: 8:50 PM
+ */
+
+function insertServices($id){
+
+    $request = \Slim\Slim::getInstance()->request();
+
+
+    $services = json_decode($request->getBody());
+    if (is_null($services)){
+        echo $request->getBody();
+        die();
+    }
+
+
+    $sql = "INSERT INTO `service_provider_service_mapping`
+                  ( `service_provider_id`, `service_id`, `price`, `negotiable`, `hourly`, `status`)
+                  VALUES
+                      (:id,:service_id,:price,:negotiable,:hourly,'verified');";
+
+    try {
+        $db = getDB();
+
+        foreach($services->services as $value){
+        $stmt = $db->prepare($sql);
+        //$service_provider->status = "new";
+
+        $stmt->bindParam("id", $id);
+        $stmt->bindParam("service_id", $value->service_id);
+        $stmt->bindParam("price", $value->price);
+        $stmt->bindParam("negotiable", $value->negotiable);
+        $stmt->bindParam("hourly", $value->hourly);
+
+        $stmt->execute();
+
+        }
+        $services->id = $db->lastInsertId();
+
+        $db = null;
+
+        echo '{"services": ' . json_encode($services) . '}';
+    } catch (PDOException $e) {
+        //error_log($e->getMessage(), 3, '/var/tmp/php.log');
+        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+
+}
