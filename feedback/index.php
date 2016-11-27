@@ -53,7 +53,7 @@ if(isset($_POST['reliability'])){
 
     $score = $reliablityEnum[$_POST['reliability']];
     mysqli_query($dbHandle, "UPDATE `blueteam_service_providers`.`service_providers`
-                SET `reliability_score` = `reliability_score` + $score, `reliability_count` = `reliability_count` + 1
+                SET `reliability_score` = `reliability_score` + $score, `reliability_count` = `reliability_count` + 1, `sms_credit` = `sms_credit` + 5, `email_credit` = `email_credit` + 10
                           WHERE `service_providers`.`id` =".$fbRequestData['service_provider_id'].";");
 
     header('Location: http://blueteam.in/app/');

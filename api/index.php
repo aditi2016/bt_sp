@@ -18,6 +18,9 @@ require_once"resources/service_provider/insertServiceProvider.php";
 require_once"resources/service_provider/updateServiceProvider.php";
 require_once"resources/service_provider/getServiceProvider.php";
 
+//campaigning request
+require_once"resources/service_provider/campaign_request/createCampaignRequest.php";
+
 
 
 require_once"resources/services/getAllServices.php";
