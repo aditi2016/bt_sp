@@ -15,7 +15,7 @@ function createCampaignRequest($id){
 
     $campaigningRequest = json_decode($request->getBody());
     if (is_null($campaigningRequest)){
-        echo '$feedbackRequest';
+        echo $request->getBody();
         die();
     }
 
@@ -35,16 +35,11 @@ function createCampaignRequest($id){
 
         $stmt->execute();
 
-        $feedbackRequest->id = $db->lastInsertId();
-
-        // more better message can be written and by decreasing words length we can reduce the cost.
-
-        $message = "Hello,\nIts nice to server you.\nCan I know, how I did it?\nSo, I can improve and get more customers.\nFeedback at http://f.blueteam.in/".$feedbackRequest->id;
-
-        sendSMS($feedbackRequest->customer_mobile, $message);
+        $campaigningRequest->id = $db->lastInsertId();
 
         $db = null;
-        echo '{"feedback_request": ' . json_encode($feedbackRequest) . '}';
+
+        echo '{"feedback_request": ' . json_encode($campaigningRequest) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
