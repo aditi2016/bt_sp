@@ -39,7 +39,7 @@ function createCampaignRequest($id){
 
         $db = null;
 
-        echo '{"feedback_request": ' . json_encode($campaigningRequest) . '}';
+        echo '{"campaign_request": ' . json_encode($campaigningRequest) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
