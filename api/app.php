@@ -52,6 +52,10 @@ $app->post('/service_provider/:id/feedback_request', 'insertServiceProviderFeedb
 // create campaigning request
 $app->post('/service_provider/:id/campaigning_request', 'createCampaignRequest');
 
+// cities
+$app->get('/cities','getAllCities');
+$app->get('/cities/:id/areas','getAllCityAreas');
+
 /* Ending Routes */
 
 $app->run();

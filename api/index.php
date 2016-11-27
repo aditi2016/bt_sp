@@ -39,6 +39,10 @@ require_once "resources/service_provider/invoice/getServiceProviderInvoice.php";
 // service provider feedback request apia
 require_once "resources/service_provider/feedback_request/insertServiceProviderFeedbackRequest.php";
 
+// cities api
+require_once "resources/cities/getAllCities.php";
+require_once "resources/cities/areas/getAllCityAreas.php";
+
 //app
 require_once "app.php";
 
