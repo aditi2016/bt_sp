@@ -10,7 +10,17 @@
 
 function getServiceProviderByType(){
     global $app;
+
+    $mobile = $app->request()->get('mobile');
+
+    if(isset($mobile)){
+        checkRegisteredByMobile($mobile);
+        die();
+    }
+
     $type = $app->request()->get('type');
+
+
     
     $sql = "SELECT sp.id, sp.`name` , sp.`organization` , s.name AS 'service', sp.`description` , sp.`address` , sp.`area_id` , sp.`city_id`   FROM `services` as s inner join service_provider_service_mapping as m inner join service_providers as sp WHERE s.`name`  = :type and s.`status` = 'active' and s.id = m.service_id and m.`service_provider_id` = sp.id";
 

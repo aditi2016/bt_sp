@@ -11,13 +11,6 @@
    
 function insertServiceProvider(){
 
-    global $app;
-    $mobile = $app->request()->get('mobile');
-
-    if(isset($mobile)){
-        checkRegisteredByMobile($mobile);
-        die();
-    }
 
     $request = \Slim\Slim::getInstance()->request();
 
