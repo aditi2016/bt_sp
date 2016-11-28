@@ -27,16 +27,19 @@ function insertServices($id){
         $db = getDB();
 
         foreach($services->services as $value){
-        $stmt = $db->prepare($sql);
-        //$service_provider->status = "new";
+            $stmt = $db->prepare($sql);
+            //$service_provider->status = "new";
 
-        $stmt->bindParam("id", $id);
-        $stmt->bindParam("service_id", $value->service_id);
-        $stmt->bindParam("price", $value->price);
-        $stmt->bindParam("negotiable", $value->negotiable);
-        $stmt->bindParam("hourly", $value->hourly);
+            $value->negotiable = $value->negotiable?"yes":"no";
+            $value->hourly = $value->hourly?"yes":"no";
 
-        $stmt->execute();
+            $stmt->bindParam("id", $id);
+            $stmt->bindParam("service_id", $value->id);
+            $stmt->bindParam("price", $value->price);
+            $stmt->bindParam("negotiable", $value->negotiable);
+            $stmt->bindParam("hourly", $value->hourly);
+
+            $stmt->execute();
 
         }
         $services->id = $db->lastInsertId();
