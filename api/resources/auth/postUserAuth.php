@@ -15,6 +15,7 @@ function userAuth(){
 
 
     $sql = "SELECT * FROM service_providers WHERE mobile_no =:mobile and password=:password ";
+    $sqlServices = "SELECT * FROM `service_provider_service_mapping` WHERE `service_provider_id` = :service_provider_id";
 
     try {
         $db = getDB();
@@ -27,6 +28,14 @@ function userAuth(){
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+        $stmt = $db->prepare($sqlServices);
+
+        $stmt->bindParam("service_provider_id", $users[0]->id);
+
+        $stmt->execute();
+        $services = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        $users[0]->services = $services;
         $db = null;
 
         if(count($users) == 1)
