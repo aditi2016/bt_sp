@@ -30,8 +30,8 @@ function insertServices($id){
             $stmt = $db->prepare($sql);
             //$service_provider->status = "new";
 
-            $value->negotiable = $value->negotiable?"yes":"no";
-            $value->hourly = $value->hourly?"yes":"no";
+            $value->negotiable = (isset($value->negotiable)&&$value->negotiable)?"yes":"no";
+            $value->hourly = (isset($value->hourly)&&$value->hourly)?"yes":"no";
 
             $stmt->bindParam("id", $id);
             $stmt->bindParam("service_id", $value->id);
