@@ -14,7 +14,7 @@ function userAuth(){
     $user = json_decode($request->getBody());
 
 
-    $sql = "SELECT * FROM users WHERE mobile_no =:mobile and password=:password ";
+    $sql = "SELECT * FROM service_providers WHERE mobile_no =:mobile and password=:password ";
 
     try {
         $db = getDB();
