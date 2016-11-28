@@ -15,7 +15,11 @@ function userAuth(){
 
 
     $sql = "SELECT * FROM service_providers WHERE mobile_no =:mobile and password=:password ";
-    $sqlServices = "SELECT * FROM `service_provider_service_mapping` WHERE `service_provider_id` = :service_provider_id";
+    $sqlServices = "SELECT a.`service_id`, a.`price`, a.`negotiable`, a.`hourly`,
+                          b.`name`, b.`pic_id`
+                      FROM `service_provider_service_mapping` as a
+                        INNER JOIN services as b
+                        WHERE a.service_id = b.id AND `service_provider_id` = :service_provider_id";
 
     try {
         $db = getDB();
