@@ -14,13 +14,13 @@ function userAuth(){
     $user = json_decode($request->getBody());
 
 
-    $sql = "SELECT * FROM users WHERE username =:username and password=:password ";
+    $sql = "SELECT * FROM users WHERE mobile_no =:mobile and password=:password ";
 
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam("username", $user->username);
+        $stmt->bindParam("mobile", $user->mobile);
         $stmt->bindParam("password", $user->password);
 
 
@@ -30,7 +30,7 @@ function userAuth(){
         $db = null;
 
         if(count($users) == 1)
-            echo '{"auth": "true"}';
+            echo '{"user": ' . json_encode($users[0]) . '}';
         else
             echo '{"auth": "false"}';
 
