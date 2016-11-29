@@ -50,6 +50,7 @@ function getGPSLocationDetails($loc){
     $area_accuracy = 0;
 
     foreach ($details->results as $value){
+        var_dump($value);die();
 
         if(isset($value->address_components)) {
             foreach ($value->address_components as $acValue) {
