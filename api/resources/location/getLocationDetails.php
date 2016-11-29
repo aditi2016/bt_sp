@@ -14,7 +14,7 @@ function getLocationDetails($id){
     $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`) VALUES (:city_id, :name, :postal_code) ON DUPLICATE KEY UPDATE postal_code = :postal_code1 id=LAST_INSERT_ID(id);";
+    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`) VALUES (:city_id, :name, :postal_code) ON DUPLICATE KEY UPDATE postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
