@@ -11,24 +11,39 @@ function getLocationDetails($id){
 
     $locDetails = getGPSLocationDetails($id);
 
-    $sql = "INSERT INTO `campaign_requests`(`service_provider_id`, `type`, `amount`, `creation`)
-               VALUES (:service_provider_id,:type,:amount,:creation);";
+    $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+    $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+    $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`) VALUES (:city_id, :name) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
 
     try {
-        /*$db = getDB();
-        $stmt = $db->prepare($sql);
-        //$service_provider->status = "new";
+        $db = getDB();
 
-        $stmt->bindParam("service_provider_id", $id);
-        $stmt->bindParam("type", $campaigningRequest->type);
-        $stmt->bindParam("amount", $campaigningRequest->amount);
-        $stmt->bindParam("creation", date("Y-m-d H:i:s"));
-
+        $stmt = $db->prepare($sqlCountry);
+        $stmt->bindParam("country", $locDetails['country']['name']);
         $stmt->execute();
+        $locDetails['country']['id'] = $db->lastInsertId();
 
-        $campaigningRequest->id = $db->lastInsertId();
+        $stmt = $db->prepare($sqlState);
+        $stmt->bindParam("name", $locDetails['state']['name']);
+        $stmt->bindParam("country_id", $locDetails['country']['id']);
+        $stmt->execute();
+        $locDetails['state']['id'] = $db->lastInsertId();
 
-        $db = null;*/
+        $stmt = $db->prepare($sqlCity);
+        $stmt->bindParam("name", $locDetails['city']['name']);
+        $stmt->bindParam("state_id", $locDetails['state']['id']);
+        $stmt->execute();
+        $locDetails['state']['id'] = $db->lastInsertId();
+
+        $stmt = $db->prepare($sqlArea);
+        $stmt->bindParam("name", $locDetails['area']['name']);
+        $stmt->bindParam("city_id", $locDetails['state']['id']);
+        $stmt->execute();
+        $locDetails['area']['id'] = $db->lastInsertId();
+
+
+        $db = null;
 
         echo '{"location_details": ' . json_encode($locDetails) . '}';
     } catch (PDOException $e) {
