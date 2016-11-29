@@ -30,7 +30,7 @@ function getLocationDetails($id){
 
         $db = null;*/
 
-        echo '{"campaign_request": ' . json_encode($locDetails) . '}';
+        echo '{"location_details": ' . json_encode($locDetails) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -40,23 +40,17 @@ function getLocationDetails($id){
 
 function getGPSLocationDetails($loc){
     $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$loc&sensor=true";
-
     $details = json_decode(httpGet($url));
-
-
-
     $return = array();
-
     $area_accuracy = 0;
 
     foreach ($details->results as $value){
 
-
         if(isset($value->address_components)) {
             foreach ($value->address_components as $acValue) {
-                //var_dump($acValue);die();
+                //var_dump($acValue);die()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
                 if (isset($acValue->types)) {
-                    if (!isset($return['country']) && array_search('country', $acValue->types)) {
+                    if (array_search('country', $acValue->types)) {
                         $return['country'] = array('name' => $acValue->long_name);
                     } elseif (!isset($return['state']) && array_search('administrative_area_level_1', $acValue->types)) {
                         $return['state'] = array('name' => $acValue->long_name);
