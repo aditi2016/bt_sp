@@ -14,7 +14,7 @@ function getLocationDetails($id){
     $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`) VALUES (:city_id, :name) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`) VALUES (:city_id, :name, :postal_code) ON DUPLICATE KEY UPDATE postal_code = :postal_code1 id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
@@ -39,6 +39,8 @@ function getLocationDetails($id){
         $stmt = $db->prepare($sqlArea);
         $stmt->bindParam("name", $locDetails['area']['name']);
         $stmt->bindParam("city_id", $locDetails['state']['id']);
+        $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
+        $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
         $stmt->execute();
         $locDetails['area']['id'] = $db->lastInsertId();
 
@@ -82,7 +84,7 @@ function getGPSLocationDetails($loc){
                         $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 3;
                     } elseif (!isset($return['postalCode']) != "" && !is_bool(array_search('postal_code', $acValue->types) )) {
-                        $return['postalCode'] = array('name' => $acValue->long_name);
+                        $return['postal_code'] = array('name' => $acValue->long_name);
 
                     }
                 }
