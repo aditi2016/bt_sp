@@ -54,9 +54,8 @@ function getGPSLocationDetails($loc){
 
         if(isset($value->address_components)) {
             foreach ($value->address_components as $acValue) {
-
+                var_dump($acValue);die();
                 if (isset($acValue->type)) {
-                    var_dump($acValue);die();
                     if (!isset($return['country']) && array_search('country', $acValue->type)) {
                         $return['country'] = array('name' => $acValue->long_name);
                     } elseif (!isset($return['state']) && array_search('administrative_area_level_1', $acValue->type)) {
