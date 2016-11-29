@@ -34,7 +34,7 @@ function getLocationDetails($id){
         $stmt->bindParam("name", $locDetails['city']['name']);
         $stmt->bindParam("state_id", $locDetails['state']['id']);
         $stmt->execute();
-        $locDetails['state']['id'] = $db->lastInsertId();
+        $locDetails['city']['id'] = $db->lastInsertId();
 
         $stmt = $db->prepare($sqlArea);
         $stmt->bindParam("name", $locDetails['area']['name']);
