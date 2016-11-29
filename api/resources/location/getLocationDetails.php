@@ -42,7 +42,7 @@ function getGPSLocationDetails($loc){
     $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$loc&sensor=true";
 
     $details = json_decode(httpGet($url));
-    var_dump($details);die();
+
 
 
     $return = array();
@@ -51,35 +51,29 @@ function getGPSLocationDetails($loc){
 
     foreach ($details->results as $value){
 
-        foreach ($value->address_components as $acValue){
-            if(isset($acValue->type)){
-                if(isset($return['country']) && array_search('country',$acValue->type) ){
-                    $return['country'] = array('name' => $acValue->long_name);
-                }
-                elseif(isset($return['state']) && array_search('administrative_area_level_1',$acValue->type) ){
-                    $return['state'] = array('name' => $acValue->long_name);
+        if(isset($value->address_components)) {
+            foreach ($value->address_components as $acValue) {
+                if (isset($acValue->type)) {
+                    if (!isset($return['country']) && array_search('country', $acValue->type)) {
+                        $return['country'] = array('name' => $acValue->long_name);
+                    } elseif (!isset($return['state']) && array_search('administrative_area_level_1', $acValue->type)) {
+                        $return['state'] = array('name' => $acValue->long_name);
 
-                }
-                elseif(isset($return['city']) && array_search('administrative_area_level_2',$acValue->type) ){
-                    $return['city'] = array('name' => $acValue->long_name);
-                }
+                    } elseif (!isset($return['city']) && array_search('administrative_area_level_2', $acValue->type)) {
+                        $return['city'] = array('name' => $acValue->long_name);
+                    } elseif ($area_accuracy <= 0 && array_search('sublocality_level_1', $acValue->type)) {
+                        $return['area'] = array('name' => $acValue->long_name);
+                        $area_accuracy = 1;
+                    } elseif ($area_accuracy <= 1 && array_search('sublocality_level_2', $acValue->type)) {
+                        $return['area'] = array('name' => $acValue->long_name);
+                        $area_accuracy = 2;
+                    } elseif ($area_accuracy <= 2 && array_search('sublocality_level_3', $acValue->type)) {
+                        $return['area'] = array('name' => $acValue->long_name);
+                        $area_accuracy = 3;
+                    } elseif (!isset($return['postalCode']) != "" && array_search('postal_code', $acValue->type)) {
+                        $return['postalCode'] = array('name' => $acValue->long_name);
 
-                elseif($area_accuracy <= 0  && array_search('sublocality_level_1',$acValue->type) ){
-                    $return['area'] = array('name' => $acValue->long_name);
-                    $area_accuracy = 1;
-                }
-                elseif($area_accuracy <= 1  && array_search('sublocality_level_2',$acValue->type) ){
-                    $return['area'] = array('name' => $acValue->long_name);
-                    $area_accuracy = 2;
-                }
-                elseif($area_accuracy <= 2  && array_search('sublocality_level_3',$acValue->type) ){
-                    $return['area'] = array('name' => $acValue->long_name);
-                    $area_accuracy = 3;
-                }
-
-                elseif(isset($return['postalCode']) != "" && array_search('postal_code',$acValue->type) ){
-                    $return['postalCode'] = array('name' => $acValue->long_name);
-
+                    }
                 }
             }
         }
