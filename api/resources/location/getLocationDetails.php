@@ -48,7 +48,7 @@ function getGPSLocationDetails($loc){
 
         if(isset($value->address_components)) {
             foreach ($value->address_components as $acValue) {
-                //var_dump($acValue);die()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+                var_dump($acValue);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
                 if (isset($acValue->types)) {
                     if (!isset($return['country']) && array_search('country', $acValue->types)) {
                         $return['country'] = array('name' => $acValue->long_name);
@@ -72,7 +72,7 @@ function getGPSLocationDetails($loc){
                     }
                 }
             }
-           break;
+
         }
 
 
