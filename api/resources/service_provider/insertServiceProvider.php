@@ -28,7 +28,7 @@ function insertServiceProvider(){
         $serviceProvider->email = "n/a";
 
     if(!isset($serviceProvider->address))
-        $serviceProvider->email = "n/a";
+        $serviceProvider->address = "n/a";
 
     //photo,name,mobile,password,address,experience,services,city,area
 
