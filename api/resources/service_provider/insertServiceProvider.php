@@ -27,6 +27,9 @@ function insertServiceProvider(){
     if(!isset($serviceProvider->email))
         $serviceProvider->email = "n/a";
 
+    if(!isset($serviceProvider->address))
+        $serviceProvider->email = "n/a";
+
     //photo,name,mobile,password,address,experience,services,city,area
 
     $sql = "INSERT INTO service_providers (name, organization, description, mobile_no, password, experience, area_id, city_id, address, email,profile_pic_id)
