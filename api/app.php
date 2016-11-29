@@ -56,6 +56,9 @@ $app->post('/service_provider/:id/campaigning_request', 'createCampaignRequest')
 $app->get('/cities','getAllCities');
 $app->get('/cities/:id/areas','getAllCityAreas');
 
+// location
+$app->get('/location/:id','getLocationDetails');
+
 // service provider services
 $app->post('/service_provider/:id/services', 'insertServices');
 

@@ -46,6 +46,9 @@ require_once "resources/service_provider/services/insertServices.php";
 require_once "resources/cities/getAllCities.php";
 require_once "resources/cities/areas/getAllCityAreas.php";
 
+//location api
+require_once "resources/location/getLocationDetails.php";
+
 //app
 require_once "app.php";
 
