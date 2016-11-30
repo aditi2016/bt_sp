@@ -25,11 +25,14 @@ $app->response->headers->set('Content-Type', 'application/json');
 
 $app->get('/service_provider','getServiceProviderByType');
 $app->get('/service_provider/:id','getServiceProvider');
+
+// services resource
 $app->get('/services','getAllServices');
 $app->get('/service/:id','getAllServiceProviders');
 /*$app->get('/service_provider/:id','getServiceProviderById');*/
 
 
+// service provider resouce
 $app->post('/service_provider', 'insertServiceProvider');
 $app->put('/service_provider/:id','updateServiceProvider');
 /*$app->post('/service_provider/:id','updateServiceProvider');*/
@@ -45,6 +48,19 @@ $app->get('/service_provider/:id/invoice', 'getServiceProviderInvoice');
 
 // take feedback request api
 $app->post('/service_provider/:id/feedback_request', 'insertServiceProviderFeedbackRequest');
+
+// create campaigning request
+$app->post('/service_provider/:id/campaigning_request', 'createCampaignRequest');
+
+// cities
+$app->get('/cities','getAllCities');
+$app->get('/cities/:id/areas','getAllCityAreas');
+
+// location
+$app->get('/location/:id','getLocationDetails');
+
+// service provider services
+$app->post('/service_provider/:id/services', 'insertServices');
 
 /* Ending Routes */
 

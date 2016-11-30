@@ -17,9 +17,15 @@ require_once "resources/service_provider/getServiceProviderByType.php";
 require_once"resources/service_provider/insertServiceProvider.php";
 require_once"resources/service_provider/updateServiceProvider.php";
 require_once"resources/service_provider/getServiceProvider.php";
+require_once"resources/service_provider/checkReqisteredByMobile.php";
+
+//campaigning request
+require_once"resources/service_provider/campaign_request/createCampaignRequest.php";
+
 
 
 require_once"resources/services/getAllServices.php";
+require_once"resources/services/getHotServices.php";
 require_once"resources/services/getAllServicesByCategory.php";
 require_once"resources/service_provider/getAllServiceProviders.php";
 
@@ -33,6 +39,15 @@ require_once "resources/service_provider/invoice/getServiceProviderInvoice.php";
 
 // service provider feedback request apia
 require_once "resources/service_provider/feedback_request/insertServiceProviderFeedbackRequest.php";
+
+require_once "resources/service_provider/services/insertServices.php";
+
+// cities api
+require_once "resources/cities/getAllCities.php";
+require_once "resources/cities/areas/getAllCityAreas.php";
+
+//location api
+require_once "resources/location/getLocationDetails.php";
 
 //app
 require_once "app.php";
