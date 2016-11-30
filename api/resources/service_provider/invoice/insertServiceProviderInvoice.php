@@ -54,7 +54,8 @@ function insertServiceProviderInvoice($id){
 
         $message = "Thanks for using service\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
 
-        sendSMS($invoice->customer_mobile, $message);
+        if($invoice->send_bill)
+            sendSMS($invoice->customer_mobile, $message);
 
         $db = null;
         echo '{"service_providers": ' . json_encode($invoice) . '}';
