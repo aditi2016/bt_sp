@@ -5541,6 +5541,9 @@ button.close {
 .affix {
   position: fixed;
 }
+.housing-logo{
+  background-image: url('icon.png');
+}
 @-ms-viewport {
   width: device-width;
 }

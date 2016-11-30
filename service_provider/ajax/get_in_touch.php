@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include_once 'functions.php';
 if (isset($_POST['mobile'])) {
 	
 	$mobile = $_POST['mobile'];
@@ -8,7 +8,7 @@ if (isset($_POST['mobile'])) {
     $username = "rajnish90";
     $password = "redhat123";
     $senderid = "BLUETM";
-    $message = "Dear Customer, \n Thanks for contacting us. \n Contact us \n 9599075955 \n http://blueteam.in/app/";
+    $message = "Dear Customer,\nThanks for contacting us.\nContact us\n9599075955\nhttp://blueteam.in/app/";
     $url = "http://www.smsjust.com/blank/sms/user/urlsms.php?".
         "username=".$username.
         "&pass=".$password.
@@ -18,22 +18,12 @@ if (isset($_POST['mobile'])) {
         "&message=".urlencode($message).
         "&response=Y"
         ;
-    //echo $url;
+    mysqli_query($dbHandle, "INSERT INTO contact_requests(mobile, message) VALUES ('$mobile', '$message');");
     $data = httpGet($url);
 	
     echo "Succesfully" ;
 		
 }
-function httpGet($url){
-    $ch = curl_init();
 
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-//  curl_setopt($ch,CURLOPT_HEADER, false);
-
-    $output=curl_exec($ch);
-
-    curl_close($ch);
-    return $output;
-}
+mysqli_close($dbHandle);
 ?>
