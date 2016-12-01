@@ -19,8 +19,9 @@ function search($keywords)
     try {
         $db = getDB();
 
+        $keywordsLike = "%$keywords%";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam("keywords", $keywords);
+        $stmt->bindParam("keywords", $keywordsLike);
         $stmt->execute();
         $services = $stmt->fetchAll(PDO::FETCH_OBJ);
         
@@ -31,7 +32,7 @@ function search($keywords)
 
         $stmt->execute();
 
-        $keywords = "%$keywords%";
+
 
         $db = null;
         echo '{"allServices": ' . json_encode($services) . '}';
