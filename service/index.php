@@ -332,7 +332,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 			return false;
 		}
 	</script>
-	
+	<script src="index_files/bootstrap-modal.js"></script>
 	<script src="index_files/business_ltd_1.0.js"></script>
 </body>
 </html>

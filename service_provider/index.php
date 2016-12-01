@@ -38,11 +38,11 @@ foreach ($commentsCounts as $key => $value) {
 }
 $commentsUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId;
 $comments = json_decode(httpGet($commentsUrl), true)['feedbacks'];
-$reliabilityScore = ($serviceProviderData['reliability_score']/(4*$serviceProviderData['reliability_count']))*100;
+$reliabilityScore = round((($serviceProviderData['reliability_score']/(4*$serviceProviderData['reliability_count']))*100),2);
 
 $qualityTotal = 4*($marvelous+$appreciation+$suggestion+$complain) ;
 $quality = ($marvelous*4)+($appreciation*3)+($suggestion*2)+$complain ;
-$qualityScore = ($quality/$qualityTotal)*100 ;
+$qualityScore = round((($quality/$qualityTotal)*100),2) ;
 
 ?>
 <!DOCTYPE html>
@@ -203,7 +203,7 @@ $qualityScore = ($quality/$qualityTotal)*100 ;
 					  <div class="flat-container">
 					  <?php
 	                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allServicesOfVendor['name']."-gurgaon'>
+	                        echo "<a class='flat-link' data-toggle='modal'  data-target='#bookNow' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id'].")'></div>
 									  <div class='name-info'>
@@ -211,11 +211,14 @@ $qualityScore = ($quality/$qualityTotal)*100 ;
 									  </div>
 								  	</div>
 	                                <div class='apt-info text'>".$allServicesOfVendor['description']."</div>
-									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
+									<div class='loct-info text'></div>
 									<div class='price'>
 									  <span class='value'>".$allServicesOfVendor['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."</span>
+									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
+									    <span class='btn btn-info'>Book Now</span>
+									  </span>
 									</div>
+									
 								  </a>"; 
 	                    }
 	                  ?>
@@ -318,9 +321,51 @@ $qualityScore = ($quality/$qualityTotal)*100 ;
 		  </div>
 		</div>
 	  </div>
+	  <div id="bookNow" class="modal hide fade modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style='position:absolute;'>
+		<div class="row-fluid">
+		  <div class="span8 offset2">
+		    <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow">
+		      <ul class="nav nav-tabs">
+		        <li class="active">
+		          <a href="#" data-toggle="tab" class="active ">
+		          	<i class="icon-lock"></i>&nbsp;<span>Add Project</span>
+		          </a>
+		        </li>
+		        <li>
+		          <a href="#" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></a>
+		        </li>
+		      </ul>
+		      <div class="tab-content ">
+		        <div class="tab-pane active">
+		          <div class="row-fluid">
+		            <h4><i class="icon-user"></i>&nbsp;&nbsp;Create New Project </h4>
+                    <label>Project Title</label>
+                    <input type="text" class="input-block-level" id="project_title" placeholder="Enter Project Title"/>
+                    <label>Upload File</label>
+                    <input type="file" id="_fileProject"/>
+                    <label>Details about Project</label>
+                    <textarea class='input-block-level autoExpand' data-min-rows='3' id="project_stmt" placeholder="Details about Project"></textarea><br />
+                    <label>Project Type</label> 
+                    <select id= "type" onchange='projectinfo()' >    
+                      <option value='0' selected >Default</option>
+                      <option value='2' >Classified</option>
+                      <option value='1' >Public</option>
+                      <option value='4' >Private</option>
+                    </select>
+                    <a href="#" class=" btn btn-primary" id = "create_project"> 
+                      Create Project <i class="icon-chevron-sign-right"></i>
+                    </a>
+                  </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	  </div> 
 	<script src="index_files/jquery-1.10.2.js"></script>
 	  <!-- BOOTSTRAP SCRIPTS -->
 	<script src="index_files/bootstrap.min.js"></script>
+	<script src="index_files/bootstrap-modal.js"></script>
 	<script type="text/javascript">
 	  	function getInTouch() {
 	  		$("#getInTouch").attr('disabled','disabled');
@@ -355,9 +400,15 @@ $qualityScore = ($quality/$qualityTotal)*100 ;
 	        var comment = replaceAll('\\s', '', $("#comment").val());
 	        var name = replaceAll('\\s', '', $('#userName').val());
 	        var mobile = $('#userMobile').val();
-		    if(comment.length < 5) alert ('Minimum words length is 10');
-			else if(!validatePhone(mobile))	alert("Please enter valid mobile number");
-			else if(name.length < 3) alert("Please enter valid Name");
+		    if(comment.length < 5){
+		    	alert('Minimum words length is 10');
+		    }
+			else if(!validatePhone(mobile)){	
+				alert("Please enter valid mobile number");
+			}
+			else if(name.length < 3){ 
+				alert("Please enter valid Name");
+			}
 			else {
 				$.ajax({
 					type: "POST",
@@ -369,8 +420,9 @@ $qualityScore = ($quality/$qualityTotal)*100 ;
 				            url: 'http://api.wazir.shatkonlabs.com/feedbacks/1/<?= $objectId ?>',
 				            type: 'post',
 				            dataType: 'json',
-				            data: '{"digieye_user_id":"1","feedback":"'+comment+'","type": "'+type+'","user_id":"'+result'"}',
-				            success: function (data) {
+				            data: '{"digieye_user_id":"1","feedback":"'+comment+
+				            			'","type": "'+type+'","user_id":"'+result+'"}',
+				            success: function (feedback) {
 				                $('#comment').val("");
 								alert("Thanks for valuable feedback ");
 								location.reload();
