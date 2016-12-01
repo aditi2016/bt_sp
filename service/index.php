@@ -159,10 +159,11 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id'].")'></div>
-									  <div class='name-info'>
-									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
-									  </div>
+									  
 								  	</div>
+								  	<div class='name-info'>
+									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
+									</div>
 	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
 									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
 									<div class='price'>

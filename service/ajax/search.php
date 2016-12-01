@@ -36,9 +36,9 @@ if (isset($_POST['keywords'])) {
         $data .= "<a class='flat-link' href='../service/index.php?load=".$value['name']."'>
                   <div class='flat-img'>
                     <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$value['pic_id'].")'></div>
-                    <div class='name-info'>
-                      <div class='project-info'>".$value['name']."</div>
-                    </div>
+                  </div>
+                  <div class='name-info'>
+                    <div class='project-info'>".$value['name']."</div>
                   </div>
                   <div class='apt-info text'>".$value['description']."</div>
                 </a>" ;
