@@ -13,7 +13,7 @@ function search($keywords)
 
     $sql = "SELECT name, id, pic_id, description FROM services WHERE name LIKE :keywords ";
 
-    $insertSql = "INSERT INTO `blueteam_service_providers`.`searchs` (`id`, `string`, `creation`, `ip` , 'result_count')
+    $insertSql = "INSERT INTO `blueteam_service_providers`.`searchs` (`id`, `string`, `creation`, `ip` , `result_count`)
                         VALUES (NULL, :keywords, CURRENT_TIMESTAMP, :ip , :result_count);";
 
     try {
