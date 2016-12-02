@@ -15,7 +15,7 @@ $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProvide
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
                                         service_provider_id = '$serviceProviderId' ;");
 
-$allServices = mysqli_query($dbHandle, "SELECT a.price, b.id, a.negotiable, b.name, b.pic_id, b.description
+$allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a
                                             JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
@@ -53,6 +53,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
 	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="index_files/custom.css" type="text/css" media="screen">	
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
@@ -69,13 +70,46 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Modal Header</h4>
+	        <h4 class="modal-title">Book Now</h4>
 	      </div>
 	      <div class="modal-body">
-	        <p>Some text in the modal.</p>
+	        <input id="bookName" type="text" placeholder="Type your Name">
+		  	<input id="bookMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
+		  	<input id="bookAddress" type="text" placeholder="Type your Address">
+		  	<textarea id="remarks" type="text" placeholder="Remark" ></textarea><br/><br/>
+		  	<input id="bookServiceProviderId" type="hidden" value="">
+		  	<input id="bookServiceId" type="hidden" value="">
+		  	<label>Start Date</label>
+		    <input id="startDate" type="text" placeholder="Enter Starting Date">
+		    <label>Start Time</label>
+		    <select id= "startTime">    
+                <option value='7' selected >7</option>
+                <?php
+                for ($i=8; $i<20 ; $i++) {
+                	echo "<option value=".$i." >".$i."</option>";                 	# code...
+                } 
+                ?>
+            </select>
+            <label>Hour</label>
+            <select id= "totalHour">    
+                <option value='1' selected >1</option>
+                <?php
+                for ($i=2; $i<13 ; $i++) {
+                	echo "<option value=".$i." >".$i."</option>";                 	# code...
+                } 
+                ?>
+            </select><br/><br/>
+            <label>Select Service Type</label>
+            <select id= "serviceType">    
+                <option value='monthly' selected >Monthly</option>
+                <option value="on-demand" >On Demand</option>
+                <option value="AMC" >AMC</option>
+                <option value="direct-service" >Direct Service</option>
+            </select>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow();">Book</button>
 	      </div>
 	    </div>
 
@@ -96,7 +130,6 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	      <input type="text" id="search_box" style="vertical-align: middle;color: #000;min-width: 400px;
 	       		margin: 2px;" class="" >
 	      <button id="search" class="btn primary"onclick="search();"><i class="icon-search"></i></button>
-	      <a data-toggle='modal' data-target='#bookNow'>test</a> 
 	    </div>
 
 	  </header>
@@ -224,9 +257,10 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 					  <div class="flat-container">
 					  <?php
 	                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
+	                    	
 	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "per Hour";
 	                    	else $perHour ="";
-	                        echo "<a class='flat-link' onclick='book(".$serviceProviderId.",);' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\");' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id'].")'></div>
 									  
@@ -348,7 +382,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		</div>
 	  </div>
 	  
-	<script src="index_files/jquery-1.10.2.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	  <!-- BOOTSTRAP SCRIPTS -->
 	<script src="index_files/bootstrap.min.js"></script>
 	
@@ -484,12 +519,82 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			$("#search").removeAttr('disabled');
 			return false;
 		}
-		function book() {
-			$(".teamAddModal")[0].innerHTML = "" ;
+		function book(serviceProviderId, serviceId) {
+			$("#bookServiceProviderId").val(serviceProviderId);
+			$("#bookServiceId").val(serviceId);
 			$("#bookNow").modal("show");
+		}
+		String.prototype.isValidDate = function() {
+		  var IsoDateRe = new RegExp("^([0-9]{4})-([0-9]{2})-([0-9]{2})$");
+		  var matches = IsoDateRe.exec(this);
+		  if (!matches) return false;
+		  else return true ;
+		}
+		function bookNow(){
+			$("#bookService").attr('disabled','disabled');
+			var bookName = replaceAll('\\s', '', $("#bookName").val());
+			var bookMobile = replaceAll('\\s', '', $("#bookMobile").val());
+			var bookAddress = replaceAll('\\s', '', $("#bookAddress").val());
+			var remarks = replaceAll('\\s', '', $("#remarks").val());
+			var serviceProviderId = $("#bookServiceProviderId").val();
+			var serviceId = $("#bookServiceId").val();
+			var startDate = replaceAll('\\s', '', $("#startDate").val());
+			var startTime = parseInt($("#startTime").val());
+			var totalHour = parseInt($("#totalHour").val());
+			if(parseInt(startTime+totalHour) > 20) var endtime = '20:00:00';
+			else var endtime = (startTime+totalHour)+':00:00';
+			var serviceType = $("#serviceType").val();
+			if(bookName.length < 3){
+		    	alert('Please Enter Valid Name');
+		    	$("#bookService").removeAttr('disabled');
+		    	return false;
+		    }
+			else if(!validatePhone(bookMobile)){	
+				alert("Please enter valid mobile number");
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}
+			else if(bookAddress.length < 10){ 
+				alert("Please enter valid Address");
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}
+			else if(!(startDate.isValidDate())){
+				alert('Enter valid date');
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}
+			else {
+				var startDatetime = startDate+" "+startTime+":00:00";
+				var startHour = startTime+":00:00";
+				$.ajax({
+		            url: 'https://blueteam.in/api/service_request',
+		            type: 'post',
+		            dataType: 'json',
+		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","location":"",'+
+				            	'"requirements":"'+serviceId+'","user_id": "1","user_type":"customer",'+
+		                        '"start_datatime": "'+startDatetime+'","service_type": "'+serviceType+'",'+
+		                        '"remarks": "'+remarks+' by bt_sp web page","start_time":"'+startHour+'",'+
+		                        '"end_time":"'+endtime+'","address":"'+bookAddress+'","priority": "3",'+
+		                        '"service_provider_id":"'+serviceProviderId+'"}}',
+		            success: function (feedback) {
+		                
+						alert("Your request has been send.\n We will connect with you soon.");
+						console.log(feedback);
+						
+
+		            }		            
+		        });
+		    }
+		    $("#bookService").removeAttr('disabled');
 		}
 	</script>
 	
+	<script>
+	  $( function() {
+	    $( "#startDate" ).datepicker({dateFormat:"yy-mm-dd"});
+	  } );
+	</script>
 	<script src="index_files/business_ltd_1.0.js"></script>
 </body>
 </html>
