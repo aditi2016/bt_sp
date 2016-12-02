@@ -135,7 +135,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 	                    	if($serviceProviders['hourly']=='yes') $perHour = "per Hour";
 	                    	else $perHour ="";
 	                    	 
-	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon'>
+	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviders['profile_pic_id'].")'></div>
 									</div>

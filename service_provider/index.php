@@ -6,6 +6,14 @@ $url = explode("-",$_GET['load']);
 $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
 $cityName = $url[2];
+$serviceUrl = explode("-",$_GET['s']);
+$serviceNameUrl = $serviceUrl[1];
+
+$service = mysqli_query($dbHandle, "SELECT * FROM services 
+                                    WHERE id = '$serviceNameUrl' ;");
+$serviceData = mysqli_fetch_array($service);
+$icon = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['pic_id'];
+$serviceName = $serviceData['name'];
 $userId = 1;
 $objectId = 'bt-sp-'.$serviceProviderId;
 $serviceProvider = mysqli_query($dbHandle, "SELECT * FROM service_providers 
@@ -188,7 +196,21 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </section>
+		  <a class="flat-link " style="vertical-align: middle;margin-left: 200px;">
+		  	
+            <div class='flat-img'>
+              <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
+			</div>
 		  
+            <a style="text-decoration: none;white-space: nowrap; position: absolute;padding: 20px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'"';?>);'>
+              <div class='price'>
+			    <span class='value'><?=$serviceName ;?><br/>
+            	Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?><br/>
+            	Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span><br/><br/>
+				<span class='btn btn-info'>Book Now</span>
+			  </div>
+			</a> 
+		  </a>
 		  <div class="project-info-container">
 		    <div class="info-col"><i class="glyphicon glyphicon-star"></i>
 			  <div class="info-value">Awesome</div>
