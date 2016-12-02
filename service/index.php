@@ -4,16 +4,18 @@ session_start();
 include_once 'ajax/functions.php';
 $url = explode("-",$_GET['load']);
 $serviceName = $url[0];
-$cityName = $url[1];
+$serviceId = $url[1];
+$cityName = $url[2];
 $userId = 1;
 
 $service = mysqli_query($dbHandle, "SELECT * FROM services 
-                                    WHERE name = '$serviceName' ;");
+                                    WHERE id = '$serviceId' ;");
 $serviceData = mysqli_fetch_array($service);
 $serviceId = $serviceData['id'];
 $objectId = 'bt-sp-'.$serviceId;
 $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['pic_id'];
-$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
+$serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
+$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
                                         service_provider_service_mapping WHERE service_id = '$serviceId') ;");
 
@@ -68,7 +70,12 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 		
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
-	<div id="main-content"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
+	<div id="main-content" style="overflow-y: hidden ! important;
+                                                            overflow-x: hidden ! important;
+                                                        background-image: url('<?= $serviceImg ?>');
+	background-size:     contain;                      /* <------ */
+	background-repeat: no-repeat;
+	background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  
@@ -91,19 +98,16 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
             <div id="myCarousel" class="carousel slide">
               <div class="carousel-inner">
             <?php
-            $flag = true;
-            while ( $photos = mysqli_fetch_array($photosArray)) {
-                if($flag){
-                 echo "<div  style='text-align:center'  class='item active'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business webebsite template'>
+			echo "<div  style='text-align:center'  class='item active'>
+                        <img src='".$serviceImg."' alt='business webebsite template'>
                        </div>";
-                }
-                else {
+
+            while ( $photos = mysqli_fetch_array($photosArray)) {
+
                  echo "<div  style='text-align:center'  class='item'>
                         <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
                        </div>";  
-                }
-                $flag = false;
+
              } 
             ?>
               </div>
