@@ -13,7 +13,11 @@ $service = mysqli_query($dbHandle, "SELECT * FROM services
 $serviceData = mysqli_fetch_array($service);
 $serviceId = $serviceData['id'];
 $objectId = 'bt-sp-'.$serviceId;
-$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['pic_id'];
+if($serviceData['pic_id']== 0) $pic = 1075;
+else $pic = $serviceData['pic_id'] ;
+if($serviceData['service_img']== 0) $img = 1075;
+else $img = $serviceData['service_img'] ;
+$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
 $serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
@@ -24,11 +28,10 @@ $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a
 											JOIN service_provider_service_mapping AS b WHERE 
 											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");
 
-$recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.name, b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a
-                                            JOIN services AS b
-                                            WHERE a.service_id = b.id AND b.status = 'active' 
-                                            ORDER BY RAND() LIMIT 4;");
+$recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
+											b.description FROM service_provider_service_mapping AS a
+                                            JOIN services AS b WHERE a.service_id = b.id 
+                                            AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
 
 
 ?>
@@ -103,9 +106,10 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
                        </div>";
 
             while ( $photos = mysqli_fetch_array($photosArray)) {
-
-                 echo "<div  style='text-align:center'  class='item'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
+            	if($photos['photo_id']== 0) $img = 1075;
+				else $img = $photos['photo_id'] ;
+                echo "<div  style='text-align:center'  class='item'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business themes'>
                        </div>";  
 
              } 
@@ -132,19 +136,22 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 					  <div class="flat-container">
 					  <?php
 	                    while ($serviceProviders = mysqli_fetch_array($allServiceProviders)) {
-	                    	if($serviceProviders['hourly']=='yes') $perHour = "per Hour";
+	                    	if($serviceProviders['hourly']=='yes') $perHour = "/ Hour";
 	                    	else $perHour ="";
-	                    	 
-	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."'>
+	                    	if($serviceProviders['price']=="") $price = 0;
+	                    	else $price = $serviceProviders['price'] ;
+	                    	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
+							else $img = $serviceProviders['profile_pic_id'] ;
+	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviders['profile_pic_id'].")'></div>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									</div>
 									<div class='name-info'>
 									  	<div class='project-info'>".$serviceProviders['name']."</div>
 									</div>
 									<div class='loct-info text'></div>
 									<div class='price'>
-									  <span class='value'>".$serviceProviders['price']." 
+									  <span class='value'>".$price." 
 									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders['negotiable'])."</span>
 									</div>
 								  </a>"; 
@@ -162,11 +169,15 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 					  <div class="flat-container">
 					  <?php
 	                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
-	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "per Hour";
+	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "/ Hour";
 	                    	else $perHour ="";
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon'>
+	                    	if($allRecommendedServices['price']=="") $price = 0;
+	                    	else $price = $allRecommendedServices['price'] ;
+	                    	if($allRecommendedServices['pic_id']== 0) $img = 1075;
+							else $img = $allRecommendedServices['pic_id'] ;
+	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
 	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id'].")'></div>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									  
 								  	</div>
 								  	<div class='name-info'>
@@ -176,7 +187,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 									<div class='loct-info text'></div>
 									<div class='price'>
 									  
-									  <span class='value'>".$allRecommendedServices['price']." 
+									  <span class='value'>".$price." 
 									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allRecommendedServices['negotiable'])."</span>
 									</div>
 								  </a>"; 
