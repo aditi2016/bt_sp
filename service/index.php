@@ -128,18 +128,20 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 					  <div class="flat-container">
 					  <?php
 	                    while ($serviceProviders = mysqli_fetch_array($allServiceProviders)) {
+	                    	if($serviceProviders['hourly']=='yes') $perHour = "per Hour";
+	                    	else $perHour ="";
+	                    	 
 	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviders['profile_pic_id'].")'></div>
-									  <div class='name-info'>
+									</div>
+									<div class='name-info'>
 									  	<div class='project-info'>".$serviceProviders['name']."</div>
-									  </div>
-								  	</div>
-	                                <div class='apt-info text'>".$serviceProviders['organization']."</div>
+									</div>
 									<div class='loct-info text'></div>
 									<div class='price'>
 									  <span class='value'>".$serviceProviders['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($serviceProviders['negotiable'])."</span>
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders['negotiable'])."</span>
 									</div>
 								  </a>"; 
 	                    }
@@ -156,6 +158,8 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 					  <div class="flat-container">
 					  <?php
 	                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
+	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "per Hour";
+	                    	else $perHour ="";
 	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id'].")'></div>
@@ -165,11 +169,11 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.
 									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
 									</div>
 	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
-									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
+									<div class='loct-info text'></div>
 									<div class='price'>
 									  
 									  <span class='value'>".$allRecommendedServices['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allRecommendedServices['negotiable'])."</span>
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allRecommendedServices['negotiable'])."</span>
 									</div>
 								  </a>"; 
 	                    }
