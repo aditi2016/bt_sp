@@ -6,26 +6,42 @@ $url = explode("-",$_GET['load']);
 $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
 $cityName = $url[2];
+$serviceUrl = explode("-",$_GET['s']);
+$serviceNameUrl = $serviceUrl[1];
+
+$service = mysqli_query($dbHandle, "SELECT a.price, a.negotiable,a.hourly,b.name, b.pic_id, b.description
+                                            FROM service_provider_service_mapping AS a JOIN services AS b
+                                            WHERE a.service_provider_id = '$serviceProviderId'
+                                            AND a.service_id = b.id and a.service_id = '$serviceNameUrl' ;");
+$serviceData = mysqli_fetch_array($service);
+if($serviceData['pic_id']== 0) $img = 1075;
+else $img = $serviceData['pic_id'] ;
+$icon = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
+$serviceName = $serviceData['name'];
+if($serviceData['hourly']=='yes') $servicePerHour = "/ Hour";
+else $servicePerHour ="";
+if($serviceData['price']=="") $servicePrice = 0;
+else $servicePrice = $serviceData['price'] ;
 $userId = 1;
 $objectId = 'bt-sp-'.$serviceProviderId;
 $serviceProvider = mysqli_query($dbHandle, "SELECT * FROM service_providers 
                                     WHERE id = '$serviceProviderId' ;");
 $serviceProviderData = mysqli_fetch_array($serviceProvider);
-$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceProviderData['profile_pic_id'];
+if($serviceProviderData['profile_pic_id']== 0) $pic = 1075;
+else $pic = $serviceProviderData['profile_pic_id'] ;
+$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$pic;
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
                                         service_provider_id = '$serviceProviderId' ;");
 
-$allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.name, b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a
-                                            JOIN services AS b
+$allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, a.hourly,b.name,b.pic_id, b.description
+                                            FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
                                             AND a.service_id = b.id AND b.status = 'active' ;");
 
-$recommendedServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, b.name, b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a
-                                            JOIN services AS b
-                                            WHERE a.service_id = b.id AND b.status = 'active' 
-                                            ORDER BY RAND() LIMIT 4;");
+$recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
+											b.description FROM service_provider_service_mapping AS a
+                                            JOIN services AS b WHERE a.service_id = b.id 
+                                            AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
 
 $commentsCountUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId."/count";
 $commentsCounts = json_decode(httpGet($commentsCountUrl), true)['counts'];
@@ -53,7 +69,9 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
 	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">
+	
 	<link rel="stylesheet" href="index_files/custom.css" type="text/css" media="screen">	
+	<link rel="stylesheet" href="index_files/bootstrap-datetimepicker.min.css" type="text/css">	
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
@@ -62,6 +80,43 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 </head>
 
 <body style="font-family:Gotham SSm A,Gotham SSm B,Halvetica,sans-serif;letter-spacing:normal" class="buy-service projects dedicated-page" data-device-type="">
+	<div id="bookNow" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Book Now</h4>
+	      </div>
+	      <div class="modal-body">
+	        <input id="bookName" type="text" placeholder="Type your Name">
+		  	<input id="bookMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
+		  	<input id="bookAddress" type="text" placeholder="Type your Address">
+		  	<textarea id="remarks" type="text" placeholder="Remark" ></textarea><br/><br/>
+		  	<input id="bookServiceProviderId" type="hidden" value="">
+		  	<input id="bookServiceId" type="hidden" value="">
+		  	<label>Starting Date & Time</label>
+		    <input id="startDate"  placeholder="Enter Starting Date and time"> <br/><br/>
+		    <label>Hour</label>
+            <select id= "totalHour">    
+                <option value='1' selected >1</option>
+                <?php
+                for ($i=2; $i<13 ; $i++) {
+                	echo "<option value=".$i." >".$i."</option>";                 	# code...
+                } 
+                ?>
+            </select><br/>
+            
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow();">Book</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div> 
 	<div id="dummy-react"><!-- react-empty: 1 --></div>
 	<div id="header">
 	  <header style=""  >
@@ -76,8 +131,9 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	    <div >
 	      <input type="text" id="search_box" style="vertical-align: middle;color: #000;min-width: 400px;
 	       		margin: 2px;" class="" >
-	      <button id="search" class="btn primary"onclick="search();"><i class="icon-search"></i></button> 
+	      <button id="search" class="btn btn-info"onclick="search();"><i class="icon-search"></i></button>
 	    </div>
+
 	  </header>
     </div>
 		
@@ -116,14 +172,16 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
             <?php
             $flag = true;
             while ( $photos = mysqli_fetch_array($photosArray)) {
+            	if($photos['photo_id']== 0) $img = 1075;
+				else $img = $photos['photo_id'] ;
                 if($flag){
                  echo "<div  style='text-align:center'  class='item active'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business webebsite template'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business webebsite template'>
                        </div>";
                 }
                 else {
                  echo "<div  style='text-align:center'  class='item'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$photos['photo_id']."' alt='business themes'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business themes'>
                        </div>";  
                 }
                 $flag = false;
@@ -134,7 +192,25 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </section>
+          <?php if(isset($_GET['s'])) { ?>
+		  <a class="flat-link " style="vertical-align: middle;margin-left: 220px;">
+		  	
+            <div class='flat-img'>
+              <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
+			</div>
 		  
+            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'"';?>);'>
+              <div class='price'>
+			    <span class='value'><b><?=$serviceName ;?></b><br/>
+			    <?=$servicePrice ;?><i class='icon icon-rupee'></i> <?=$servicePerHour ;?><br/>
+			    Nagotiable : <?php echo strtoupper($serviceData['negotiable']);?> <br/>
+            	Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?><br/>
+            	Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span><br/><br/>
+				<span class='btn btn-info'>Book Now</span>
+			  </div>
+			</a> 
+		  </a>
+		  <?php } ?>
 		  <div class="project-info-container">
 		    <div class="info-col"><i class="glyphicon glyphicon-star"></i>
 			  <div class="info-value">Awesome</div>
@@ -203,9 +279,16 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 					  <div class="flat-container">
 					  <?php
 	                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
-	                        echo "<a class='flat-link' data-toggle='modal'  data-target='#bookNow' style='text-decoration:none;'>
+	                    	
+	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "/ Hour";
+	                    	else $perHour ="";
+	                    	if($allServicesOfVendor['price']=="") $price = 0;
+	                    	else $price = $allServicesOfVendor['price'] ;
+	                    	if($allServicesOfVendor['pic_id']== 0) $pic = 1075;
+	                    	else $pic = $allServicesOfVendor['pic_id'] ;
+	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\");' style='text-decoration:none;'>
 	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allServicesOfVendor['pic_id'].")'></div>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 									  
 								  	</div>
 								  	<div class='name-info'>
@@ -214,8 +297,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	                                <div class='apt-info text'>".$allServicesOfVendor['description']."</div>
 									<div class='loct-info text'></div>
 									<div class='price'>
-									  <span class='value'>".$allServicesOfVendor['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
+									  <span class='value'>".$price." 
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
 									    <span class='btn btn-info'>Book Now</span>
 									  </span>
 									</div>
@@ -235,20 +318,17 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 					  <div class="flat-container">
 					  <?php
 	                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon'>
+	                    	
+	                    	if($allRecommendedServices['pic_id']== 0) $pic = 1075;
+	                    	else $pic = $allRecommendedServices['pic_id'] ;
+	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
 	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$allRecommendedServices['pic_id'].")'></div>
+	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 								  	</div>
 								  	<div class='name-info'>
 									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
 									</div>
 	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
-									<div class='loct-info text'>Natwar Nagar, Jogeshwari East</div>
-									<div class='price'>
-									  
-									  <span class='value'>".$allRecommendedServices['price']." 
-									    <i class='icon icon-rupee'></i> per Hour <br/>Nagotiable : ".strtoupper($allRecommendedServices['negotiable'])."</span>
-									</div>
 								  </a>"; 
 	                    }
 	                  ?>
@@ -307,7 +387,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 						</div>  
 							  
 						<div class="form-field sent-button-container">
-						  <button id="getInTouch" class="btn primary"onclick="getInTouch();">Get In Touch</button>
+						  <button id="getInTouch" class="btn btn-info"onclick="getInTouch();">Get In Touch</button>
 						</div>
 						<div class="hide on-error-container"></div>
 					  </div>
@@ -322,51 +402,12 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		  </div>
 		</div>
 	  </div>
-	  <div id="bookNow" class="modal hide fade modal-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style='position:absolute;'>
-		<div class="row-fluid">
-		  <div class="span8 offset2">
-		    <div class="tabbable custom-tabs tabs-animated  flat flat-all hide-label-980 shadow">
-		      <ul class="nav nav-tabs">
-		        <li class="active">
-		          <a href="#" data-toggle="tab" class="active ">
-		          	<i class="icon-lock"></i>&nbsp;<span>Add Project</span>
-		          </a>
-		        </li>
-		        <li>
-		          <a href="#" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></a>
-		        </li>
-		      </ul>
-		      <div class="tab-content ">
-		        <div class="tab-pane active">
-		          <div class="row-fluid">
-		            <h4><i class="icon-user"></i>&nbsp;&nbsp;Create New Project </h4>
-                    <label>Project Title</label>
-                    <input type="text" class="input-block-level" id="project_title" placeholder="Enter Project Title"/>
-                    <label>Upload File</label>
-                    <input type="file" id="_fileProject"/>
-                    <label>Details about Project</label>
-                    <textarea class='input-block-level autoExpand' data-min-rows='3' id="project_stmt" placeholder="Details about Project"></textarea><br />
-                    <label>Project Type</label> 
-                    <select id= "type" onchange='projectinfo()' >    
-                      <option value='0' selected >Default</option>
-                      <option value='2' >Classified</option>
-                      <option value='1' >Public</option>
-                      <option value='4' >Private</option>
-                    </select>
-                    <a href="#" class=" btn btn-primary" id = "create_project"> 
-                      Create Project <i class="icon-chevron-sign-right"></i>
-                    </a>
-                  </div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	  </div> 
+	  
 	<script src="index_files/jquery-1.10.2.js"></script>
 	  <!-- BOOTSTRAP SCRIPTS -->
 	<script src="index_files/bootstrap.min.js"></script>
-	<script src="index_files/bootstrap-modal.js"></script>
+	<script src="index_files/bootstrap-datetimepicker.min.js"></script>
+	
 	<script type="text/javascript">
 	  	function getInTouch() {
 	  		$("#getInTouch").attr('disabled','disabled');
@@ -499,8 +540,95 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			$("#search").removeAttr('disabled');
 			return false;
 		}
+		function book(serviceProviderId, serviceId) {
+			$("#bookServiceProviderId").val(serviceProviderId);
+			$("#bookServiceId").val(serviceId);
+			$("#bookNow").modal("show");
+		}
+		String.prototype.isValidDate = function() {
+		  var IsoDateRe = new RegExp("^([0-9]{4})-([0-9]{2})-([0-9]{2})$");
+		  var matches = IsoDateRe.exec(this);
+		  if (!matches) return false;
+		  else return true ;
+		}
+		function bookNow(){
+			$("#bookService").attr('disabled','disabled');
+			var bookName = replaceAll('\\s', '', $("#bookName").val());
+			var bookMobile = replaceAll('\\s', '', $("#bookMobile").val());
+			var bookAddress = replaceAll('\\s', '', $("#bookAddress").val());
+			var remarks = replaceAll('\\s', '', $("#remarks").val());
+			var serviceProviderId = $("#bookServiceProviderId").val();
+			var serviceId = $("#bookServiceId").val();
+			var startDate = replaceAll('\\s', '', $("#startDate").val());
+			var timeData = startDate.split(" |:");
+			var startTimeData = timeData[4];
+			var startTime = parseInt(startTimeData);
+			var totalHour = parseInt($("#totalHour").val());
+			if(parseInt(startTime+totalHour) > 20) var endtime = '20:00:00';
+			else var endtime = (startTime+totalHour)+':00:00';
+			var serviceType = $("#serviceType").val();
+			if(bookName.length < 3){
+		    	alert('Please Enter Valid Name');
+		    	$("#bookService").removeAttr('disabled');
+		    	return false;
+		    }
+			else if(!validatePhone(bookMobile)){	
+				alert("Please enter valid mobile number");
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}
+			else if(bookAddress.length < 10){ 
+				alert("Please enter valid Address");
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}
+			/*else if(!(startDate.isValidDate())){
+				alert('Enter valid date');
+				$("#bookService").removeAttr('disabled');
+				return false;
+			}*/
+			else {
+				var startDatetime = startDate+":00";
+				var startHour = startTime+":00:00";
+				$.ajax({
+		            url: 'https://blueteam.in/api/service_request',
+		            type: 'post',
+		            dataType: 'json',
+		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","location":"",'+
+				            	'"requirements":"'+serviceId+'","user_id": "1","user_type":"customer",'+
+		                        '"start_datatime": "'+startDatetime+'","service_type": "direct-service",'+
+		                        '"remarks": "'+remarks+' by bt_sp web page","start_time":"'+startHour+'",'+
+		                        '"end_time":"'+endtime+'","address":"'+bookAddress+'","priority": "3",'+
+		                        '"service_provider_id":"'+serviceProviderId+'"}}',
+		            success: function (feedback) {
+		                
+						alert("Your request has been send.\n We will connect with you soon.");
+						console.log(feedback);
+						$("#bookName").val("");
+						$("#bookMobile").val("");
+						$("#bookAddress").val("");
+						$("#remarks").val("");
+
+		            }		            
+		        });
+		    }
+		    $("#bookService").removeAttr('disabled');
+		    $("#bookNow").modal("hide");
+		}
 	</script>
 	
+	<script>
+	  $( function() {
+	    $("#startDate").datetimepicker({ format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true});
+	  } );
+	  $( function() {
+	    $("#startTime").datetimepicker({ format: "hh:ii",
+        autoclose: true,
+        todayBtn: true});
+	  } );
+	</script>
 	<script src="index_files/business_ltd_1.0.js"></script>
 </body>
 </html>

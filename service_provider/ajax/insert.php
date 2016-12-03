@@ -28,4 +28,5 @@ if (isset($_POST['name'])) {
 }
 
 mysqli_close($dbHandle);
+mysqli_close($dbHandleBluenet);
 ?>
