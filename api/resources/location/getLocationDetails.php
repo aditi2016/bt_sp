@@ -82,15 +82,19 @@ function getGPSLocationDetails($loc){
                             $return['area'] = array('name' => $acValue->long_name);
                         $flag = true;
 
+                    } elseif (!isset($return['area']) &&  !is_bool(array_search('locality', $acValue->types) )) {
+                        $return['area'] = array('name' => $acValue->long_name);
+                        $flag = true;
+
                     } elseif ($area_accuracy <= 1 && !is_bool(array_search('sublocality_level_2', $acValue->types)) ) {
                         if($flag)
-                            $return['area']['name'] = $acValue->long_name . "-" . $return['area']['name'] ;
+                            $return['area']['name'] = $acValue->long_name . ", " . $return['area']['name'] ;
                         else
                             $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 2;
                     } elseif ($area_accuracy <= 2 && !is_bool(array_search('sublocality_level_3', $acValue->types) )) {
                         if($flag)
-                            $return['area']['name'] = $acValue->long_name . "-" . $return['area']['name'] ;
+                            $return['area']['name'] = $acValue->long_name . ", " . $return['area']['name'] ;
                         else
                             $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 3;
