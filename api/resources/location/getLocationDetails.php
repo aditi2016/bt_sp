@@ -59,7 +59,8 @@ function getGPSLocationDetails($loc){
     $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$loc&sensor=true";
     $details = json_decode(httpGet($url));
     $return = array();
-    $area_accuracy = 0;
+    $area_accuracy = 1;
+    $flag = false;
 
     foreach ($details->results as $value){
 
@@ -74,17 +75,24 @@ function getGPSLocationDetails($loc){
 
                     } elseif (!isset($return['city']) && !is_bool(array_search('administrative_area_level_2', $acValue->types)) ) {
                         $return['city'] = array('name' => $acValue->long_name);
-                    } elseif ($area_accuracy <= 0 && !is_bool(array_search('sublocality_level_1', $acValue->types) )) {
-                        $return['area'] = array('name' => $acValue->long_name);
-                        $area_accuracy = 1;
-                    } elseif ($area_accuracy <= 1 && !is_bool(array_search('sublocality_level_2', $acValue->types)) ) {
+                    } elseif (!$flag &&  !is_bool(array_search('sublocality_level_1', $acValue->types) )) {
                         if(isset($return['area']['name']))
-                            $return['area']['name'] = $return['area']['name'] . " " . $acValue->long_name;
+                            $return['area']['name'] = $acValue->long_name . "-" . $return['area']['name'] ;
+                        else
+                            $return['area'] = array('name' => $acValue->long_name);
+                        $flag = true;
+
+                    } elseif ($area_accuracy <= 1 && !is_bool(array_search('sublocality_level_2', $acValue->types)) ) {
+                        if($flag)
+                            $return['area']['name'] = $return['area']['name'] . "-" . $acValue->long_name;
                         else
                             $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 2;
                     } elseif ($area_accuracy <= 2 && !is_bool(array_search('sublocality_level_3', $acValue->types) )) {
-                        $return['area'] = array('name' => $acValue->long_name);
+                        if($flag)
+                            $return['area']['name'] = $return['area']['name'] . "-" . $acValue->long_name;
+                        else
+                            $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 3;
                     } elseif (!isset($return['postalCode']) != "" && !is_bool(array_search('postal_code', $acValue->types) )) {
                         $return['postal_code'] = array('name' => $acValue->long_name);
