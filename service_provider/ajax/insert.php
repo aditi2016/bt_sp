@@ -6,9 +6,9 @@ if (isset($_POST['name'])) {
     $name = mysqli_real_escape_string($dbHandle,$_POST['name']);
 	$mobile = mysqli_real_escape_string($dbHandle,$_POST['mobile']);
 	$date = date("Y-m-d H:i:s");  
-    mysqli_query($dbHandleBluenet, "INSERT INTO bluenet_v3.user(name, mobile, password, creation) 
+    mysqli_query($dbHandle, "INSERT INTO bluenet_v3.user(name, mobile, password, creation) 
                                 VALUES ('$name', '$mobile', '$mobile', '$date');");
-    $id = mysqli_insert_id($dbHandleBluenet);
+    $id = mysqli_insert_id($dbHandle);
     $data = httpGet($url);
 	$username = "rajnish90";
     $password = "redhat123";

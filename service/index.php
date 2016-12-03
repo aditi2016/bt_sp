@@ -66,7 +66,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	    <div >
 	      <input type="text" id="search_box" style="vertical-align: middle;color: #000;min-width: 400px;
 	       		margin: 2px;" class="" >
-	      <button id="search" class="btn primary"onclick="search();"><i class="icon-search"></i></button> 
+	      <button id="search" class="btn btn-info"onclick="search();"><i class="icon-search"></i></button> 
 	    </div>
 	  </header>
     </div>
@@ -169,10 +169,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 					  <div class="flat-container">
 					  <?php
 	                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
-	                    	if($allRecommendedServices['hourly']=='yes') $perHour = "/ Hour";
-	                    	else $perHour ="";
-	                    	if($allRecommendedServices['price']=="") $price = 0;
-	                    	else $price = $allRecommendedServices['price'] ;
+	                    
 	                    	if($allRecommendedServices['pic_id']== 0) $img = 1075;
 							else $img = $allRecommendedServices['pic_id'] ;
 	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
@@ -184,12 +181,6 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
 									</div>
 	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
-									<div class='loct-info text'></div>
-									<div class='price'>
-									  
-									  <span class='value'>".$price." 
-									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allRecommendedServices['negotiable'])."</span>
-									</div>
 								  </a>"; 
 	                    }
 	                  ?>
@@ -248,7 +239,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 						</div>  
 							  
 						<div class="form-field sent-button-container">
-						  <button id="getInTouch" class="btn primary"onclick="getInTouch();">Get In Touch</button>
+						  <button id="getInTouch" class="btn btn-info"onclick="getInTouch();">Get In Touch</button>
 						</div>
 						<div class="hide on-error-container"></div>
 					  </div>
