@@ -16,7 +16,7 @@ function getAllServiceProviders($id,$location){
 SELECT  *
 FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
     */
-$p = explode(" ",$location);
+$p = explode(",",$location);
     $sql = "
             SET @p = POINTFROMTEXT('POINT(".$p[0]." ".$p[1].")');
 
