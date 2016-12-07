@@ -18,7 +18,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
     */
 $p = explode(",",$location);
     $sql = "
-            SET @p = POINTFROMTEXT('POINT(".$p[0]." ".$p[1].")');
+
 
             SELECT
               a.name, a.organization, a.description, a.experience, a.id, a.profile_pic_id, a.`reliability_score`,
@@ -28,7 +28,7 @@ $p = explode(",",$location);
                 INNER JOIN service_provider_service_mapping AS b
                 INNER JOIN services as c
                 WHERE c.id = b.service_id AND a.id = b.service_provider_id AND b.service_id = :id AND
-                      CalculateDistanceKm(X(@p), Y(@p), X(a.gps_location), Y(a.gps_location)) < c.range;";
+                      CalculateDistanceKm(".$p[0].", ".$p[1].", X(a.gps_location), Y(a.gps_location)) < c.range;";
     var_dump($sql);
     
     $photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
