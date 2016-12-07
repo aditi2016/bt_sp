@@ -28,7 +28,7 @@ while ( $sp = mysqli_fetch_array($serviceProvider)) {
     $coords = getCoordinates($sp['address']);
     //POINT(49.227239 17.564932)
     $sql = "UPDATE `service_providers`
-                              SET `gps_location`='POINT(".$coords[0].",".$coords[01].")' WHERE id=".$sp['id'];
+                              SET `gps_location`= GeomFromText('POINT(".$coords[0].",".$coords[01].")') WHERE id=".$sp['id'];
     echo $sql;
     mysqli_query($dbHandle, $sql);
     print_r($coords);
