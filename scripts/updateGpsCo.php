@@ -21,7 +21,7 @@ function getCoordinates($address){
 }
 
 
-$serviceProvider = mysqli_query($dbHandle, "SELECT `address` FROM `service_providers` WHERE 1");
+$serviceProvider = mysqli_query($dbHandle, "SELECT id,`address` FROM `service_providers` WHERE 1");
 
 while ( $sp = mysqli_fetch_array($serviceProvider)) {
 
