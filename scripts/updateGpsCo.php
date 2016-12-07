@@ -6,7 +6,7 @@
  * Time: 8:56 PM
  */
 
-$dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
+$dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
 function getCoordinates($address){
     $address = urlencode($address);
@@ -22,6 +22,7 @@ function getCoordinates($address){
 
 
 $serviceProvider = mysqli_query($dbHandle, "SELECT `address` FROM `service_providers` WHERE 1");
+
 while ( $sp = mysqli_fetch_array($serviceProvider)) {
 
     $coords = getCoordinates($sp['address']);
