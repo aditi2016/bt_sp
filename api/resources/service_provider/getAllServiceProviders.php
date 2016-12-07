@@ -29,7 +29,7 @@ $p = explode(",",$location);
                 INNER JOIN services as c
                 WHERE c.id = b.service_id AND a.id = b.service_provider_id AND b.service_id = :id AND
                       CalculateDistanceKm(".$p[0].", ".$p[1].", X(a.gps_location), Y(a.gps_location)) < c.range;";
-    var_dump($sql);
+    //var_dump($sql);
     
     $photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
 
