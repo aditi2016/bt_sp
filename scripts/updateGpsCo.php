@@ -6,6 +6,14 @@
  * Time: 8:56 PM
  */
 
+/*
+ * SET @p = POINTFROMTEXT('POINT(51.227239 17.564931)');
+
+SELECT CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) AS distance
+FROM service_providers;
+ *
+ *
+ * */
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
 function getCoordinates($address){

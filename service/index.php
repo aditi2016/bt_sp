@@ -19,6 +19,13 @@ if($serviceData['service_img']== 0) $img = 1075;
 else $img = $serviceData['service_img'] ;
 $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
 $serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
+/*
+ * SET @p = POINTFROMTEXT('POINT(28.4594965 77.0266383)');
+
+SELECT  *
+FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
+ *
+ * */
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
                                         service_provider_service_mapping WHERE service_id = '$serviceId') ;");
