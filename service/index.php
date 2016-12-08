@@ -30,7 +30,7 @@ $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
                                         service_provider_service_mapping WHERE service_id = '$serviceId') ;");
 
-$url = "http://api.sp.blueteam.in/service/".$service->service_id."?location=".$service->lat_gps_location.",".$service->lng_gps_location;
+$url = "http://api.sp.blueteam.in/service/".$service->service_id."?location=".$_GET['l'];
 $allServiceProviders = json_decode(httpGet($url))->service_providers;
 /*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
