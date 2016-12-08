@@ -21,7 +21,7 @@ AND c.city_id = d.id
 function servicesNeedLookUp(){
 
     $sql = "SELECT
-              a.id, a.service_id, b.name AS service_name, a.area_id, c.name AS area_name, c.city_id,
+              a.id, a.service_id, b.name AS service_name, a.area_id, c.name AS area_name, c.gps_location, c.city_id,
               d.name AS city_name, a.result_count, a.count
               FROM `service_looks` AS a
                 INNER JOIN services AS b
@@ -37,6 +37,16 @@ function servicesNeedLookUp(){
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $services = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        foreach($services as $service){
+            $url = "http://api.sp.blueteam.in/service/".$service->service_id."?location=".$service->gps_location;
+            json_decode(httpGet($url));
+        }
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $services = $stmt->fetchAll(PDO::FETCH_OBJ);
+
         $db = null;
         echo '{"services": ' . json_encode($services) . '}';
     } catch (PDOException $e) {
