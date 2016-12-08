@@ -142,7 +142,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 				
 				<div class="hide-embed" id="similar-card">
 				  <div class="bordered-card card-cont mw similar-flat-card">
-					<h2 class="header-cont">Service Providers of this Service</h2>
+					<h2 class="header-cont">Service Providers</h2>
 					<div class="body-cont">
 					  <div class="flat-container">
 					  <?php
@@ -167,6 +167,20 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 									</div>
 								  </a>"; 
 	                    }
+					  	if(count($allServiceProviders) <= 0){
+							echo "Sorry No Service Provider in this Area<br/>
+									We have taken your request for this area.<br/>
+									We are committed to add 3 service providers in this area in next 48 hrs.<br/>
+									Process of adding service provider<br/>
+									1. Enqueuing 10 service providers in the area<br/>
+									2. Interviewing every service provider<br/>
+									3. Shot listing <br/>
+									4. Document Verification<br/>
+									5. Profile Creation<br/>
+									Give us chance to reach you, after process compilation<br/>
+									Name: ; Mobile ; <br/>
+									Thank You";
+						}
 	                  ?>
 					   
 					  </div>
