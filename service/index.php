@@ -30,10 +30,13 @@ $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
                                         service_provider_service_mapping WHERE service_id = '$serviceId') ;");
 
+$url = "http://api.sp.blueteam.in/service/".$service->service_id."?location=".$service->lat_gps_location.",".$service->lng_gps_location;
+$allServiceProviders = json_decode(httpGet($url))->service_providers;
+/*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
 											b.price, b.negotiable, b.hourly FROM service_providers AS a
 											JOIN service_provider_service_mapping AS b WHERE 
-											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");
+											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");*/
 
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
@@ -142,24 +145,24 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 					<div class="body-cont">
 					  <div class="flat-container">
 					  <?php
-	                    while ($serviceProviders = mysqli_fetch_array($allServiceProviders)) {
-	                    	if($serviceProviders['hourly']=='yes') $perHour = "/ Hour";
+	                    foreach ($allServiceProviders as $serviceProvider ) {
+	                    	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
 	                    	else $perHour ="";
-	                    	if($serviceProviders['price']=="") $price = 0;
-	                    	else $price = $serviceProviders['price'] ;
-	                    	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
-							else $img = $serviceProviders['profile_pic_id'] ;
-	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."' style='text-decoration:none;'>
+	                    	if($serviceProvider->price =="") $price = 0;
+	                    	else $price = $serviceProvider->price ;
+	                    	if($serviceProvider->profile_pic_id == 0) $img = 1075;
+							else $img = $serviceProvider->profile_pic_id ;
+	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									</div>
 									<div class='name-info'>
-									  	<div class='project-info'>".$serviceProviders['name']."</div>
+									  	<div class='project-info'>".$serviceProvider->name."</div>
 									</div>
 									<div class='loct-info text'></div>
 									<div class='price'>
 									  <span class='value'>".$price." 
-									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders['negotiable'])."</span>
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders->negotiable)."</span>
 									</div>
 								  </a>"; 
 	                    }
