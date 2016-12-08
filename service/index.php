@@ -32,7 +32,7 @@ $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
 
 $url = "http://api.sp.blueteam.in/service/".$service->service_id."?location=".$_GET['l'];
 $allServiceProviders = json_decode(httpGet($url));
-var_dump($allServiceProviders);die();
+var_dump($url);die();
 /*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
 											b.price, b.negotiable, b.hourly FROM service_providers AS a
