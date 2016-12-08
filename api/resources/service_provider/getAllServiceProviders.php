@@ -43,7 +43,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
 
     $sqlUpdateAccess = "UPDATE `blueteam_service_providers`.`services` SET `accesses` = accesses + 1 WHERE `id` =:id";
 
-    $point = $coords[0]." ".$coords[1];
+    $point = $p[0]." ".$p[1];
     //GeomFromText( 'POINT(:location)' )
     $sqlServiceLooks = "INSERT INTO
                           `blueteam_service_providers`.`service_looks`
