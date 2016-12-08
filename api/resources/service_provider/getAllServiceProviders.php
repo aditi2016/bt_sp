@@ -25,10 +25,7 @@ SELECT  *
 FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
     */
     $p = explode(",",$location);
-    $sql = "
-
-
-            SELECT
+    $sql = "SELECT
               a.name, a.organization, a.description, a.experience, a.id, a.profile_pic_id, a.`reliability_score`,
               a.`reliability_count`, b.price,
               b.negotiable, b.hourly, b.status
@@ -37,7 +34,6 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
                 INNER JOIN services as c
                 WHERE c.id = b.service_id AND a.id = b.service_provider_id AND b.service_id = :id AND
                       CalculateDistanceKm(".$p[0].", ".$p[1].", X(a.gps_location), Y(a.gps_location)) < (c.range+c.range*0.1*:look);";
-    //var_dump($sql);
 
     $photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
 
@@ -50,11 +46,12 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
                             (`id`, `service_id`, `area_id`, `result_count`, `last_updated`)
                           VALUES
                             (NULL, :service_id, :area_id, :count, CURRENT_TIMESTAMP)
-                          ON DUPLICATE KEY UPDATE `result_count` = :count1, id=LAST_INSERT_ID(id);";
+                          ON DUPLICATE KEY UPDATE `result_count` = :count1, count= count+1, id=LAST_INSERT_ID(id);";
 
 // I need to track which area people are looking for which service and i have how much results for it
 // service_looks ( service_id, area_id, result_count)
     //who was looking for it ( service_look_id, customer_name, customer_mobile)
+
     try {
         $db = getDB();
 
@@ -87,6 +84,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
                 $stmt->bindParam("count1", $count);
 
                 $stmt->execute();
+                $lookupId = $db->lastInsertId();
             }
 
             if($count >= 1) break;
