@@ -41,7 +41,7 @@ function getLocationDetails($id){
 
         $stmt = $db->prepare($sqlArea);
         $stmt->bindParam("name", $locDetails['area']['name']);
-        $stmt->bindParam("city_id", $locDetails['state']['id']);
+        $stmt->bindParam("city_id", $locDetails['city']['id']);
         $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
         $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
         /*$stmt->bindParam("location", $point);

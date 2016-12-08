@@ -1,0 +1,69 @@
+﻿<div class="container">
+<div class="center" style="text-align: center;">
+
+
+<img class="raleway-logo" src="http://shatkonlabs.com/images/logo.png" height="70px">
+<img class="raleway-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/13/Clyde_The_Bulldog.jpg"
+     height="100px">
+<!--<h3>Shatkon Labs Pvt. Ltd.</h3>
+
+<h2>Bulldog</h2>-->
+
+
+</div>
+
+<div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <button class="btn btn-lg btn-success btn-block" ng-click="vm.managerDemo()">Manager Demo</button>
+                <button class="btn btn-lg btn-success btn-block" ng-click="vm.employeeDemo()">Employee/Individual Demo</button>
+                <br/>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" ng-submit="vm.login()" role="form">
+                            <fieldset>
+                                <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                                    <input class="form-control" placeholder="Company" type="text" name="company" id="company" ng-model="vm.user.company" required autofocus>
+                                    <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Company Name is required</span>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                                    <input class="form-control" placeholder="E-mail" type="text" name="email" id="email" ng-model="vm.user.email" required >
+                                    <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Email is required</span>
+                                </div>
+                                <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                                    <input type="password" name="password" placeholder="Password" id="password" class="form-control" ng-model="vm.user.password" required />
+                                    <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-lg btn-success btn-block">Login</button>
+                                    <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h4>
+            <i>
+                if you have any problem contact at ncy-help@shatkonlabs.com or Call at 9599075955
+            </i>
+        </h4>
+    </div>
+    </div>
+
+
+
+</div>

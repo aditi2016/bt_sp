@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta property="og:title" content="BlueTeam" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.blueteam.in" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<style>
+			body{
+				height:100%;
+				background-color:#74C19D;
+				text-align:center; 
+				vertical-align:middle;
+			}
+			.button.nav.enabled {
+				cursor: pointer;
+			}
+			.button.nav {
+				background-color: #f3bca1;
+				border-color: #9e4214 #9e4214 #672b0d;
+				border-radius: 3px;
+				border-style: solid;
+				border-width: 1px;
+				color: #843711;
+				cursor: default;
+				display: inline-block;
+				font-family: "Lobster Two","Helvetica Neue",sans serif;
+				font-size: 19px;
+				font-weight: 700;
+				height: 35px;
+				line-height: 30px;
+				max-width: 610px;
+				overflow: hidden;
+				padding: 5px 12px 0;
+				text-align: center;
+				transition: background-color 100ms ease-out 0ms;
+				width: auto;
+			}
+			.wrapper {
+				height:100%;
+				background-color:#74C19D;
+				text-align:center; 
+				vertical-align:middle;
+				margin-top:100px;	
+			}
+			.text {
+				color: #fff;
+				font-family: "Lobster Two","Helvetica Neue",sans serif;
+				font-size: 24px;
+				line-height: 36px;
+			}
+			.select {
+				width:auto;
+				text-align:center; 
+				vertical-align:middle;
+			}
+			.image {
+				width:120px;
+			}
+		</style>
+	</head>
+	<body >
+		<div id="form" class="intro screen" data-field="true">
+			<div class="content-wrapper">
+				<div class="content">
+					<div class="media">
+						<div class="attachment" style="margin-top:100px;	">
+							<img src="images/logo.png" data-original="" />
+						</div>
+					</div>
+					<div class="text">
+						<br/>We would like to hear from you about domestic helper.
+					</div>
+					<div class="description">
+						<br/>We highly appreciate your time for giving your views.
+					</div><br/>
+					<div class="button-wrapper">
+						<div class="button nav" onclick="loadform(1);">start</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="script/jquery-1.10.2.min.js"></script>
+	<script src="script/jquery-migrate-1.2.1.min.js"></script>
+		<script src="script/jquery-ui.js"></script>
+	<script type="text/javascript" src="script/bootstrap.min.js"></script>
+	<script type="text/javascript" src="script/bootstrap-hover-dropdown.js"></script>
+	<script type="text/javascript" src="script/bootbox.js"></script>
+	<script>
+		function loadform(x){
+			$.get('./components/'+x+'.php', function(data) {
+				if (x == 2 || x == 9 || x == 10){
+					var name = $('#name').val();
+				}
+				$('#form').html('');
+				$('#form').append(data);
+				$("#answer").show().html(name); 
+			});
+		}
+	</script>
+</html>
