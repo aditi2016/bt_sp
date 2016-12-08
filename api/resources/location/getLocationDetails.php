@@ -17,7 +17,7 @@ function getLocationDetails($id){
     $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(:location)' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(:location1)' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
+    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(".$point.")' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(".$point.")' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
@@ -44,8 +44,8 @@ function getLocationDetails($id){
         $stmt->bindParam("city_id", $locDetails['state']['id']);
         $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
         $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
-        $stmt->bindParam("location", $point);
-        $stmt->bindParam("location1", $point);
+        /*$stmt->bindParam("location", $point);
+        $stmt->bindParam("location1", $point);*/
         $stmt->execute();
         $locDetails['area']['id'] = $db->lastInsertId();
 
