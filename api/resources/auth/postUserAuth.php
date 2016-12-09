@@ -14,7 +14,7 @@ function userAuth(){
     $user = json_decode($request->getBody());
 
 
-    $sql = "SELECT * FROM service_providers WHERE mobile_no =:mobile and password=:password ";
+    $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `password`, X(`gps_location`) as lat, Y(`gps_location`) as lng, `experience`, `sms_credit`, `email_credit`, `campaign_credit_status`, `reliability_score`, `reliability_count`, `email`, `area_id`, `city_id`, `id`, `profile_pic_id` FROM service_providers WHERE mobile_no =:mobile and password=:password ";
     $sqlServices = "SELECT a.service_id, a.price, a.negotiable, a.hourly,
                           b.name, b.pic_id
                       FROM service_provider_service_mapping as a
@@ -43,7 +43,6 @@ function userAuth(){
 
         $users[0]->services = $services;
         $db = null;
-        var_dump($users[0]);
 
         if(count($users) == 1)
             echo '{"user": ' . json_encode($users[0]) . '}';
