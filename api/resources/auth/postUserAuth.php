@@ -32,6 +32,7 @@ function userAuth(){
         $stmt->execute();
         $users = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+        var_dump($users);
         $stmt2 = $db->prepare($sqlServices);
 
         $stmt2->bindParam("service_provider_id", $users[0]->id);
