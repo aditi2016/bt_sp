@@ -40,9 +40,10 @@ function userAuth(){
         $stmt2->execute();
         $services = $stmt2->fetchAll(PDO::FETCH_OBJ);
 
-        var_dump($services);
+
         $users[0]->services = $services;
         $db = null;
+        var_dump($users[0]);
 
         if(count($users) == 1)
             echo '{"user": ' . json_encode($users[0]) . '}';
