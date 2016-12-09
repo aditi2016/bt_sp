@@ -23,7 +23,7 @@ function insertServices($id){
                   VALUES
                       (:id,:service_id,:price,:negotiable,:hourly,'verified')
                   ON DUPLICATE KEY UPDATE
-                      price = :price1, negotialble = :negotialbe1, hourly = :hourly1, id=LAST_INSERT_ID(id);";
+                      price = :price1, negotialble = :negotiable1, hourly = :hourly1, id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
