@@ -21,7 +21,9 @@ function insertServices($id){
     $sql = "INSERT INTO `service_provider_service_mapping`
                   ( `service_provider_id`, `service_id`, `price`, `negotiable`, `hourly`, `status`)
                   VALUES
-                      (:id,:service_id,:price,:negotiable,:hourly,'verified');";
+                      (:id,:service_id,:price,:negotiable,:hourly,'verified')
+                  ON DUPLICATE KEY UPDATE
+                      price = :price1, negotialble = :negotialbe1, hourly = :hourly1, id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
@@ -36,8 +38,11 @@ function insertServices($id){
             $stmt->bindParam("id", $id);
             $stmt->bindParam("service_id", $value->id);
             $stmt->bindParam("price", $value->price);
+            $stmt->bindParam("price1", $value->price);
             $stmt->bindParam("negotiable", $value->negotiable);
+            $stmt->bindParam("negotiable1", $value->negotiable);
             $stmt->bindParam("hourly", $value->hourly);
+            $stmt->bindParam("hourly1", $value->hourly);
 
             $stmt->execute();
 
