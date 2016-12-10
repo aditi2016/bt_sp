@@ -7,7 +7,7 @@ $serviceName = $url[0];
 $serviceId = $url[1];
 $cityName = $url[2];
 $userId = 1;
-
+$location = $_GET('l');
 $service = mysqli_query($dbHandle, "SELECT * FROM services 
                                     WHERE id = '$serviceId' ;");
 $serviceData = mysqli_fetch_array($service);
@@ -59,7 +59,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	    </div>
 	    <div class="header-group header-main" >
 	      <div class="header-item header-logo" d>
-	        <a class="housing-logo" title="blueteam" href="http://blueteam.in/app/" ></a>
+	        <a class="housing-logo" title="blueteam" href="http://blueteam.in" ></a>
 	      </div>
 	    </div>
 	    
@@ -142,7 +142,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	                    	else $price = $serviceProviders['price'] ;
 	                    	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
 							else $img = $serviceProviders['profile_pic_id'] ;
-	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProviders['name']."-".$serviceProviders['id']."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									</div>
@@ -172,7 +172,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	                    
 	                    	if($allRecommendedServices['pic_id']== 0) $img = 1075;
 							else $img = $allRecommendedServices['pic_id'] ;
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									  

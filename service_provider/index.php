@@ -8,7 +8,7 @@ $serviceProviderId = $url[1];
 $cityName = $url[2];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
-
+$location = $_GET('l');
 $service = mysqli_query($dbHandle, "SELECT a.price, a.negotiable,a.hourly,b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
@@ -96,6 +96,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		  	<textarea id="remarks" type="text" placeholder="Remark" ></textarea><br/><br/>
 		  	<input id="bookServiceProviderId" type="hidden" value="">
 		  	<input id="bookServiceId" type="hidden" value="">
+		  	<input id="userLocation" type="hidden" value="">
 		  	<label>Starting Date & Time</label>
 		    <input id="startDate"  placeholder="Enter Starting Date and time"> <br/><br/>
 		    <label>Hour</label>
@@ -286,7 +287,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	                    	else $price = $allServicesOfVendor['price'] ;
 	                    	if($allServicesOfVendor['pic_id']== 0) $pic = 1075;
 	                    	else $pic = $allServicesOfVendor['pic_id'] ;
-	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\");' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\",\"".$location."\");' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 									  
@@ -321,7 +322,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	                    	
 	                    	if($allRecommendedServices['pic_id']== 0) $pic = 1075;
 	                    	else $pic = $allRecommendedServices['pic_id'] ;
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 								  	</div>
@@ -540,9 +541,10 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			$("#search").removeAttr('disabled');
 			return false;
 		}
-		function book(serviceProviderId, serviceId) {
+		function book(serviceProviderId, serviceId,location) {
 			$("#bookServiceProviderId").val(serviceProviderId);
 			$("#bookServiceId").val(serviceId);
+			$("#userLocation").val(location);
 			$("#bookNow").modal("show");
 		}
 		String.prototype.isValidDate = function() {
@@ -559,6 +561,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			var remarks = replaceAll('\\s', '', $("#remarks").val());
 			var serviceProviderId = $("#bookServiceProviderId").val();
 			var serviceId = $("#bookServiceId").val();
+			var location = $("#userLocation").val();
 			var startDate = replaceAll('\\s', '', $("#startDate").val());
 			var timeData = startDate.split(" |:");
 			var startTimeData = timeData[4];
@@ -598,8 +601,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 				            	'"requirements":"'+serviceId+'","user_id": "1","user_type":"customer",'+
 		                        '"start_datatime": "'+startDatetime+'","service_type": "direct-service",'+
 		                        '"remarks": "'+remarks+' by bt_sp web page","start_time":"'+startHour+'",'+
-		                        '"end_time":"'+endtime+'","address":"'+bookAddress+'","priority": "3",'+
-		                        '"service_provider_id":"'+serviceProviderId+'"}}',
+		                        '"end_time":"'+endtime+'","location":"'+location+'","address":"'+
+		                        bookAddress+'","priority": "3",'+'"service_provider_id":"'+serviceProviderId+'"}}',
 		            success: function (feedback) {
 		                
 						alert("Your request has been send.\n We will connect with you soon.");
