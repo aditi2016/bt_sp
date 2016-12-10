@@ -219,8 +219,8 @@ $id = $route[1];
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
 
 $fbRequest = mysqli_query($dbHandle, "SELECT a.service_provider_id, a.creation, a.customer_email, a.customer_name, a.customer_mobile, a.amount,
-c.name as service_name, a.service_tax, b.name as service_provider_name, b.address, b.mobile as partner_name
-                        FROM `invoice` as a INNER service_providers as b INNER JOIN  services as c
+c.name as service_name, a.service_tax, b.name as service_provider_name, b.address, b.mobile_no as partner_mobile
+                        FROM `invoice` as a INNER JOIN service_providers as b INNER JOIN  services as c
                         WHERE a.id = '$id'  and a.service_provider_id = b.id and a.service_id = c.id;");
 $count = mysqli_num_rows($fbRequest);
 if($count == 0) {
@@ -254,7 +254,7 @@ if(isset($_POST['reliability'])){
     $message = getInvoiceHtml($fbRequestData['service_name'], $servicePrice, $fbRequestData['amount'], $serviceTax,
         $fbRequestData['service_provider_name'],
         $fbRequestData['service_provider_id'],
-        $fbRequestData['address'], $fbRequestData['partner_name'],$customerName, $email, $fbRequestData['customer_mobile'],
+        $fbRequestData['address'], $fbRequestData['partner_mobile'],$customerName, $email, $fbRequestData['customer_mobile'],
         $logoImg, $invoice->id, $fbRequestData['creation']);
     sendMail($email, "Invoice for ".$fbRequestData['service_name']." of Rs "
         .$fbRequestData['amount'].", by ".$fbRequestData['service_provider_name'].". Power by blueteam.in", $message);
