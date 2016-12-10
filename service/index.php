@@ -91,7 +91,8 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
-		  
+		  <div class="row">
+	      <div class="col-lg-9 col-md-9 col-sm-12">
 		  <div class="image-info mw">
 			<div class="image-info-inner">
 			  
@@ -129,7 +130,56 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </section>
-		  
+		  </div>
+		  <div class="col-lg-3 col-md-3 col-sm-12">
+        	<div class="hide-embed" id="similar-card">
+			  <div class="bordered-card card-cont ">
+				<h2 class="header-cont" style="white-space: nowrap;"><?= count($allServiceProviders) ?> Service Providers Found</h2>
+				<div class="body-cont">
+				  <div class="flat-container">
+			  <?php
+                foreach ($allServiceProviders as $serviceProvider ) {
+                	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
+                	else $perHour ="";
+                	if($serviceProviders['price']=="") $price = 0;
+                	else $price = $serviceProviders['price'] ;
+                	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
+					else $img = $serviceProviders['profile_pic_id'] ;
+                    echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
+                            <div class='flat-img'>
+                              <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
+							</div>
+							<div class='name-info'>
+							  	<div class='project-info'>".$serviceProvider->name."</div>
+							</div>
+							<div class='loct-info text'></div>
+							<div class='price'>
+							  <span class='value'>".$price." 
+							    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders->negotiable)."</span>
+							</div>
+						  </a>"; 
+                }
+			  	if(count($allServiceProviders) <= 0){
+					echo "Sorry! No Service Provider in this Area<br/>
+							We have taken your request for this area.<br/>
+							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
+							Process of adding service provider<br/>
+							1. Enqueuing 10 service providers in the area<br/>
+							2. Interviewing every service provider<br/>
+							3. Shot listing <br/>
+							4. Document Verification<br/>
+							5. Profile Creation<br/>
+							Give us chance to reach you, after process compilation<br/>
+							Name: ; Mobile ; <br/>
+							Thank You";
+				}
+              ?>
+              	</div>
+              	</div>
+			   </div>
+			</div>
+		  </div>
+     	</div>
 		  
 		</div>
 		
@@ -139,12 +189,12 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 			  <div class="main-layout">
 				<div class="bordered-card card-cont hide" id="discussions-card"></div>
 				
-				<div class="hide-embed" id="similar-card">
+				<!-- <div class="hide-embed" id="similar-card">
 				  <div class="bordered-card card-cont mw similar-flat-card">
 					<h2 class="header-cont"><?= count($allServiceProviders) ?> Service Providers Found</h2>
 					<div class="body-cont">
 					  <div class="flat-container">
-					  <?php
+					  <?php /*
 	                    foreach ($allServiceProviders as $serviceProvider ) {
 	                    	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
 	                    	else $perHour ="";
@@ -179,13 +229,13 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 									Give us chance to reach you, after process compilation<br/>
 									Name: ; Mobile ; <br/>
 									Thank You";
-						}
+						} */
 	                  ?>
 					   
 					  </div>
 					</div>
 				  </div>
-				</div>
+				</div> -->
 				<div class="hide-embed" id="similar-card">
 				  <div class="bordered-card card-cont mw similar-flat-card">
 					<h2 class="header-cont">Recommended Services</h2>

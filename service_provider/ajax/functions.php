@@ -13,6 +13,6 @@
 	    return $output;
 	}
 	$dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
-	$dbHandleBluenet = mysqli_connect("localhost","root","redhat111111","bluenet");
+	$dbHandleBluenet = mysqli_connect("localhost","root","redhat111111","bluenet_v3");
 	
 ?>
