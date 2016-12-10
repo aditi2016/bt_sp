@@ -142,7 +142,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<div id="main-content"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
-		  
+		  <div class="row">
+	      <div class="col-lg-9 col-md-9 col-sm-12">
 		  <div class="image-info mw">
 			<div class="image-info-inner">
 			  <div class="price-details">
@@ -192,6 +193,41 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </section>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+          <?php if(isset($_GET['s'])) { 
+          	echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$serviceName."\",\"".$location."\");' style='text-decoration:none;'>
+                    <div class='flat-img'>
+                      <div class='img'  style='background-image:url(\"".$icon."\")'></div>
+					</div>
+					<div class='name-info'>
+					  	<div class='project-info'>".$serviceName."</div>
+					</div>
+					<div class='loct-info text'></div>
+					
+					  <span class='value' style='color:#000'>".$servicePrice." 
+					    <i class='icon icon-rupee'></i> ".$servicePerHour." <br/>
+					    Nagotiable : ".strtoupper($serviceData['negotiable'])."</span>
+		            	<br/><br/>
+						<span class='btn btn-info'>Book Now</span>
+					
+				  </a>"; 
+                }
+               ?>
+                <i class="glyphicon glyphicon-star"></i>
+                <span style="margin:4px 0 0 10px;position: absolute;">
+                 Awesome : <?php echo (isset($marvelous)) ? $marvelous : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-heart"></i>
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Good : <?php echo(isset($appreciation)) ? $appreciation : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-ok-circle"></i>
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Average : <?php echo (isset($suggestion)) ? $suggestion : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-thumbs-down"></i >
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Not Good : <?php echo (isset($complain)) ? $complain : "0";  ?></span>
+		  	</div>
+		  </div>
           <?php if(isset($_GET['s'])) { ?>
 		  <a class="flat-link " style="vertical-align: middle;margin-left: 220px;">
 		  	
@@ -199,7 +235,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
 			</div>
 		  
-            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'"';?>);'>
+            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
               <div class='price'>
 			    <span class='value'><b><?=$serviceName ;?></b><br/>
 			    <?=$servicePrice ;?><i class='icon icon-rupee'></i> <?=$servicePerHour ;?><br/>
