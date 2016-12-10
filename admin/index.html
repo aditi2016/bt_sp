@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bulldog, know your performance and Improve overit">
+    <meta name="author" content="Rahul Lahoria">
+    
+    <title>NCY with Bulldog</title>
+
+        <!-- Bootstrap Core CSS -->
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="./bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="./dist/css/timeline.css" rel="stylesheet">
+
+
+
+    <!-- Morris Charts CSS -->
+    <link href="./bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="./dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <link href="app-content/app.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+
+
+
+
+
+
+</head>
+<body>
+
+
+        <div class="container">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+
+            </div>
+
+        </div>
+        <div ng-view></div>
+
+
+
+<!--    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script> -->
+
+<!-- jQuery -->
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="./bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+
+
+
+
+    <!-- Morris Charts JavaScript -->
+    <!--<script src="./bower_components/raphael/raphael-min.js"></script>
+    <script src="./bower_components/morrisjs/morris.min.js"></script>
+    <script src="./js/morris-data.js"></script>-->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="./dist/js/sb-admin-2.js"></script>
+
+
+    
+    
+    <!--<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.css">
+
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.2/js/jquery.dataTables.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular.js"></script>
+    <script src="//code.angularjs.org/1.2.20/angular-route.js"></script>
+    <script src="//code.angularjs.org/1.2.13/angular-cookies.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="./bower_components/datatables/media/css/jquery.dataTables.css">
+
+
+    <script type="text/javascript" charset="utf8" src="./bower_components/datatables/media/js/jquery.dataTables.js"></script>
+
+        <script type="text/javascript" src="node_modules/moment/moment.js"></script>
+    <script src="./js/angular.js"></script>
+
+    <script src="./js/angular-route.js"></script>
+    <script src="./js/angular-cookies.js"></script>
+        <script src="./bower_components/angular-base64/angular-base64.js"></script>
+
+        <script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+        <script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.0/Chart.bundle.min.js"></script>
+
+
+
+
+    <script src="angular-datatables.min.js"></script>
+    <link rel="stylesheet" href="angular-datatables.css">
+
+    <script src="app.js"></script>
+    <script src="app-services/authentication.service.js"></script>
+    <script src="app-services/flash.service.js"></script>
+
+    <!-- Real user service that uses an api -->
+    <script src="app-services/user.service.js"></script>
+    <script src="app-services/candidate.service.js"></script>
+
+    <!-- Fake user service for demo that uses local storage -->
+   <!--  <script src="app-services/user.service.local-storage.js"></script> -->
+
+    <script src="home/home.controller.js"></script>
+    <script src="manager/manager.controller.js"></script>
+        <script src="employee/employee.controller.js"></script>
+    <script src="login/login.controller.js"></script>
+    <script src="register/register.controller.js"></script>
+    <script src="index/index.controller.js"></script>
+</body>
+</html>

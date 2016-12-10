@@ -19,14 +19,25 @@ if($serviceData['service_img']== 0) $img = 1075;
 else $img = $serviceData['service_img'] ;
 $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
 $serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
+/*
+ * SET @p = POINTFROMTEXT('POINT(28.4594965 77.0266383)');
+
+SELECT  *
+FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
+ *
+ * */
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
                                         service_provider_id IN (SELECT service_provider_id FROM
                                         service_provider_service_mapping WHERE service_id = '$serviceId') ;");
 
+$url = "http://api.sp.blueteam.in/service/".$serviceId."?location=".$_GET['l'];
+$allServiceProviders = json_decode(httpGet($url))->service_providers;
+//var_dump($allServiceProviders);die();
+/*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
 											b.price, b.negotiable, b.hourly FROM service_providers AS a
 											JOIN service_provider_service_mapping AS b WHERE 
-											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");
+											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");*/
 
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
@@ -131,12 +142,12 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 				
 				<div class="hide-embed" id="similar-card">
 				  <div class="bordered-card card-cont mw similar-flat-card">
-					<h2 class="header-cont">Service Providers of this Service</h2>
+					<h2 class="header-cont"><?= count($allServiceProviders) ?> Service Providers Found</h2>
 					<div class="body-cont">
 					  <div class="flat-container">
 					  <?php
-	                    while ($serviceProviders = mysqli_fetch_array($allServiceProviders)) {
-	                    	if($serviceProviders['hourly']=='yes') $perHour = "/ Hour";
+	                    foreach ($allServiceProviders as $serviceProvider ) {
+	                    	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
 	                    	else $perHour ="";
 	                    	if($serviceProviders['price']=="") $price = 0;
 	                    	else $price = $serviceProviders['price'] ;
@@ -147,15 +158,29 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
 									</div>
 									<div class='name-info'>
-									  	<div class='project-info'>".$serviceProviders['name']."</div>
+									  	<div class='project-info'>".$serviceProvider->name."</div>
 									</div>
 									<div class='loct-info text'></div>
 									<div class='price'>
 									  <span class='value'>".$price." 
-									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders['negotiable'])."</span>
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders->negotiable)."</span>
 									</div>
 								  </a>"; 
 	                    }
+					  	if(count($allServiceProviders) <= 0){
+							echo "Sorry! No Service Provider in this Area<br/>
+									We have taken your request for this area.<br/>
+									We are committed to add 3 service providers in this area in next 48 hrs.<br/>
+									Process of adding service provider<br/>
+									1. Enqueuing 10 service providers in the area<br/>
+									2. Interviewing every service provider<br/>
+									3. Shot listing <br/>
+									4. Document Verification<br/>
+									5. Profile Creation<br/>
+									Give us chance to reach you, after process compilation<br/>
+									Name: ; Mobile ; <br/>
+									Thank You";
+						}
 	                  ?>
 					   
 					  </div>

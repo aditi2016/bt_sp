@@ -8,7 +8,7 @@
 
 function getAllCityAreas($id){
 
-    $sql = "SELECT * FROM `areas` WHERE city_id = :id ";
+    $sql = "SELECT `id`, `city_id`, `name`, `postal_code`, X(`gps_location`) as lat, Y(`gps_location`) as lng FROM `areas` WHERE city_id = :id ";
 
 
 

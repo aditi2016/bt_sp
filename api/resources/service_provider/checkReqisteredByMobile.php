@@ -8,7 +8,7 @@
 
 function checkRegisteredByMobile($mobile){
 
-    $sql = "SELECT * FROM `service_providers` WHERE mobile_no = :mobile ";
+    $sql = "SELECT * FROM `service_providers` WHERE mobile_no = :mobile AND `password` != \"\"";
 
 
 

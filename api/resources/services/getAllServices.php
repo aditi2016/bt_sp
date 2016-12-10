@@ -18,6 +18,11 @@ function getAllServices(){
         die();
     }
 
+    if(isset($type)&&$type == "not-found"){
+        servicesNeedLookUp();
+        die();
+    }
+
     if(isset($category)) {
 
         $sql = "SELECT id, name, icon_id, img FROM categories WHERE 1";

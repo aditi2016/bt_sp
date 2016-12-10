@@ -59,6 +59,7 @@ $app->get('/cities/:id/areas','getAllCityAreas');
 // location
 $app->get('/location/:id','getLocationDetails');
 
+
 // service provider services
 $app->post('/service_provider/:id/services', 'insertServices');
 

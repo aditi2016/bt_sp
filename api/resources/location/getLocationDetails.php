@@ -10,11 +10,14 @@ function getLocationDetails($id){
 
 
     $locDetails = getGPSLocationDetails($id);
+    $p = explode(",",$id);
+    $point = $p[0]." ".$p[1];
+    //GeomFromText( 'POINT(:location)' )
 
     $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`) VALUES (:city_id, :name, :postal_code) ON DUPLICATE KEY UPDATE postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
+    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(".$point.")' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(".$point.")' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
 
     try {
         $db = getDB();
@@ -38,9 +41,11 @@ function getLocationDetails($id){
 
         $stmt = $db->prepare($sqlArea);
         $stmt->bindParam("name", $locDetails['area']['name']);
-        $stmt->bindParam("city_id", $locDetails['state']['id']);
+        $stmt->bindParam("city_id", $locDetails['city']['id']);
         $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
         $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
+        /*$stmt->bindParam("location", $point);
+        $stmt->bindParam("location1", $point);*/
         $stmt->execute();
         $locDetails['area']['id'] = $db->lastInsertId();
 
@@ -55,11 +60,14 @@ function getLocationDetails($id){
 
 }
 
+
+
 function getGPSLocationDetails($loc){
     $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$loc&sensor=true";
     $details = json_decode(httpGet($url));
     $return = array();
-    $area_accuracy = 0;
+    $area_accuracy = 1;
+    $flag = false;
 
     foreach ($details->results as $value){
 
@@ -74,14 +82,28 @@ function getGPSLocationDetails($loc){
 
                     } elseif (!isset($return['city']) && !is_bool(array_search('administrative_area_level_2', $acValue->types)) ) {
                         $return['city'] = array('name' => $acValue->long_name);
-                    } elseif ($area_accuracy <= 0 && !is_bool(array_search('sublocality_level_1', $acValue->types) )) {
+                    } elseif (!$flag &&  !is_bool(array_search('sublocality_level_1', $acValue->types) )) {
+                        if(isset($return['area']['name']))
+                            $return['area']['name'] = $return['area']['name'] . "-" . $acValue->long_name;
+                        else
+                            $return['area'] = array('name' => $acValue->long_name);
+                        $flag = true;
+
+                    } elseif (!isset($return['area']) &&  !is_bool(array_search('locality', $acValue->types) )) {
                         $return['area'] = array('name' => $acValue->long_name);
-                        $area_accuracy = 1;
+                        $flag = true;
+
                     } elseif ($area_accuracy <= 1 && !is_bool(array_search('sublocality_level_2', $acValue->types)) ) {
-                        $return['area'] = array('name' => $acValue->long_name);
+                        if($flag)
+                            $return['area']['name'] = $acValue->long_name . ", " . $return['area']['name'] ;
+                        else
+                            $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 2;
                     } elseif ($area_accuracy <= 2 && !is_bool(array_search('sublocality_level_3', $acValue->types) )) {
-                        $return['area'] = array('name' => $acValue->long_name);
+                        if($flag)
+                            $return['area']['name'] = $acValue->long_name . ", " . $return['area']['name'] ;
+                        else
+                            $return['area'] = array('name' => $acValue->long_name);
                         $area_accuracy = 3;
                     } elseif (!isset($return['postalCode']) != "" && !is_bool(array_search('postal_code', $acValue->types) )) {
                         $return['postal_code'] = array('name' => $acValue->long_name);
