@@ -7,7 +7,7 @@ $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
-$location = $_GET('l');
+$location = $_GET['l'];
 $service = mysqli_query($dbHandle, "SELECT a.price, a.negotiable,a.hourly,b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
