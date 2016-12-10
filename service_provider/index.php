@@ -5,10 +5,9 @@ include_once 'ajax/functions.php';
 $url = explode("-",$_GET['load']);
 $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
-$cityName = $url[2];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
-
+$location = $_GET['l'];
 $service = mysqli_query($dbHandle, "SELECT a.price, a.negotiable,a.hourly,b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
@@ -96,6 +95,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		  	<textarea id="remarks" type="text" placeholder="Remark" ></textarea><br/><br/>
 		  	<input id="bookServiceProviderId" type="hidden" value="">
 		  	<input id="bookServiceId" type="hidden" value="">
+		  	<input id="userLocation" type="hidden" value="">
 		  	<label>Starting Date & Time</label>
 		    <input id="startDate"  placeholder="Enter Starting Date and time"> <br/><br/>
 		    <label>Hour</label>
@@ -142,7 +142,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<div id="main-content"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
-		  
+		  <div class="row">
+	      <div class="col-lg-9 col-md-9 col-sm-12">
 		  <div class="image-info mw">
 			<div class="image-info-inner">
 			  <div class="price-details">
@@ -192,6 +193,41 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
           </section>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-12">
+          <?php if(isset($_GET['s'])) { 
+          	echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$serviceName."\",\"".$location."\");' style='text-decoration:none;'>
+                    <div class='flat-img'>
+                      <div class='img'  style='background-image:url(\"".$icon."\")'></div>
+					</div>
+					<div class='name-info'>
+					  	<div class='project-info'>".$serviceName."</div>
+					</div>
+					<div class='loct-info text'></div>
+					
+					  <span class='value' style='color:#000'>".$servicePrice." 
+					    <i class='icon icon-rupee'></i> ".$servicePerHour." <br/>
+					    Nagotiable : ".strtoupper($serviceData['negotiable'])."</span>
+		            	<br/><br/>
+						<span class='btn btn-info'>Book Now</span>
+					
+				  </a>"; 
+                }
+               ?>
+                <i class="glyphicon glyphicon-star"></i>
+                <span style="margin:4px 0 0 10px;position: absolute;">
+                 Awesome : <?php echo (isset($marvelous)) ? $marvelous : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-heart"></i>
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Good : <?php echo(isset($appreciation)) ? $appreciation : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-ok-circle"></i>
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Average : <?php echo (isset($suggestion)) ? $suggestion : "0";?></span><hr/>
+				<i class="glyphicon glyphicon-thumbs-down"></i >
+				<span style="margin:4px 0 0 10px;position: absolute;">
+				 Not Good : <?php echo (isset($complain)) ? $complain : "0";  ?></span>
+		  	</div>
+		  </div>
           <?php if(isset($_GET['s'])) { ?>
 		  <a class="flat-link " style="vertical-align: middle;margin-left: 220px;">
 		  	
@@ -199,7 +235,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
 			</div>
 		  
-            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'"';?>);'>
+            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
               <div class='price'>
 			    <span class='value'><b><?=$serviceName ;?></b><br/>
 			    <?=$servicePrice ;?><i class='icon icon-rupee'></i> <?=$servicePerHour ;?><br/>
@@ -286,7 +322,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	                    	else $price = $allServicesOfVendor['price'] ;
 	                    	if($allServicesOfVendor['pic_id']== 0) $pic = 1075;
 	                    	else $pic = $allServicesOfVendor['pic_id'] ;
-	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\");' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\",\"".$location."\");' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 									  
@@ -321,7 +357,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	                    	
 	                    	if($allRecommendedServices['pic_id']== 0) $pic = 1075;
 	                    	else $pic = $allRecommendedServices['pic_id'] ;
-	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon' style='text-decoration:none;'>
+	                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."' style='text-decoration:none;'>
 	                                <div class='flat-img'>
 	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
 								  	</div>
@@ -540,9 +576,10 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			$("#search").removeAttr('disabled');
 			return false;
 		}
-		function book(serviceProviderId, serviceId) {
+		function book(serviceProviderId, serviceId,location) {
 			$("#bookServiceProviderId").val(serviceProviderId);
 			$("#bookServiceId").val(serviceId);
+			$("#userLocation").val(location);
 			$("#bookNow").modal("show");
 		}
 		String.prototype.isValidDate = function() {
@@ -559,6 +596,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			var remarks = replaceAll('\\s', '', $("#remarks").val());
 			var serviceProviderId = $("#bookServiceProviderId").val();
 			var serviceId = $("#bookServiceId").val();
+			var location = $("#userLocation").val();
 			var startDate = replaceAll('\\s', '', $("#startDate").val());
 			var timeData = startDate.split(" |:");
 			var startTimeData = timeData[4];
@@ -598,8 +636,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 				            	'"requirements":"'+serviceId+'","user_id": "1","user_type":"customer",'+
 		                        '"start_datatime": "'+startDatetime+'","service_type": "direct-service",'+
 		                        '"remarks": "'+remarks+' by bt_sp web page","start_time":"'+startHour+'",'+
-		                        '"end_time":"'+endtime+'","address":"'+bookAddress+'","priority": "3",'+
-		                        '"service_provider_id":"'+serviceProviderId+'"}}',
+		                        '"end_time":"'+endtime+'","location":"'+location+'","address":"'+
+		                        bookAddress+'","priority": "3",'+'"service_provider_id":"'+serviceProviderId+'"}}',
 		            success: function (feedback) {
 		                
 						alert("Your request has been send.\n We will connect with you soon.");
