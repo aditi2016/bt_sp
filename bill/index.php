@@ -234,7 +234,8 @@ $customerName = $fbRequestData['customer_name'];
 if(isset($_POST['reliability'])){
     $email = $_POST['email'];
 
-    $logoImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".($photos['photo_id']== 0)?1075:$photos['photo_id'];
+    $photoId = ($photos['photo_id']== 0)?1075:$photos['photo_id'];
+    $logoImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$photoId;
 
     $servicePrice = ($fbRequestData['service_tax'] == "yes")?$fbRequestData['amount']*0.845:$fbRequestData['amount'];
     $serviceTax = ($fbRequestData['service_tax'] == "yes")?$fbRequestData['amount']*0.155:0;
