@@ -5,7 +5,6 @@ include_once 'ajax/functions.php';
 $url = explode("-",$_GET['load']);
 $serviceProviderName = $url[0];
 $serviceProviderId = $url[1];
-$cityName = $url[2];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
 $location = $_GET('l');

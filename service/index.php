@@ -5,7 +5,6 @@ include_once 'ajax/functions.php';
 $url = explode("-",$_GET['load']);
 $serviceName = $url[0];
 $serviceId = $url[1];
-$cityName = $url[2];
 $userId = 1;
 $location = $_GET('l');
 $service = mysqli_query($dbHandle, "SELECT * FROM services 
