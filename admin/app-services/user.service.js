@@ -11,10 +11,7 @@
 
         service.Auth = Auth;
 
-
-
-
-
+       
         service.GetInUser = function(){
 
             return JSON.parse($cookieStore.get('inUser'));

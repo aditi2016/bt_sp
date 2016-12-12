@@ -57,6 +57,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
 	<title>service provider</title>
+	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>
 

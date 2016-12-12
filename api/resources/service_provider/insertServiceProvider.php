@@ -29,7 +29,12 @@ function insertServiceProvider(){
 
     if(!isset($serviceProvider->address))
         $serviceProvider->address = "n/a";
-
+    if(!isset($serviceProvider->password))
+        $serviceProvider->password = "";
+    if(!isset($serviceProvider->profile_pic_id))
+        $serviceProvider->profile_pic_id = 0;
+    if(!isset($serviceProvider->experience))
+        $serviceProvider->experience = 0;
     //photo,name,mobile,password,address,experience,services,city,area
 
     $sql = "INSERT INTO

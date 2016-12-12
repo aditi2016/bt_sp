@@ -49,6 +49,13 @@
 
             })
 
+            .when('/addServiceProvider/:serviceId/:serviceName/:cityId/:cityName/:areaId/:areaName', {
+                controller: 'ServiceProviderController',
+                templateUrl: 'service_provider/service_provider.view.html',
+                controllerAs: 'vm'
+
+            })
+
             .when('/home/:mobile', {
                 controller: 'HomeController',
                 templateUrl: 'home/home.view.html',

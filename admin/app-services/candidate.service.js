@@ -12,7 +12,7 @@
 
     function CandidateService($http) {
         var service = {};
-
+        var urlSP = "https://blueteam.in/sp_api";
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByManagerEmployeeId = GetByManagerEmployeeId;
@@ -26,6 +26,9 @@
         service.UpdateInstance = UpdateInstance;
         service.GetUserLast10Instance = GetUserLast10Instance;
         service.GetTodayUsage = GetTodayUsage;
+        service.getCities = getCities;
+        service.getCityAreas = getCityAreas;
+        service.CreateServiceProvider = CreateServiceProvider;
 
         return service;
 
@@ -116,6 +119,19 @@
             return function () {
                 return { success: false, message: error };
             };
+        }
+        function getCities() {
+            return $http.get(urlSP + '/cities').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getServices() {
+            return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getCityAreas(id) {
+            return $http.get(urlSP + '/cities/'+id+'/areas').then(handleSuccess, handleError('Error getting areas'));
+        }
+        function CreateServiceProvider(user) {
+            console.log(user);
+            return $http.post(urlSP + '/service_provider', user).then(handleSuccess, handleError('Error creating user'));
         }
     }
 
