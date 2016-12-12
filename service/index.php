@@ -7,8 +7,7 @@ $serviceName = $url[0];
 $serviceId = $url[1];
 $userId = 1;
 $location = $_GET['l'];
-$service = mysqli_query($dbHandle, "SELECT * FROM services 
-                                    WHERE id = '$serviceId' ;");
+$service = mysqli_query($dbHandle, "SELECT * FROM services WHERE id = '$serviceId' ;");
 $serviceData = mysqli_fetch_array($service);
 $serviceId = $serviceData['id'];
 $objectId = 'bt-sp-'.$serviceId;
@@ -25,9 +24,9 @@ SELECT  *
 FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
  *
  * */
-$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
-                                        service_provider_id IN (SELECT service_provider_id FROM
-                                        service_provider_service_mapping WHERE service_id = '$serviceId') ;");
+$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE service_provider_id IN 
+										(SELECT service_provider_id FROM service_provider_service_mapping
+										 WHERE service_id = '$serviceId') ;");
 
 $url = "http://api.sp.blueteam.in/service/".$serviceId."?location=".$_GET['l'];
 $allServiceProviders = json_decode(httpGet($url))->service_providers;
@@ -83,12 +82,9 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 		
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
-	<div id="main-content" style="overflow-y: hidden ! important;
-                                                            overflow-x: hidden ! important;
-                                                        background-image: url('<?= $serviceImg ?>');
-	background-size:     contain;                      /* <------ */
-	background-repeat: no-repeat;
-	background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
+	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
+            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
+			background-position: top;">
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  <div class="row">
@@ -170,8 +166,10 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 							4. Document Verification<br/>
 							5. Profile Creation<br/>
 							Give us chance to reach you, after process compilation<br/>
-							Name: ; Mobile ; <br/>
-							Thank You";
+							Thank You <br/>
+							<input id='requestName' type='text' placeholder='Plese enter your Name'>
+		  					<input id='requestMobile' type='text' placeholder='Enter your mobile number'><br/><br/>
+		  					<button type='button' id='addService' class='btn btn-info' onclick='request();'>Submit</button>"; 
 				}
               ?>
               	</div>
@@ -333,6 +331,29 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	<script src="index_files/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	  	function getInTouch() {
+	  		$("#getInTouch").attr('disabled','disabled');
+	  		var mobile = $('#inputContact').val();
+	  		if(validatePhone(mobile)){
+				$.ajax({
+					type: "POST",
+					url: "ajax/get_in_touch.php",
+					data: 'mobile='+ mobile,
+					cache: false,
+					success: function(result){
+						if(result=='Succesfully'){
+							alert("Thanks for contacting us. \n We will connect with you Shortly");
+						}
+					}
+				});
+				$('#inputContact').val("");
+			}
+			else {
+				alert("Please enter valid mobile number");
+			}
+			$("#getInTouch").removeAttr('disabled');
+			return false;
+	  	}
+	  	function request() {
 	  		$("#getInTouch").attr('disabled','disabled');
 	  		var mobile = $('#inputContact').val();
 	  		if(validatePhone(mobile)){
