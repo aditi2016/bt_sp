@@ -61,6 +61,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
         $stmt->bindParam("id", $id);
 
         $stmt->execute();
+        $lookupId = 0;
 
         //get all service providers of the id
 
@@ -102,7 +103,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
         }
 
         $db = null;
-        echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
+        echo '{"service_providers": ' . json_encode($serviceProviders) . ',lookup_id:".$lookupId."}';
 
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
