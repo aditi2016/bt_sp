@@ -79,7 +79,7 @@
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': form.mobile.$dirty && form.mobile.$error.required }">
                         <label for="mobile">Mobile</label>
-                        <input type="text" name="mobile" class="form-control" placeholder="enter mobile" ng-model="vm.data.mobile" ng-minlength="10" ng-maxlength="10" pattern="[7-9][0-9]{9}" required/>
+                        <input type="number" name="mobile" class="form-control" placeholder="enter mobile" ng-model="vm.data.mobile" ng-minlength="10" ng-maxlength="10" pattern="[7-9][0-9]{9}" required/>
                         <span ng-show="form.mobile.$dirty && form.mobile.$error.required" class="help-block">Mobile is required</span>
                     </div>
                     <div class="form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">

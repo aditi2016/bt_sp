@@ -5,8 +5,8 @@
         .module('app')
         .controller('ServiceProviderController', ServiceProviderController);
 
-    ServiceProviderController.$inject = ['UserService',  'CandidateService', '$routeParams', 'FlashService'];
-    function ServiceProviderController(UserService, CandidateService,  $routeParams, FlashService) {
+    ServiceProviderController.$inject = ['UserService', '$location',  'CandidateService', '$routeParams', 'FlashService'];
+    function ServiceProviderController(UserService, $location, CandidateService,  $routeParams, FlashService) {
         var vm = this;
         console.log($routeParams);
         if(!isEmpty($routeParams)){ 
@@ -81,7 +81,7 @@
             }
             CandidateService.CreateServiceProvider(provider)
                 .then(function (response) {
-                    if (response.success) {
+                    if (response.service_providers.id) {
                         FlashService.Success('Added successful', true);
                         $location.path('/manager');
                     } else {
