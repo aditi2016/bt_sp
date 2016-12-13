@@ -42,6 +42,13 @@
 
             })
 
+            .when('/service', {
+                controller: 'ServiceController',
+                templateUrl: 'service/service.view.html',
+                controllerAs: 'vm'
+
+            })
+
             .when('/employee/:emp', {
                 controller: 'EmployeeController',
                 templateUrl: 'employee/employee.view.html',

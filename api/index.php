@@ -25,6 +25,7 @@ require_once"resources/service_provider/campaign_request/createCampaignRequest.p
 
 
 require_once"resources/services/getAllServices.php";
+require_once"resources/services/insertNewServices.php";
 require_once"resources/services/getHotServices.php";
 require_once"resources/services/servicesNeedLookUp.php";
 require_once"resources/services/getAllServicesByCategory.php";
@@ -33,6 +34,7 @@ require_once"resources/service_provider/getAllServiceProviders.php";
 //search resource
 
 require_once "resources/search/search.php";
+require_once "resources/category/getCategories.php";
 
 // service provider invoice
 require_once "resources/service_provider/invoice/insertServiceProviderInvoice.php";
