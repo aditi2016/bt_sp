@@ -34,6 +34,8 @@ function insertNewServices(){
                       (:name, :description, :pic_id, :service_img, :creation_time, :status)
                     ON DUPLICATE KEY UPDATE
                       description = :description1, pic_id = :pic_id1, service_img = :service_img1, status = :status1;";
+    $mappingSql = "INSERT INTO service_category_mapping (service_id, category_id, status, creation_time) 
+                    VALUES (:service_id, :category_id, 'active', :cr_time) ";
     try { 
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -50,8 +52,13 @@ function insertNewServices(){
         $stmt->bindParam("creation_time", $date);
         $stmt->bindParam("status1", $service->status);
         $stmt->execute();
-
         $service->id = $db->lastInsertId();
+        $stmt2 = $db->prepare($mappingSql);
+        $stmt2->bindParam("service_id", $service->id);
+        $stmt2->bindParam("category_id", $service->category_id);
+        $stmt2->bindParam("cr_time", $date);
+        $stmt2->execute();
+        $service->map_id = $db->lastInsertId();
         $db = null;
         echo '{"service": ' . json_encode($service) . '}';
     } catch (PDOException $e) {
