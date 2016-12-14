@@ -32,6 +32,7 @@
         service.getCategories = getCategories;
         service.CreateService = CreateService;
         service.uploadImg = uploadImg;
+        service.getServices = getServices;
 
         return service;
 
@@ -149,13 +150,12 @@
             var responceTx = "";
             request.onreadystatechange = function(){
                 if(request.readyState == 4){
-                    responceTx = request.response;
-                    console.log(responceTx);
-                    return responceTx;
+                    responceTx = request.response;                    
                 }
             };
             request.open('POST', 'http://api.file-dog.shatkonlabs.com/files/rahul');
             request.send(data);
+            return responceTx;
         }
     }
 

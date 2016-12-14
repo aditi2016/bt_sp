@@ -83,7 +83,7 @@
                 .then(function (response) {
                     if (response.service_providers.id) {
                         FlashService.Success('Added successful', true);
-                        $location.path('/manager');
+                        $location.path('/serviceprovider/'+response.service_providers.id+'/service');
                     } else {
                         FlashService.Error(response.message);
                         vm.dataLoading = false;

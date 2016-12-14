@@ -62,6 +62,12 @@
                 controllerAs: 'vm'
 
             })
+            .when('/serviceprovider/:id/service', {
+                controller: 'ServiceProviderServiceController',
+                templateUrl: 'service_provider/service_provider_service.view.html',
+                controllerAs: 'vm'
+
+            })
 
             .when('/home/:mobile', {
                 controller: 'HomeController',
