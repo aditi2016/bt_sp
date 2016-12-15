@@ -12,7 +12,7 @@
 
     function CandidateService($http) {
         var service = {};
-
+        var urlSP = "https://blueteam.in/sp_api";
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByManagerEmployeeId = GetByManagerEmployeeId;
@@ -26,6 +26,13 @@
         service.UpdateInstance = UpdateInstance;
         service.GetUserLast10Instance = GetUserLast10Instance;
         service.GetTodayUsage = GetTodayUsage;
+        service.getCities = getCities;
+        service.getCityAreas = getCityAreas;
+        service.CreateServiceProvider = CreateServiceProvider;
+        service.getCategories = getCategories;
+        service.CreateService = CreateService;
+        service.uploadImg = uploadImg;
+        service.getServices = getServices;
 
         return service;
 
@@ -116,6 +123,39 @@
             return function () {
                 return { success: false, message: error };
             };
+        }
+        function getCities() {
+            return $http.get(urlSP + '/cities').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getServices() {
+            return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getCategories() {
+            return $http.get(urlSP + '/category').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getCityAreas(id) {
+            return $http.get(urlSP + '/cities/'+id+'/areas').then(handleSuccess, handleError('Error getting areas'));
+        }
+        function CreateServiceProvider(user) {
+            return $http.post(urlSP + '/service_provider', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        function CreateService(user) {
+            return $http.post(urlSP + '/service', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        function uploadImg(user) {
+            var fileUrl = document.getElementById(user);
+            var data = new FormData();
+            data.append('fileToUpload', fileUrl.files[0]);
+            var request = new XMLHttpRequest();
+            var responceTx = "";
+            request.onreadystatechange = function(){
+                if(request.readyState == 4){
+                    responceTx = request.response;                    
+                }
+            };
+            request.open('POST', 'http://api.file-dog.shatkonlabs.com/files/rahul');
+            request.send(data);
+            return responceTx;
         }
     }
 

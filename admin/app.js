@@ -42,9 +42,29 @@
 
             })
 
+            .when('/service', {
+                controller: 'ServiceController',
+                templateUrl: 'service/service.view.html',
+                controllerAs: 'vm'
+
+            })
+
             .when('/employee/:emp', {
                 controller: 'EmployeeController',
                 templateUrl: 'employee/employee.view.html',
+                controllerAs: 'vm'
+
+            })
+
+            .when('/addServiceProvider/:serviceId/:serviceName/:cityId/:cityName/:areaId/:areaName', {
+                controller: 'ServiceProviderController',
+                templateUrl: 'service_provider/service_provider.view.html',
+                controllerAs: 'vm'
+
+            })
+            .when('/serviceprovider/:id/service', {
+                controller: 'ServiceProviderServiceController',
+                templateUrl: 'service_provider/service_provider_service.view.html',
                 controllerAs: 'vm'
 
             })

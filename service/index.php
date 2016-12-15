@@ -7,8 +7,7 @@ $serviceName = $url[0];
 $serviceId = $url[1];
 $userId = 1;
 $location = $_GET['l'];
-$service = mysqli_query($dbHandle, "SELECT * FROM services 
-                                    WHERE id = '$serviceId' ;");
+$service = mysqli_query($dbHandle, "SELECT * FROM services WHERE id = '$serviceId' ;");
 $serviceData = mysqli_fetch_array($service);
 $serviceId = $serviceData['id'];
 $objectId = 'bt-sp-'.$serviceId;
@@ -25,13 +24,13 @@ SELECT  *
 FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), Y(gps_location)) < 1 ;
  *
  * */
-$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE
-                                        service_provider_id IN (SELECT service_provider_id FROM
-                                        service_provider_service_mapping WHERE service_id = '$serviceId') ;");
+$photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE service_provider_id IN 
+										(SELECT service_provider_id FROM service_provider_service_mapping
+										 WHERE service_id = '$serviceId') ;");
 
 $url = "http://api.sp.blueteam.in/service/".$serviceId."?location=".$_GET['l'];
 $allServiceProviders = json_decode(httpGet($url))->service_providers;
-//var_dump($allServiceProviders);die();
+$lookUpId = json_decode(httpGet($url))->lookup_id;
 /*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
 											b.price, b.negotiable, b.hourly FROM service_providers AS a
@@ -58,6 +57,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
 	<title>service provider</title>
+	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>
 
@@ -83,12 +83,9 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 		
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
-	<div id="main-content" style="overflow-y: hidden ! important;
-                                                            overflow-x: hidden ! important;
-                                                        background-image: url('<?= $serviceImg ?>');
-	background-size:     contain;                      /* <------ */
-	background-repeat: no-repeat;
-	background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
+	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
+            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
+			background-position: top;">
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  <div class="row">
@@ -131,12 +128,9 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
             </div>
           </section>
 		  </div>
-		  <div class="col-lg-3 col-md-3 col-sm-12">
-        	<div class="hide-embed" id="similar-card">
-			  <div class="bordered-card card-cont ">
-				<h2 class="header-cont" style="white-space: nowrap;"><?= count($allServiceProviders) ?> Service Providers Found</h2>
-				<div class="body-cont">
-				  <div class="flat-container">
+		  <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 30px;">
+        	<p style="white-space: nowrap;"><?= count($allServiceProviders) ?> Service Providers Found</p>
+			<hr/>
 			  <?php
                 foreach ($allServiceProviders as $serviceProvider ) {
                 	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
@@ -145,22 +139,16 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
                 	else $price = $serviceProviders['price'] ;
                 	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
 					else $img = $serviceProviders['profile_pic_id'] ;
-                    echo "<a class='flat-link' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
-                            <div class='flat-img'>
-                              <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$img.")'></div>
-							</div>
-							<div class='name-info'>
-							  	<div class='project-info'>".$serviceProvider->name."</div>
-							</div>
-							<div class='loct-info text'></div>
-							<div class='price'>
-							  <span class='value'>".$price." 
-							    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($serviceProviders->negotiable)."</span>
-							</div>
-						  </a>"; 
+                    echo "<div><a style='text-decoration:none;' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
+                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' height='70px' width='70px'>
+                            <p style='font-size:12px;margin:-70px 0 0 80px;color:#000;'>".$serviceProvider->name."<br/>".$price."<i class='icon icon-rupee'></i> ".$perHour." <br/><br/>
+                            <button class='btn btn-info'>View Details</button><br/>
+                            </p>
+						  </a>
+						  </div><hr/>"; 
                 }
 			  	if(count($allServiceProviders) <= 0){
-					echo "Sorry! No Service Provider in this Area<br/>
+					echo "<div class='flat-container'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
 							We have taken your request for this area.<br/>
 							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
 							Process of adding service provider<br/>
@@ -170,13 +158,15 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 							4. Document Verification<br/>
 							5. Profile Creation<br/>
 							Give us chance to reach you, after process compilation<br/>
-							Name: ; Mobile ; <br/>
-							Thank You";
+							Thank You <br/><br/></span>
+							<input id='requestName' type='text' placeholder='Plese enter your Name'>
+		  					<input id='requestMobile' type='text' placeholder='Enter your mobile number'><br/><br/>
+		  					<button type='button' id='addService' class='btn btn-info' onclick='request(\"".$lookUpId."\");'>Submit</button>
+		  				</div>";
+		  			
 				}
               ?>
-              	</div>
-              	</div>
-			   </div>
+              	
 			</div>
 		  </div>
      	</div>
@@ -353,6 +343,34 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 				alert("Please enter valid mobile number");
 			}
 			$("#getInTouch").removeAttr('disabled');
+			return false;
+	  	}
+	  	function request(id) {
+	  		$("#addService").attr('disabled','disabled');	 
+	  		var mobile = $('#requestMobile').val();
+	        var name = replaceAll('\\s', '', $('#requestName').val());	        
+		    if(name.length < 3){
+		    	alert('Please enter valid name');
+		    }
+			else if(!validatePhone(mobile)){	
+				alert("Please enter valid mobile number");
+			}
+	  		else {
+				$.ajax({
+					type: "POST",
+					url: "ajax/add_services.php",
+					data: 'name='+ name+'&mobile='+mobile+'&lookup_id='+id,
+					cache: false,
+					success: function(result){
+						if(result=='Succesfully'){
+							alert("Thanks for your help. \n We will connect with you Shortly");
+						}
+					}
+				});
+				$('#requestMobile').val("");
+				$('#requestName').val("");
+			}
+			$("#addService").removeAttr('disabled');
 			return false;
 	  	}
 	   	

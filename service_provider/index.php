@@ -75,6 +75,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
 	<title>service provider</title>
+	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>
 
