@@ -57,7 +57,7 @@ function insertServiceProviderInvoice($id){
 
         $invoice->id = $db->lastInsertId();
 
-        $stmt = $db->prepare($sql);
+        $stmt = $db->prepare($sqlGetSP);
         $stmt->bindParam("id", $invoice->id);
         $stmt->execute();
         $sp = $stmt->fetchAll(PDO::FETCH_OBJ);
