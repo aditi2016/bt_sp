@@ -61,10 +61,9 @@ function insertServiceProviderInvoice($id){
         $stmt->bindParam("id", $invoice->id);
         $stmt->execute();
         $sp = $stmt->fetchAll(PDO::FETCH_OBJ);
-        var_dump($sp);die();
         //organization
 
-        $message = "Thanks for using service by ".$sp->organization." (Partner Id: $id)\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
+        $message = "Thanks for using service by ".$sp[0]->organization." (Partner Id: $id)\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
 
         if($invoice->send_bill)
             sendSMS($invoice->customer_mobile, $message);
