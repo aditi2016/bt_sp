@@ -12,9 +12,9 @@ function getServiceProviderInvoice($id){
     $date = $app->request()->get('date');
 
     if(isset($date))
-        $d=strtotime($date);
+        $d=$date;
     else
-        $d=strtotime(date("Y-m-d"));
+        $d=date("Y-m-d");
 
     $sql = "SELECT * FROM `invoice` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
 
