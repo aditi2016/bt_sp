@@ -37,13 +37,13 @@ function updateServiceProvider($id){
     if(isset($serviceProvider->area_id))
         $updateStr .= "area_id =:area_id,";
 
-    if(isset($serviceProvider->area_id))
+    if(isset($serviceProvider->city_id))
         $updateStr .= "city_id =:city_id,";
 
-    if(isset($serviceProvider->area_id))
+    if(isset($serviceProvider->email))
         $updateStr .= "email =:email,";
 
-    if(isset($serviceProvider->area_id))
+    if(isset($serviceProvider->profile_pic_id))
         $updateStr .= "profile_pic_id =:profile_pic_id,";
 
 
