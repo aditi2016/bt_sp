@@ -50,7 +50,7 @@ function updateServiceProvider($id){
     if(isset($serviceProvider->gps_location)) {
         $p = explode(",",$serviceProvider->gps_location);
         $point = $p[0]." ".$p[1];
-        $updateStr .= "gps_location =:GeomFromText( 'POINT(" . $point . ")' ),";
+        $updateStr .= "gps_location =GeomFromText( 'POINT(" . $point . ")' ),";
 
     }
 
@@ -62,7 +62,7 @@ function updateServiceProvider($id){
                    $updateStr
                          WHERE id=:service_providers_id";
 
-    var_dump($sql);die();
+    //var_dump($sql);die();
 
 
     try {
