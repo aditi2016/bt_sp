@@ -43,7 +43,7 @@ function insertServiceProvider(){
                     VALUES
                       (:name, :organization, :description, :mobile, :password, :experience,  :address, :email, :profile_pic_id)
                     ON DUPLICATE KEY UPDATE
-                      name = :name1, organization=:organization1, password = :password1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
+                      name = :name1, organization = :organization1, password = :password1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
