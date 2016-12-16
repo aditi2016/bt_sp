@@ -39,7 +39,7 @@ function insertServiceProvider(){
 
     $sql = "INSERT INTO
                     service_providers
-                      (name, organization, description, mobile_no, password, experience, area_id, city_id, address, email,profile_pic_id)
+                      (name, organization, description, mobile_no, password, experience, address, email,profile_pic_id)
                     VALUES
                       (:name, :organization, :description, :mobile, :password, :experience,  :address, :email, :profile_pic_id)
                     ON DUPLICATE KEY UPDATE
@@ -61,11 +61,6 @@ function insertServiceProvider(){
         $stmt->bindParam("password1", $serviceProvider->password);
         $stmt->bindParam("experience", $serviceProvider->experience);
         $stmt->bindParam("experience1", $serviceProvider->experience);
-
-       /* $stmt->bindParam("area_id", $serviceProvider->area_id);
-        $stmt->bindParam("area_id1", $serviceProvider->area_id);
-        $stmt->bindParam("city_id", $serviceProvider->city_id);
-        $stmt->bindParam("city_id1", $serviceProvider->city_id);*/
 
         $stmt->bindParam("address", $serviceProvider->address);
         $stmt->bindParam("email", $serviceProvider->email);
