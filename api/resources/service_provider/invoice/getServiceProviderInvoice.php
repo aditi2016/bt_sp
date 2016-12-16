@@ -34,6 +34,7 @@ function getServiceProviderInvoice($id){
         $stmt->bindParam("month_year", $d);
 
         $stmt->execute();
+        $invoices = array();
         $invoices['invoices'] = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $stmt = $db->prepare($sqlMonthYear);
