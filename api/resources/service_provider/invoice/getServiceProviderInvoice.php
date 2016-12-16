@@ -8,21 +8,30 @@
 
 function getServiceProviderInvoice($id){
 
-    $sql = "SELECT * FROM `invoice` WHERE service_provider_id = :id AND Month( creation ) = Month( CURDATE( ) ) x";
+    global $app;
+    $date = $app->request()->get('date');
+
+    if(isset($date))
+        $d=strtotime($date);
+    else
+        $d=strtotime(date("Y-m-d"));
+
+    $sql = "SELECT * FROM `invoice` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
 
     //$photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
 
     $sqlMonthYear = "SELECT DISTINCT Month( `creation` ) AS
-                        MONTH , Year( `creation` ) AS year, sum( amount ) as amount
+                        month , Year( `creation` ) AS year, sum( amount ) as amount
                         FROM `invoice`
                         WHERE `service_provider_id` = :id
-                        GROUP BY MONTH , year";
+                        GROUP BY month , year";
 
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
 
         $stmt->bindParam("id", $id);
+        $stmt->bindParam("month_year", $d);
 
         $stmt->execute();
         $invoices = $stmt->fetchAll(PDO::FETCH_OBJ);
