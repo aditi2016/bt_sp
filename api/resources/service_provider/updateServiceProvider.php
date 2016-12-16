@@ -62,7 +62,7 @@ function updateServiceProvider($id){
                    $updateStr
                          WHERE id=:service_providers_id";
 
-    var_dump($sql);die();
+    //var_dump($sql);die();
 
 
     try {
