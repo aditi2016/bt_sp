@@ -36,7 +36,9 @@
                     <li>
                         <a href="#/manager" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-
+                    <li>
+                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
+                    </li>
                     <li>
                         <a href="#/employee/{{ vm.inUser.md5_id }}"><i class="fa fa-table fa-fw"></i> My Performance</a>
                     </li>
@@ -72,26 +74,32 @@
             <div class="item item-text-wrap">
                 <form ng-submit="vm.addService()" name="addservice-f">
                     <div ng-repeat="service in vm.selectedServices">
-                        <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{service.pic_id}}" class="title-image" width="100" height="100" style="border-radius: 10px "/>
-                        <h1 class="title">{{service.name | uppercase}}</h1>
-                        <div class="form-group" ng-class="{ 'has-error': form.price.$dirty && form.price.$error.required }">
-                            <label for="price">Price</label>
-                            <input type="text" name="price" class="form-control" placeholder="enter name" ng-model="vm.data.price" ng-minlength="3" required/>
-                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Price is required</span>
+                        <div ng-repeat="(key,value) in service">
+                            <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{value.pic_id}}" class="title-image" width="100" height="100" style="border-radius: 10px "/>
+                            <span style="font-size: 40px;">{{ value.name | uppercase}}</span>
+                            <div class="form-group" ng-class="{ 'has-error': form.price{{value.id}}.$dirty && form.price{{value.id}}.$error.required }">
+                                <label for="price{{value.id}}">Price</label>
+                                <input type="number" name="price{{value.id}}" class="form-control" placeholder="enter price" ng-model="vm.data.price{{value.id}}" ng-minlength="3" required/>
+                                <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Price is required</span>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.hourly{{value.id}}.$dirty && form.hourly{{value.id}}.$error.required }">
+                                <label for="hourly{{value.id}}">Hourly</label>
+                                <select name="hourly{{value.id}}" ng-model="vm.data.hourly{{value.id}}" required>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                                </select>
+                            </div>
+                            <div class="form-group" ng-class="{ 'has-error': form.negotiable{{value.id}}.$dirty && form.negotiable{{value.id}}.$error.required }">
+                                <label for="negotiable{{value.id}}">Negotiable</label>
+                                <select name="negotiable{{value.id}}" ng-model="vm.data.negotiable{{value.id}}" required>
+                                    <option value="yes">YES</option>
+                                    <option value="no">NO</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.hourly.$dirty && form.hourly.$error.required }">
-                            <label for="hourly">Hourly</label>
-                            <label><input type="radio" ng-model="hourly" value="yes" name="hourly">Yes</label>
-                            <label><input type="radio" ng-model="hourly" value="no" name="hourly">No</label>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.negotiable.$dirty && form.negotiable.$error.required }">
-                            <label for="negotiable">Negotiable</label>
-                            <label><input type="radio" ng-model="negotiable" value="yes" name="negotiable">Yes</label>
-                            <label><input type="radio" ng-model="negotiable" value="no" name="negotiable">No</label>
-                        </div>
-                    </div>
+                    </div><br/><br/>
                     <div class="form-actions">
-                        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Add New Service</button>
+                        <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Add Services</button>
                         <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                     </div>
                 </form>

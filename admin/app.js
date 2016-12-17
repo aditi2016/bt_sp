@@ -55,6 +55,18 @@
                 controllerAs: 'vm'
 
             })
+            .when('/serviceRequests', {
+                controller: 'ServiceRequestController',
+                templateUrl: 'service_requests/service_requests.view.html',
+                controllerAs: 'vm'
+
+            })
+            .when('/addServiceRequests', {
+                controller: 'AddServiceRequestController',
+                templateUrl: 'service_requests/add_service_requests.view.html',
+                controllerAs: 'vm'
+
+            })
 
             .when('/addServiceProvider/:serviceId/:serviceName/:cityId/:cityName/:areaId/:areaName', {
                 controller: 'ServiceProviderController',
