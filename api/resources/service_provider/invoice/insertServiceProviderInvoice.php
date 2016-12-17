@@ -34,6 +34,11 @@ function insertServiceProviderInvoice($id){
                     NULL , :id, :customer_name, :customer_mobile, :service_id, :amount, :service_tax, :creation
                     );";
 
+    $sqlGetSP = "SELECT a.service_provider_id, a.customer_name, a.customer_mobile, a.amount,
+                        c.name as service_name, a.service_tax, b.name as service_provider_name, b.organization , b.address, b.mobile_no as partner_mobile
+                        FROM `invoice` as a INNER JOIN service_providers as b INNER JOIN  services as c
+                        WHERE a.id = :id  and a.service_provider_id = b.id and a.service_id = c.id;";
+
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -52,7 +57,13 @@ function insertServiceProviderInvoice($id){
 
         $invoice->id = $db->lastInsertId();
 
-        $message = "Thanks for using service\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
+        $stmt = $db->prepare($sqlGetSP);
+        $stmt->bindParam("id", $invoice->id);
+        $stmt->execute();
+        $sp = $stmt->fetchAll(PDO::FETCH_OBJ);
+        //organization
+
+        $message = "Thanks for using service by ".$sp[0]->organization." (Partner Id: $id)\nYou have paid Rs $invoice->amount including tax\nget bill on email at http://b.blueteam.in/".$invoice->id;
 
         if($invoice->send_bill)
             sendSMS($invoice->customer_mobile, $message);

@@ -36,7 +36,7 @@ $app->get('/service/:id','getAllServiceProviders');
 // service provider resouce
 $app->post('/service_provider', 'insertServiceProvider');
 $app->put('/service_provider/:id','updateServiceProvider');
-/*$app->post('/service_provider/:id','updateServiceProvider');*/
+$app->post('/service_provider/:id','updateServiceProvider');
 
 $app->post('/auth', 'userAuth');
 
