@@ -62,7 +62,13 @@
                 controllerAs: 'vm'
 
             })
-            .when('/serviceprovider/:id/service', {
+            .when('/addServiceProvider', {
+                controller: 'ServiceProviderController',
+                templateUrl: 'service_provider/service_provider.view.html',
+                controllerAs: 'vm'
+
+            })
+            .when('/serviceprovider/:id/service/:serviceId', {
                 controller: 'ServiceProviderServiceController',
                 templateUrl: 'service_provider/service_provider_service.view.html',
                 controllerAs: 'vm'

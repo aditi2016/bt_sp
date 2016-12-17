@@ -28,6 +28,7 @@ $app->get('/service_provider/:id','getServiceProvider');
 
 // services resource
 $app->get('/services','getAllServices');
+$app->get('/services/:id','getServicesById');
 $app->get('/service/:id','getAllServiceProviders');
 /*$app->get('/service_provider/:id','getServiceProviderById');*/
 

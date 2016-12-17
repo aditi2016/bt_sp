@@ -12,6 +12,7 @@
         if(!isEmpty($routeParams)){ 
             vm.registered = false;
             vm.data = [];
+            vm.data.service = [];
             vm.data.serviceName = $routeParams.serviceName;
             vm.data.serviceId = $routeParams.serviceId;
             vm.data.cityId = $routeParams.cityId;
@@ -22,12 +23,15 @@
         else {vm.registered = true;}
         vm.user = null;
         vm.inUser = null;
+        vm.example1model = []; 
+        vm.selected = [];
         
         initController();
         vm.oldCity = 0;
         function initController() {
             loadUser();
             getCities();
+            getAllServices();
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -43,11 +47,20 @@
                     console.log(vm.cities.name);
                 });
         }
-        function getServices() {
-            CandidateService.getServices()
+        /*function remove(id){
+            alert(id);
+            document.getElementById(id).remove();
+            var index = vm.selected.indexOf(id);
+            if (index > -1) {
+                vm.selected.splice(index, 1);
+            }
+            console.log(vm.selected);
+        }*/
+        function getAllServices() {
+            CandidateService.getAllServices()
                 .then(function (response) {
-                    vm.services = response.services;
-                    console.log(vm.services.name);
+                    vm.allServices = response.allServices;
+                    console.log(vm.allServices.name);
                 });
         }
         vm.getAreas = function(){
@@ -64,31 +77,64 @@
                 vm.oldCity = vm.data.city_id;
             }
         }
+        vm.onCategoryChange = function(itemSelected) {
+            if (vm.selected.indexOf(itemSelected.id) == -1) {
+                vm.selected.push(itemSelected.id);
+                var item = '<span id="'+itemSelected.id+
+                            '" style="width:250px;height:30px;background-color:#0095ff;margin:10px;padding:5px;">'+itemSelected.name+
+                        '</span>';
+                $('#selectedServices').append(item); 
+                
+            }               
+        }
+        //onclick="remove('+itemSelected.id+')"<i class="glyphicon glyphicon-remove fa-fw" style="cursor:pointer;"  ></i>
         vm.addServiceProvider = function() {
-            console.log("addServiceProvider function",vm.data);
+                       
+            console.log("addServiceProvider function",vm.selected);
             vm.dataLoading = true;
             if(vm.registered == false){
+                var services = vm.data.serviceName ;
+                var city = vm.data.cityId;
+                var area = vm.data.areaId;
                 var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.areaId+
                             '","city_id" : "'+vm.data.cityId+'","mobile" : "'+vm.data.mobile+
                             '","name" : "'+vm.data.name+'","description" : "'+vm.data.description+
                             '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
             }
             else {
+                var services = vm.selected.toString() ;
+                var city = vm.data.city_id;
+                var area = vm.data.area_id;
                 var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.area_id+
                             '","city_id" : "'+vm.data.city_id+'","mobile" : "'+vm.data.mobile+
                             '","name" : "'+vm.data.name+'","description" : "'+vm.data.description+
                             '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
             }
-            CandidateService.CreateServiceProvider(provider)
-                .then(function (response) {
-                    if (response.service_providers.id) {
-                        FlashService.Success('Added successful', true);
-                        $location.path('/serviceprovider/'+response.service_providers.id+'/service');
-                    } else {
-                        FlashService.Error(response.message);
-                        vm.dataLoading = false;
-                    }
-                });
+            if(services.length == 0){
+                alert("please select at least 1 service");
+                vm.dataLoading = false;
+            }
+            else if(city == undefined){
+                alert("Select City");
+                vm.dataLoading = false;
+            }
+            else if(area == undefined){
+                alert("Select Area");
+                vm.dataLoading = false;
+            }
+            else {
+                CandidateService.CreateServiceProvider(provider)
+                    .then(function (response) {
+                        if (response.service_providers.id) {
+                            FlashService.Success('Added successful', true);
+                            $location.path('/serviceprovider/'+response.service_providers.id+'/service/'+services);
+                            
+                        } else {
+                            FlashService.Error(response.message);
+                            vm.dataLoading = false;
+                        }
+                    });
+            }
             
         }
     }
