@@ -28,7 +28,7 @@ function servicesNeedLookUp(){
                 INNER JOIN services AS b
                 INNER JOIN areas AS c
                 INNER JOIN cities AS d
-                  WHERE a.result_count <6
+                  WHERE a.result_count <3
                         AND a.area_id = c.id
                         AND a.service_id = b.id
                         AND c.city_id = d.id ";
