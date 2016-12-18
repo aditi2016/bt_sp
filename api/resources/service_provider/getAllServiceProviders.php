@@ -41,13 +41,15 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
 
     $point = $p[0]." ".$p[1];
     //GeomFromText( 'POINT(:location)' )
+    $sqlSelectSL = "select id from `blueteam_service_providers`.`service_looks` where service_id = :service_id and area_id = :area_id";
     $sqlServiceLooks = "INSERT INTO
                           `blueteam_service_providers`.`service_looks`
                             (`id`, `service_id`, `area_id`, `result_count`, `last_updated`)
                           VALUES
                             (NULL, :service_id, :area_id, :count, CURRENT_TIMESTAMP)
-                          ON DUPLICATE KEY UPDATE `result_count` = :count1, count= count+1, id=LAST_INSERT_ID(id);";
+                          ;";
 
+    $sqlSLUpdate = "UPDATE `service_looks` SET `result_count` = :count1, count= count+1 WHERE id= :id";
 // I need to track which area people are looking for which service and i have how much results for it
 // service_looks ( service_id, area_id, result_count)
     //who was looking for it ( service_look_id, customer_name, customer_mobile)
@@ -77,15 +79,38 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
             $count = count($serviceProviders);
             if($i<=0){
                 //add service not found at location request
-                $stmt = $db->prepare($sqlServiceLooks);
+
+                $stmt = $db->prepare($sqlSelectSL);
 
                 $stmt->bindParam("service_id", $id);
                 $stmt->bindParam("area_id", $area_id);
-                $stmt->bindParam("count", $count);
-                $stmt->bindParam("count1", $count);
 
                 $stmt->execute();
-                $lookupId = $db->lastInsertId();
+                $SL = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+                if(count($SL) == 0) {
+
+                    $stmt = $db->prepare($sqlServiceLooks);
+
+                    $stmt->bindParam("service_id", $id);
+                    $stmt->bindParam("area_id", $area_id);
+                    $stmt->bindParam("count", $count);
+
+
+                    $stmt->execute();
+                    $lookupId = $db->lastInsertId();
+                }
+                else {
+                    $lookupId = $SL[0]->id;
+                    $stmt = $db->prepare($sqlSLUpdate);
+
+                    $stmt->bindParam("id", $lookupId);
+
+                    $stmt->bindParam("count1", $count);
+
+                    $stmt->execute();
+
+                }
             }
 
             if($count >= 1) break;
