@@ -102,24 +102,28 @@
                     <div class="form-group">
                         <label for="serviceName">Service Name</label>
                         <input type="text" name="serviceName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.serviceId }}" ng-model="vm.data.serviceName"/>
-                        <select name="service" ng-model="vm.data.service" ng-show="vm.registered">
-                            <option value="{{ service.id }}" ng-repeat="service in vm.services" >{{ service.name | uppercase}}</option>
-                        </select>
+                        
+                        <select name="service" id="service" class="form-control" ng-model="vm.data.selectedServices" ng-change="vm.onCategoryChange(vm.data.selectedServices)" ng-options="service.name for service in vm.allServices track by service.id" ng-show="vm.registered" required>
+                            
+                        </select><br/>
+                        <p>Selected : <span  id="selectedServices"></span>
+                        </p>
                     </div>
                     <div class="form-group">                     
                         <label for="city">City</label>
                         <input type="text" name="cityName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.cityId }}" ng-model="vm.data.cityName"/>
-                        <select name="city" ng-model="vm.data.city_id" ng-show="vm.registered">
+                        <select name="city" ng-model="vm.data.city_id" class="form-control" ng-show="vm.registered" required>
                             <option value="{{ city.id }}" ng-repeat="city in vm.cities" >{{ city.name | uppercase}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="area">Area</label>
                         <input type="text" name="areaName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.areaId }}" ng-model="vm.data.areaName"/>
-                        <select name="area" ng-model="vm.data.area_id" ng-show="vm.registered" ng-click="vm.getAreas()">
+                        <select name="area" ng-model="vm.data.area_id" ng-show="vm.registered" ng-click="vm.getAreas()" class="form-control" required>
                             <option value="{{ area.id }}"  ng-repeat="area in vm.areas" >{{ area.name | uppercase}}</option>
                         </select>
                     </div>
+                    
                     <div class="form-actions">
                         <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>
                         <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -132,4 +136,5 @@
     <!-- /#page-wrapper -->
 
 </div>
+
 <!-- /#wrapper -->

@@ -32,7 +32,8 @@
         service.getCategories = getCategories;
         service.CreateService = CreateService;
         service.uploadImg = uploadImg;
-        service.getServices = getServices;
+        service.getAllServices = getAllServices;
+        service.getService = getService;
 
         return service;
 
@@ -127,8 +128,11 @@
         function getCities() {
             return $http.get(urlSP + '/cities').then(handleSuccess, handleError('Error getting cities'));
         }
-        function getServices() {
+        function getAllServices() {
             return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getService(id) {
+            return $http.get(urlSP + '/services/'+id).then(handleSuccess, handleError('Error getting cities'));
         }
         function getCategories() {
             return $http.get(urlSP + '/category').then(handleSuccess, handleError('Error getting cities'));

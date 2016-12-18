@@ -25,6 +25,7 @@ require_once"resources/service_provider/campaign_request/createCampaignRequest.p
 
 
 require_once"resources/services/getAllServices.php";
+require_once"resources/services/getServicesById.php";
 require_once"resources/services/insertNewServices.php";
 require_once"resources/services/getHotServices.php";
 require_once"resources/services/servicesNeedLookUp.php";
