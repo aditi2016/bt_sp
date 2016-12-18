@@ -34,6 +34,7 @@
         service.uploadImg = uploadImg;
         service.getAllServices = getAllServices;
         service.getService = getService;
+        service.getAllServiceRequests = getAllServiceRequests;
 
         return service;
 
@@ -130,6 +131,9 @@
         }
         function getAllServices() {
             return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function getAllServiceRequests() {
+            return $http.get('https://blueteam.in/api/all-service-requests').then(handleSuccess, handleError('Error getting cities'));
         }
         function getService(id) {
             return $http.get(urlSP + '/services/'+id).then(handleSuccess, handleError('Error getting cities'));
