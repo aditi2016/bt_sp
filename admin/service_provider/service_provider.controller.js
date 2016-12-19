@@ -31,7 +31,6 @@
         function initController() {
             loadUser();
             getCities();
-            getAllServices();
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -47,22 +46,7 @@
                     console.log(vm.cities.name);
                 });
         }
-        /*function remove(id){
-            alert(id);
-            document.getElementById(id).remove();
-            var index = vm.selected.indexOf(id);
-            if (index > -1) {
-                vm.selected.splice(index, 1);
-            }
-            console.log(vm.selected);
-        }*/
-        function getAllServices() {
-            CandidateService.getAllServices()
-                .then(function (response) {
-                    vm.allServices = response.allServices;
-                    console.log(vm.allServices.name);
-                });
-        }
+        
         vm.getAreas = function(){
             console.log('areas');
             if(vm.data.city_id == vm.oldCity){
@@ -77,7 +61,7 @@
                 vm.oldCity = vm.data.city_id;
             }
         }
-        vm.onCategoryChange = function(itemSelected) {
+        /*vm.onCategoryChange = function(itemSelected) {
             if (vm.selected.indexOf(itemSelected.id) == -1) {
                 vm.selected.push(itemSelected.id);
                 var item = '<span id="'+itemSelected.id+
@@ -86,14 +70,13 @@
                 $('#selectedServices').append(item); 
                 
             }               
-        }
+        }*/
         //onclick="remove('+itemSelected.id+')"<i class="glyphicon glyphicon-remove fa-fw" style="cursor:pointer;"  ></i>
         vm.addServiceProvider = function() {
                        
             console.log("addServiceProvider function",vm.selected);
             vm.dataLoading = true;
             if(vm.registered == false){
-                var services = vm.data.serviceName ;
                 var city = vm.data.cityId;
                 var area = vm.data.areaId;
                 var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.areaId+
@@ -102,7 +85,7 @@
                             '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
             }
             else {
-                var services = vm.selected.toString() ;
+                
                 var city = vm.data.city_id;
                 var area = vm.data.area_id;
                 var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.area_id+
@@ -110,11 +93,7 @@
                             '","name" : "'+vm.data.name+'","description" : "'+vm.data.description+
                             '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
             }
-            if(services.length == 0){
-                alert("please select at least 1 service");
-                vm.dataLoading = false;
-            }
-            else if(city == undefined){
+            if(city == undefined){
                 alert("Select City");
                 vm.dataLoading = false;
             }
@@ -127,7 +106,7 @@
                     .then(function (response) {
                         if (response.service_providers.id) {
                             FlashService.Success('Added successful', true);
-                            $location.path('/serviceprovider/'+response.service_providers.id+'/service/'+services);
+                            $location.path('/serviceprovider/'+response.service_providers.id+'/service');
                             
                         } else {
                             FlashService.Error(response.message);

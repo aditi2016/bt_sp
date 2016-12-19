@@ -80,7 +80,7 @@ function getAllServices(){
         }
     }
     else {
-        $sql = "SELECT name, id, pic_id, description FROM services WHERE status = 'active' ";
+        $sql = "SELECT name, id, pic_id, description, status FROM services WHERE 1 ";
 
         try {
             $db = getDB();

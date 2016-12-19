@@ -36,16 +36,21 @@
                     <li>
                         <a href="#/manager" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-
                     <li>
-                        <a href="#/employee/{{ vm.inUser.md5_id }}"><i class="fa fa-table fa-fw"></i> My Performance</a>
+                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> View Services</a>
                     </li>
                     <li>
-                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
+                        <a href="#/addService" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
                     </li>
-                    <!--<li>
-                        <a href="#"><i class="glyphicon glyphicon-cog fa-fw"></i> Settings</a>
-                    </li>-->
+                    <li>
+                        <a href="#/addServiceProvider" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service Provider</a>
+                    </li>
+                    <li>
+                        <a href="#/serviceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> View Service requests</a>
+                    </li>
+                    <li>
+                        <a href="#/addServiceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> Add Service request</a>
+                    </li>
                     <li>
                         <a ng-click="vm.logout()"><i class="glyphicon glyphicon-off fa-fw"></i> Logout</a>
                     </li>
@@ -105,11 +110,11 @@
                         <label for="serviceName">Service Name</label>
                         <input type="text" name="serviceName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.serviceId }}" ng-model="vm.data.serviceName"/>
                         
-                        <select name="service" id="service" class="form-control" ng-model="vm.data.selectedServices" ng-change="vm.onCategoryChange(vm.data.selectedServices)" ng-options="service.name for service in vm.allServices track by service.id" ng-show="vm.registered" required>
+                        <!-- <select name="service" id="service" class="form-control" ng-model="vm.data.selectedServices" ng-change="vm.onCategoryChange(vm.data.selectedServices)" ng-options="service.name for service in vm.allServices track by service.id" ng-show="vm.registered" required>
                             
                         </select><br/>
                         <p>Selected : <span  id="selectedServices"></span>
-                        </p>
+                        </p> -->
                     </div>
                     <div class="form-group">                     
                         <label for="city">City</label>

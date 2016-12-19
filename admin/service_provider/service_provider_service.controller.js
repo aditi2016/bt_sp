@@ -8,8 +8,6 @@
     ServiceProviderServiceController.$inject = ['UserService', '$location',  'CandidateService', '$routeParams', 'FlashService'];
     function ServiceProviderServiceController(UserService, $location, CandidateService,  $routeParams, FlashService) {
         var vm = this;
-        vm.serviceId = $routeParams.serviceId.split(",");
-       
         vm.id = $routeParams.id;
         vm.user = null;
         vm.inUser = null;
@@ -19,12 +17,12 @@
 
         function initController() {
             loadUser();
-            angular.forEach(vm.serviceId, function(id) {
+            getAllServices();
+
+            /*angular.forEach(vm.serviceId, function(id) {
                 
                 getService(id);
-            });
-            //vm.selectedServices = JSON.stringify(vm.selectedServices);
-            console.log(vm.selectedServices);
+            });*/            
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -33,38 +31,50 @@
             vm.inUser = UserService.GetInUser();
             console.log("in user",vm.inUser);
         }
-        function getService(id) {
-            CandidateService.getService(id)
+        function getAllServices() {
+            CandidateService.getAllServices()
                 .then(function (response) {
-                    vm.selectedServices.push(response.service);
+                    vm.allServices = response.allServices;
+                    console.log(vm.allServices.name);
                 });
         }
-
+        /*function showconfirmbox(id) {
+            if ($window.confirm("Do you want to add more Services?"))
+            $location.path('/serviceprovider/'+id+'/service');
+            else
+            $location.path('/serviceprovider/'+id+'/service');
+        }*/
         vm.addService = function() {
-            console.log(vm.data);
-            /*vm.dataLoading = true;
-            if (vm.data.category_id == undefined){
-                alert("Please Select Category");
-                vm.dataLoading = false;
-            }
-            else if (vm.data.status == undefined){
-                alert("Please Select Status");
-                vm.dataLoading = false;
-            }
             
+            vm.dataLoading = true;
+            var data = '{"services" : [{"price":"'+vm.data.price+'","id" : "'+vm.data.service+'","negotiable":"'+
+                    vm.data.negotiable+'","hourly":"'+vm.data.hourly+'"}]}';
+            if (vm.data.service == undefined){
+                alert("Please Select service");
+                vm.dataLoading = false;
+            }
+            else if (vm.data.hourly == undefined){
+                alert("Please Select Price By Time Unit");
+                vm.dataLoading = false;
+            }
+            else if (vm.data.negotiable == undefined){
+                alert("Please Select Negotiable");
+                vm.dataLoading = false;
+            }
             else {
-                CandidateService.CreateService(vm.data)
+                console.log(data);
+                CandidateService.CreateServiceProviderService(vm.id, data)
                     .then(function (response) {
-                        if (response.service.id) {
+                        if (response.services.id) {
                             FlashService.Success('Added successful', true);
-                            $location.path('/service');
+                            $location.path('/serviceprovider/'+id+'/service');
                         } else {
                             FlashService.Error(response.message);
                             vm.dataLoading = false;
                         }
                     });
                                     
-            }*/
+            }
             
         }
     }

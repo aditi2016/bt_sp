@@ -35,6 +35,7 @@
         service.getAllServices = getAllServices;
         service.getService = getService;
         service.getAllServiceRequests = getAllServiceRequests;
+        service.CreateServiceProviderService = CreateServiceProviderService;
 
         return service;
 
@@ -146,6 +147,9 @@
         }
         function CreateServiceProvider(user) {
             return $http.post(urlSP + '/service_provider', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        function CreateServiceProviderService(id,user) {
+            return $http.post(urlSP + '/service_provider/'+id+'/services', user).then(handleSuccess, handleError('Error creating user'));
         }
         function CreateService(user) {
             return $http.post(urlSP + '/service', user).then(handleSuccess, handleError('Error creating user'));

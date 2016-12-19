@@ -12,8 +12,7 @@
             .when('/', {
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
-                controllerAs: 'vm'
-                
+                controllerAs: 'vm'                
             })
 
             .when('/login', {
@@ -31,67 +30,73 @@
             .when('/home', {
                 controller: 'HomeController',
                 templateUrl: 'home/home.view.html',
-                controllerAs: 'vm'
-                
+                controllerAs: 'vm'                
             })
 
             .when('/manager', {
                 controller: 'ManagerController',
                 templateUrl: 'manager/manager.view.html',
                 controllerAs: 'vm'
-
             })
 
             .when('/service', {
                 controller: 'ServiceController',
                 templateUrl: 'service/service.view.html',
                 controllerAs: 'vm'
+            })
 
+            .when('/addService', {
+                controller: 'AddServiceController',
+                templateUrl: 'service/add_service.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/addService/:id', {
+                controller: 'AddServiceController',
+                templateUrl: 'service/add_service.view.html',
+                controllerAs: 'vm'
             })
 
             .when('/employee/:emp', {
                 controller: 'EmployeeController',
                 templateUrl: 'employee/employee.view.html',
                 controllerAs: 'vm'
-
             })
+
             .when('/serviceRequests', {
                 controller: 'ServiceRequestController',
                 templateUrl: 'service_requests/service_requests.view.html',
                 controllerAs: 'vm'
-
             })
+
             .when('/addServiceRequests', {
                 controller: 'AddServiceRequestController',
                 templateUrl: 'service_requests/add_service_requests.view.html',
                 controllerAs: 'vm'
-
             })
 
             .when('/addServiceProvider/:serviceId/:serviceName/:cityId/:cityName/:areaId/:areaName', {
                 controller: 'ServiceProviderController',
                 templateUrl: 'service_provider/service_provider.view.html',
                 controllerAs: 'vm'
-
             })
+
             .when('/addServiceProvider', {
                 controller: 'ServiceProviderController',
                 templateUrl: 'service_provider/service_provider.view.html',
                 controllerAs: 'vm'
-
             })
-            .when('/serviceprovider/:id/service/:serviceId', {
+            
+            .when('/serviceprovider/:id/service', {
                 controller: 'ServiceProviderServiceController',
                 templateUrl: 'service_provider/service_provider_service.view.html',
                 controllerAs: 'vm'
-
             })
 
             .when('/home/:mobile', {
                 controller: 'HomeController',
                 templateUrl: 'home/home.view.html',
                 controllerAs: 'vm'
-
             })
 
             .otherwise({ redirectTo: '/' });

@@ -36,13 +36,25 @@
                     <li>
                         <a href="#/manager" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
-
+                    <li>
+                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> View Services</a>
+                    </li>
+                    <li>
+                        <a href="#/addService" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
+                    </li>
+                    <li>
+                        <a href="#/addServiceProvider" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service Provider</a>
+                    </li>
+                    <li>
+                        <a href="#/serviceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> View Service requests</a>
+                    </li>
+                    <li>
+                        <a href="#/addServiceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> Add Service request</a>
+                    </li>
                     <li>
                         <a href="#/employee/{{ vm.inUser.md5_id }}"><i class="fa fa-table fa-fw"></i> My Performance</a>
                     </li>
-                    <li>
-                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
-                    </li>
+
                     <!--<li>
                         <a href="#"><i class="glyphicon glyphicon-cog fa-fw"></i> Settings</a>
                     </li>-->
@@ -69,11 +81,11 @@
         <div class="card " >
 
             <div class="item item-divider">
-                Register Service Provider 
+                Add New Service Request 
             </div><br/>
             <div class="item item-text-wrap">
 
-                <form ng-submit="vm.addServiceProvider()" name="addserviceprovider-f">
+                <form ng-submit="vm.addServiceRequest()" name="addservicerequest-f">
                     <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
                         <label for="name">Name</label>
                         <input type="text" name="name" class="form-control" placeholder="enter name" ng-model="vm.data.name" ng-minlength="3" required/>
@@ -90,41 +102,27 @@
                         <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">Address is required</span>
                     </div>
                     <div class="form-group">
-                        <label for="organization">Organization</label>
-                        <input type="text" name="organization" class="form-control" placeholder="enter organization" ng-model="vm.data.organization"/>
+                        <label for="remarks">Remarks</label>
+                        <input type="text" name="remarks" class="form-control" placeholder="enter Remarks" ng-model="vm.data.remarks"/>
                     </div>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <input type="text" name="description" class="form-control" placeholder="enter description" ng-model="vm.data.description"/>
+                        <label for="datetimeValue">Starting Date & Time</label>
+                        <a name="datetimeValue" type="date" class="form-control" ion-datetime-picker am-pm ng-model="vm.data.datetimeValue" disablepreviousdates ng-click="vm.takeStartTime()"  >{{data.drv =vm.data.datetimeValue | date: 'yyyy-MM-dd h:mm a'}}</a>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" class="form-control" placeholder="enter email" ng-model="vm.data.email"/>
+                        <label for="totalHour">Number of Hours</label>
+                        <select name="totalHour" class="form-control" ng-model="vm.data.totalHour">    
+                            <option value='{{i}}' ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">{{i}}</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="serviceName">Service Name</label>
-                        <input type="text" name="serviceName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.serviceId }}" ng-model="vm.data.serviceName"/>
+                        <label for="service">Service Name</label>
                         
-                        <select name="service" id="service" class="form-control" ng-model="vm.data.selectedServices" ng-change="vm.onCategoryChange(vm.data.selectedServices)" ng-options="service.name for service in vm.allServices track by service.id" ng-show="vm.registered" required>
-                            
-                        </select><br/>
-                        <p>Selected : <span  id="selectedServices"></span>
-                        </p>
-                    </div>
-                    <div class="form-group">                     
-                        <label for="city">City</label>
-                        <input type="text" name="cityName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.cityId }}" ng-model="vm.data.cityName"/>
-                        <select name="city" ng-model="vm.data.city_id" class="form-control" ng-show="vm.registered" required>
-                            <option value="{{ city.id }}" ng-repeat="city in vm.cities" >{{ city.name | uppercase}}</option>
+                        <select name="service" class="form-control" ng-model="vm.data.service" required>
+                            <option value="{{service.id}}" ng-repeat="service in vm.allServices">{{service.name}}</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="area">Area</label>
-                        <input type="text" name="areaName" class="form-control" ng-hide="vm.registered" value="{{ vm.data.areaId }}" ng-model="vm.data.areaName"/>
-                        <select name="area" ng-model="vm.data.area_id" ng-show="vm.registered" ng-click="vm.getAreas()" class="form-control" required>
-                            <option value="{{ area.id }}"  ng-repeat="area in vm.areas" >{{ area.name | uppercase}}</option>
-                        </select>
-                    </div>
+                    
                     
                     <div class="form-actions">
                         <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Register</button>

@@ -12,11 +12,15 @@
         vm.inUser = null;
         vm.example1model = []; 
         vm.selected = [];
-        
+        vm.data = [];
+        vm.data.datetimeValue = new Date();
+        vm.data.datetimeValue.setHours(7);
+        vm.data.datetimeValue.setMinutes(0);
         initController();
         vm.oldCity = 0;
         function initController() {
-            
+            loadUser();
+            getAllServices();
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -25,22 +29,7 @@
             vm.inUser = UserService.GetInUser();
             console.log("in user",vm.inUser);
         }
-        function getCities() {
-            CandidateService.getCities()
-                .then(function (response) {
-                    vm.cities = response.cities;
-                    console.log(vm.cities.name);
-                });
-        }
-        /*function remove(id){
-            alert(id);
-            document.getElementById(id).remove();
-            var index = vm.selected.indexOf(id);
-            if (index > -1) {
-                vm.selected.splice(index, 1);
-            }
-            console.log(vm.selected);
-        }*/
+        
         function getAllServices() {
             CandidateService.getAllServices()
                 .then(function (response) {
@@ -48,30 +37,12 @@
                     console.log(vm.allServices.name);
                 });
         }
-        vm.getAreas = function(){
-            console.log('areas');
-            if(vm.data.city_id == vm.oldCity){
-                return false;
-            }
-            else {
-                CandidateService.getCityAreas(vm.data.city_id)
-                    .then(function (response) {
-                        vm.areas = response.areas;
-                        console.log(vm.areas.name);
-                    });
-                vm.oldCity = vm.data.city_id;
-            }
-        }
-        vm.onCategoryChange = function(itemSelected) {
-            if (vm.selected.indexOf(itemSelected.id) == -1) {
-                vm.selected.push(itemSelected.id);
-                var item = '<span id="'+itemSelected.id+
-                            '" style="width:250px;height:30px;background-color:#0095ff;margin:10px;padding:5px;">'+itemSelected.name+
-                        '</span>';
-                $('#selectedServices').append(item); 
-                
-            }               
-        }
+        vm.data.startTimeSet = false;
+
+        vm.takeStartTime = function () {
+            console.log(vm.data.datetimeValue.toString(), vm.data.drv.toString());
+            vm.data.startTimeSet = true;
+        };
         //onclick="remove('+itemSelected.id+')"<i class="glyphicon glyphicon-remove fa-fw" style="cursor:pointer;"  ></i>
         vm.addServiceProvider = function() {
                        

@@ -633,12 +633,12 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		            url: 'https://blueteam.in/api/service_request',
 		            type: 'post',
 		            dataType: 'json',
-		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","location":"",'+
-				            	'"requirements":"'+serviceId+'","user_id": "1","user_type":"customer",'+
-		                        '"start_datatime": "'+startDatetime+'","service_type": "direct-service",'+
-		                        '"remarks": "'+remarks+' by bt_sp web page","start_time":"'+startHour+'",'+
-		                        '"end_time":"'+endtime+'","location":"'+location+'","address":"'+
-		                        bookAddress+'","priority": "3",'+'"service_provider_id":"'+serviceProviderId+'"}}',
+		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","requirements":"'
+		            		+serviceId+'","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+		            		+startDatetime+'","service_type": "direct-service",'+'"remarks": "'+remarks
+		            		+' by bt_sp web page","start_time":"'+startHour+'",'+'"end_time":"'+endtime
+		            		+'","location":"'+location+'","address":"'+bookAddress+'","priority": "3",'
+		            		+'"service_provider_id":"'+serviceProviderId+'"}}',
 		            success: function (feedback) {
 		                
 						alert("Your request has been send.\n We will connect with you soon.");
