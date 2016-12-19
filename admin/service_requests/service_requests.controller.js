@@ -40,7 +40,7 @@
 
             CandidateService.getAllServiceRequests()
                 .then(function (response) {
-                    vm.serviceRequests = response.services;
+                    vm.serviceRequests = response.root.srs;
 
                     vm.dataLoading = false;
 

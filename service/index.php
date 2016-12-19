@@ -128,7 +128,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
             </div>
           </section>
 		  </div>
-		  <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 30px;">
+		  <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 30px;background-color: #fff;">
         	<p style="white-space: nowrap;"><?= count($allServiceProviders) ?> Service Providers Found</p>
 			<hr/>
 			  <?php
