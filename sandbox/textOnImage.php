@@ -25,6 +25,7 @@ imagejpeg($out, 'out.jpg', 100);
 
   // Create Image From Existing File
   $jpg_image = imagecreatefromjpeg('services4.jpeg');
+  list($bgImgWidth,$bgImgHeight) = getimagesize('services4.jpeg');
 
 $png = imagecreatefrompng('./oie_png.png');
 list($newwidth, $newheight) = getimagesize('./oie_png.png');
@@ -39,12 +40,17 @@ imagecopyresized($thumb, $png, 0, 0, 0, 0, $newwidth/10, $newheight/10, $newwidt
   $font_path = './acme.TTF';
 
   // Set Text to Be Printed On Image
-  $text = "This is a sunset!";
+$title = "www.BlueTeam.in";
+  $dis = "All Customer services";
+$link = "http://blueteam.in";
+
 
 imagecopyresampled($jpg_image, $thumb, 0, 0, 0, 0, $newwidth/10, $newheight/10, $newwidth/10, $newheight/10);
 
   // Print Text On Image
-  imagettftext($jpg_image, 12, 0, 75, 300, $white, $font_path, $text);
+  imagettftext($jpg_image, 18, 0, $bgImgWidth - 275, $bgImgHeight - 90, $white, $font_path, $title);
+  imagettftext($jpg_image, 12, 0, $bgImgWidth - 275, $bgImgHeight - 60, $white, $font_path, $dis);
+  imagettftext($jpg_image, 12, 0, $bgImgWidth - 275, $bgImgHeight - 10, $white, $font_path, $link);
 
   // Send Image to Browser
   imagejpeg($jpg_image);
