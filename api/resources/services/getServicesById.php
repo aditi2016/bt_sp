@@ -9,7 +9,7 @@
 
 
 function getServicesById($id){
-    global $app;
+
     $sql = "SELECT * FROM services WHERE id = :id ";
     try {
         $db = getDB();
