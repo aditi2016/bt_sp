@@ -152,13 +152,16 @@
             return $http.post(urlSP + '/service_provider/'+id+'/services', user).then(handleSuccess, handleError('Error creating user'));
         }
         function CreateService(user) {
-            return $http.post(urlSP + '/service', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post(urlSP + '/services', user).then(handleSuccess, handleError('Error creating user'));
         }
-        function uploadImg(user) {
-            var fileUrl = document.getElementById(user);
+        function uploadImg(id) {
+            var fileUrl = document.getElementById(id);
             var data = new FormData();
             data.append('fileToUpload', fileUrl.files[0]);
-            var request = new XMLHttpRequest();
+            return $http.post("http://api.file-dog.shatkonlabs.com/files/rahul", data, { 
+                  transformRequest: angular.identity,
+                  headers: {'Content-Type': undefined} }).then(handleSuccess, handleError('Error uploading file'));
+            /*var request = new XMLHttpRequest();
             var responceTx = "";
             request.onreadystatechange = function(){
                 if(request.readyState == 4){
@@ -167,7 +170,7 @@
             };
             request.open('POST', 'http://api.file-dog.shatkonlabs.com/files/rahul');
             request.send(data);
-            return responceTx;
+            return responceTx;*/
         }
     }
 

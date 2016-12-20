@@ -77,18 +77,18 @@
                 <form ng-submit="vm.addService()" name="addservice-f" >
                     <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
                         <label for="name">Name</label>
-                        <input type="text" name="name" class="form-control"  ng-model="vm.data.name" value="{{ vm.data.name }}" ng-show="vm.registered" required/>
+                        <input type="text" name="name" class="form-control"  ng-model="vm.data.pname" value="{{ vm.data.pname }}" ng-show="vm.registered" />
                         <input type="text" name="name" class="form-control"  ng-model="vm.data.name" ng-hide="vm.registered" required/>
                         <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Name is required</span>
                     </div>                    
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" name="description" class="form-control" value="{{ vm.data.description }}" ng-show="vm.registered" ng-model="vm.data.description"/>
+                        <input type="text" name="description" class="form-control" value="{{ vm.data.pdescription }}" ng-show="vm.registered" ng-model="vm.data.pdescription"/>
                         <input type="text" name="description" class="form-control" ng-hide="vm.registered" ng-model="vm.data.description"/>
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select name="status" ng-model="vm.data.status" value="{{ vm.data.status }}" ng-show="vm.registered" >
+                        <select name="status" ng-model="vm.data.pstatus" value="{{ vm.data.pstatus }}" ng-show="vm.registered" >
                             <option value="active" >Active</option>
                             <option value="in-process" >In Process</option>
                         </select>
@@ -111,15 +111,17 @@
                 </form><br/><br/>
                 <div class="form-group">
                     <label for="pic_id">Upload Service Icon</label>
-                    <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{ vm.data.pic_id }}" height="50px" width="50px" ng-show ="vm.registered">
-                    <input type="file" name="pic_id" id="pic_id" class="form-control" ng-hide="vm.login" ng-model="vm.data.pic_id"/>
-                    <button  class="btn btn-primary" ng-click="vm.uploadIcon();">Upload</button>
+                    <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{ vm.data.ppic_id }}" height="120px" width="120px" ng-show ="vm.registered">
+                    <input type="file" name="pic_id" id="pic_id" class="form-control" ng-hide="vm.login" file-model="vm.data.pic_id"/>
+                    <button  class="btn btn-primary" ng-hide="vm.login" ng-click="vm.uploadIcon();">Upload</button>
+                    <button  class="btn btn-primary" ng-show="vm.login" ng-click="vm.changeIcon();">Change</button>
                 </div>
                 <div class="form-group">
                     <label for="service_img">Upload Service Image</label>
-                    <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{ vm.data.service_img }}" height="50px" width="50px" ng-show ="vm.registered">
-                    <input type="file" name="service_img" id="service_img" class="form-control" ng-hide="vm.login" ng-model="vm.data.service_img"/>
-                    <button  class="btn btn-primary" ng-click="vm.uploadServiceImg();">Upload</button>
+                    <img ng-src="http://api.file-dog.shatkonlabs.com/files/rahul/{{ vm.data.pservice_img }}" height="150px" width="150px" ng-show ="vm.registered">
+                    <input type="file" name="service_img" id="service_img" class="form-control" ng-hide="vm.service_img" file-model="vm.data.service_img"/>
+                    <button  class="btn btn-primary" ng-hide="vm.service_img" ng-click="vm.uploadServiceImg();">Upload</button>
+                    <button  class="btn btn-primary" ng-show="vm.service_img" ng-click="vm.changeServiceImg();">Change</button>
                 </div>
             </div>
         </div>           

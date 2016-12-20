@@ -41,7 +41,6 @@ function insertNewServices(){
         $stmt = $db->prepare($sql);
         
         $stmt->bindParam("name", $service->name);
-        $stmt->bindParam("name1", $service->name);
         $stmt->bindParam("description", $service->description);
         $stmt->bindParam("description1", $service->description);        
         $stmt->bindParam("pic_id", $service->pic_id);
