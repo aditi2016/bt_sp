@@ -10,12 +10,12 @@
 
 function getServicesById($id){
 
-    $sql = " SELECT * FROM `services` WHERE id = :id ";
+    $sql = " SELECT * FROM services WHERE id = :id ";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("id", $id);
-        $stmt = $db->query($sql);
+        $stmt->execute();
         $service = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $db = null;
