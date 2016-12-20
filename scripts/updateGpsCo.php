@@ -28,6 +28,12 @@ function getCoordinates($address){
     return array($lat, $lng);
 }
 
+function getLastString($value){
+    $exploded_name = explode(',', $value);
+    $exploded_trimmed = array_slice($exploded_name, -3);
+    $imploded_name = implode(',', $exploded_trimmed);
+    return $imploded_name ;
+}
 
 $serviceProvider = mysqli_query($dbHandle, "SELECT id,`address` FROM `service_providers` 
                                                 WHERE gps_location = '' or gps_location is null");
@@ -35,9 +41,17 @@ $serviceProvider = mysqli_query($dbHandle, "SELECT id,`address` FROM `service_pr
 while ( $sp = mysqli_fetch_array($serviceProvider)) {
 
     $coords = getCoordinates($sp['address']);
+    if(empty(array_filter($coords))){
+        $address = getLastString($sp['address']);
+        $newCoords = getCoordinates($address);
+        $sql = "UPDATE `blueteam_service_providers`.`service_providers`
+              SET `gps_location` = GeomFromText( 'POINT(".$newCoords[0]." ".$newCoords[1].")' ) WHERE `service_providers`.`id` =".$sp['id'].";";
+    }
     //POINT(49.227239 17.564932)
-    $sql = "UPDATE `blueteam_service_providers`.`service_providers`
+    else {
+        $sql = "UPDATE `blueteam_service_providers`.`service_providers`
               SET `gps_location` = GeomFromText( 'POINT(".$coords[0]." ".$coords[1].")' ) WHERE `service_providers`.`id` =".$sp['id'].";";
+    }
     echo $sql;
     mysqli_query($dbHandle, $sql);
     print_r($coords);
