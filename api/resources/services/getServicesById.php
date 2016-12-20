@@ -15,7 +15,7 @@ function getServicesById($id){
         $db = getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("id", $id);
-        $stmt->execute();
+        $stmt = $db->query($sql);
         $service = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $db = null;
