@@ -10,7 +10,7 @@
 
 function getServicesById($id){
 
-    $sql = "SELECT * FROM services WHERE id = :id ";
+    $sql = " SELECT * FROM `services` WHERE id = :id ";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
