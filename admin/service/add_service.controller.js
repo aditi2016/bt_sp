@@ -14,18 +14,18 @@
             vm.login = true;
             vm.service_img = true;
         }
-        else {vm.registered = false;vm.login = false;}
+        else {vm.registered = false;vm.login = false;vm.service_img = false;}
         vm.user = null;
         vm.inUser = null;
         vm.data = [];
         initController();
-        vm.oldCity = 0;
         function initController() {
             loadUser();
-            getCategories();
+            
             if(vm.registered){
                 getService(vm.serviceId);
             }
+            else { getCategories();}
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -87,7 +87,7 @@
         vm.addService = function() {
             console.log("addService function",vm.data);
             vm.dataLoading = true;
-            if(vm.registered){
+            /*if(vm.registered){
                 var provider = '{"name" : "'+vm.data.pname+'","pic_id" : "'+vm.data.ppic_id+
                             '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
                             '","description" : "'+vm.data.pdescription+'"}';
@@ -102,7 +102,7 @@
                             '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
                             '","description" : "'+vm.data.pdescription+'","category_id" : "'+vm.data.category_id+'"}';
                 }
-            }
+            }*/
             if (vm.data.status == undefined){
                 alert("Please Select Status");
                 vm.dataLoading = false;
@@ -116,7 +116,7 @@
                 vm.dataLoading = false;
             }
             else {
-                CandidateService.CreateService(provider)
+                CandidateService.CreateService(vm.data)
                     .then(function (response) {
                         if (response.service.id) {
                             FlashService.Success('Added successful', true);
