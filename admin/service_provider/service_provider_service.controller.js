@@ -69,6 +69,10 @@
                             FlashService.Success('Added successful', true);
                             vm.dataLoading = false;
                             $location.path('/serviceprovider/'+vm.id+'/service');
+                            vm.data.service = "";
+                            vm.data.hourly = "";
+                            vm.data.negotiable = "";
+                            vm.data.price = "";
                         } else {
                             FlashService.Error(response.message);
                             vm.dataLoading = false;

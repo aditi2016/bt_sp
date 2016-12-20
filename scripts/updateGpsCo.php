@@ -30,7 +30,7 @@ function getCoordinates($address){
 
 
 $serviceProvider = mysqli_query($dbHandle, "SELECT id,`address` FROM `service_providers` 
-                                                WHERE gps_location = ''");
+                                                WHERE gps_location = '' or gps_location = null");
 
 while ( $sp = mysqli_fetch_array($serviceProvider)) {
 

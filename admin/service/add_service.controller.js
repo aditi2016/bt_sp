@@ -9,6 +9,11 @@
     function AddServiceController(UserService, $location, CandidateService,  $routeParams, FlashService) {
         var vm = this;
         vm.serviceId = $routeParams.id;
+        if(!isEmpty($routeParams)){ 
+            vm.registered = true;
+            vm.login = true;
+        }
+        else {vm.registered = false;vm.login = false;}
         vm.user = null;
         vm.inUser = null;
         vm.data = [];
@@ -17,6 +22,9 @@
         function initController() {
             loadUser();
             getCategories();
+            if(vm.registered){
+                getService(vm.serviceId);
+            }
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -30,6 +38,17 @@
                 .then(function (response) {
                     vm.categories = response.categories;
                     console.log(vm.categories.name);
+                });
+        }
+        function getService(id) {
+            CandidateService.getService(id)
+                .then(function (response) {
+                    vm.service = response.service;
+                    vm.data.name = vm.service[0].name;
+                    vm.data.status = vm.service[0].status;
+                    vm.data.description = vm.service[0].description;
+                    vm.data.pic_id = vm.service[0].pic_id;
+                    vm.data.service_img = vm.service[0].service_img;
                 });
         }
         vm.uploadIcon = function(){
