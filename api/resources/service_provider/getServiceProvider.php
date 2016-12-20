@@ -12,7 +12,7 @@ function getServiceProvider($id){
               sms_credit, email_credit, campaign_credit_status
                 FROM service_providers WHERE id = :id ";
 
-    $sqlAmount = "SELECT sum(`amount`) as sum FROM `invoice` WHERE `service_provider_id` = :id";
+    $sqlAmount = "SELECT sum(`amount`) as sum FROM `invoice` WHERE `service_provider_id` = :id AND Month( creation ) = MONTH(CURRENT_DATE())";
 
 
 
