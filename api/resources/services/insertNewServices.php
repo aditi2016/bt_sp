@@ -41,7 +41,6 @@ function insertNewServices(){
         $stmt = $db->prepare($sql);
         
         $stmt->bindParam("name", $service->name);
-        $stmt->bindParam("name1", $service->name);
         $stmt->bindParam("description", $service->description);
         $stmt->bindParam("description1", $service->description);        
         $stmt->bindParam("pic_id", $service->pic_id);
@@ -53,12 +52,14 @@ function insertNewServices(){
         $stmt->bindParam("status1", $service->status);
         $stmt->execute();
         $service->id = $db->lastInsertId();
-        $stmt2 = $db->prepare($mappingSql);
-        $stmt2->bindParam("service_id", $service->id);
-        $stmt2->bindParam("category_id", $service->category_id);
-        $stmt2->bindParam("cr_time", $date);
-        $stmt2->execute();
-        $service->map_id = $db->lastInsertId();
+        if(isset($service->category_id)){
+            $stmt2 = $db->prepare($mappingSql);
+            $stmt2->bindParam("service_id", $service->id);
+            $stmt2->bindParam("category_id", $service->category_id);
+            $stmt2->bindParam("cr_time", $date);
+            $stmt2->execute();
+            $service->map_id = $db->lastInsertId();
+        }
         $db = null;
         echo '{"service": ' . json_encode($service) . '}';
     } catch (PDOException $e) {

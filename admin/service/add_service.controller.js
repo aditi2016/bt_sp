@@ -12,19 +12,20 @@
         if(!isEmpty($routeParams)){ 
             vm.registered = true;
             vm.login = true;
+            vm.service_img = true;
         }
-        else {vm.registered = false;vm.login = false;}
+        else {vm.registered = false;vm.login = false;vm.service_img = false;}
         vm.user = null;
         vm.inUser = null;
         vm.data = [];
         initController();
-        vm.oldCity = 0;
         function initController() {
             loadUser();
-            getCategories();
+            
             if(vm.registered){
                 getService(vm.serviceId);
             }
+            else { getCategories();}
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -44,11 +45,11 @@
             CandidateService.getService(id)
                 .then(function (response) {
                     vm.service = response.service;
-                    vm.data.name = vm.service[0].name;
-                    vm.data.status = vm.service[0].status;
-                    vm.data.description = vm.service[0].description;
-                    vm.data.pic_id = vm.service[0].pic_id;
-                    vm.data.service_img = vm.service[0].service_img;
+                    vm.data.pname = vm.service[0].name;
+                    vm.data.pstatus = vm.service[0].status;
+                    vm.data.pdescription = vm.service[0].description;
+                    vm.data.ppic_id = vm.service[0].pic_id;
+                    vm.data.pservice_img = vm.service[0].service_img;
                 });
         }
         vm.uploadIcon = function(){
@@ -64,7 +65,12 @@
                 }
             }); 
         }
-        
+        vm.changeIcon = function(){
+            vm.login = false;
+        }
+        vm.changeServiceImg = function(){
+            vm.service_img = false;
+        }
         vm.uploadServiceImg = function(){
            CandidateService.uploadImg('service_img')
                 .then(function (response) {
@@ -81,11 +87,23 @@
         vm.addService = function() {
             console.log("addService function",vm.data);
             vm.dataLoading = true;
-            if (vm.data.category_id == undefined){
-                alert("Please Select Category");
-                vm.dataLoading = false;
+            /*if(vm.registered){
+                var provider = '{"name" : "'+vm.data.pname+'","pic_id" : "'+vm.data.ppic_id+
+                            '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
+                            '","description" : "'+vm.data.pdescription+'"}';
             }
-            else if (vm.data.status == undefined){
+            else {
+                if (vm.data.category_id == undefined){
+                    alert("Please Select category");
+                    vm.dataLoading = false;
+                }
+                else {
+                    var provider = '{"name" : "'+vm.data.pname+'","pic_id" : "'+vm.data.ppic_id+
+                            '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
+                            '","description" : "'+vm.data.pdescription+'","category_id" : "'+vm.data.category_id+'"}';
+                }
+            }*/
+            if (vm.data.status == undefined){
                 alert("Please Select Status");
                 vm.dataLoading = false;
             }
@@ -107,8 +125,7 @@
                             FlashService.Error(response.message);
                             vm.dataLoading = false;
                         }
-                    });
-                                    
+                    });                    
             }
             
         }
