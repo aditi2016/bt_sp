@@ -35,15 +35,19 @@ function insertServiceProvider(){
         $serviceProvider->profile_pic_id = 0;
     if(!isset($serviceProvider->experience))
         $serviceProvider->experience = 0;
+    $coupon = 0;
+    if(isset($serviceProvider->coupon)){
+        $coupon = explode("#",$serviceProvider->coupon)[1];
+    }
     //photo,name,mobile,password,address,experience,services,city,area
 
     $sql = "INSERT INTO
                     service_providers
-                      (name, organization, description, mobile_no, password, experience, address, email,profile_pic_id,area_id,city_id)
+                      (name, organization, description, mobile_no, password, ref_id, experience, address, email,profile_pic_id,area_id,city_id)
                     VALUES
-                      (:name, :organization, :description, :mobile, :password, :experience,  :address, :email, :profile_pic_id, :area, :city)
+                      (:name, :organization, :description, :mobile, :password, :ref_id, :experience,  :address, :email, :profile_pic_id, :area, :city)
                     ON DUPLICATE KEY UPDATE
-                      name = :name1, organization = :organization1, password = :password1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
+                      name = :name1, organization = :organization1, password = :password1, ref_id = :ref_id1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -59,6 +63,8 @@ function insertServiceProvider(){
 
         $stmt->bindParam("password", $serviceProvider->password);
         $stmt->bindParam("password1", $serviceProvider->password);
+        $stmt->bindParam("ref_id", $coupon);
+        $stmt->bindParam("ref_id1", $coupon);
         $stmt->bindParam("experience", $serviceProvider->experience);
         $stmt->bindParam("experience1", $serviceProvider->experience);
         $stmt->bindParam("area", $serviceProvider->area_id);

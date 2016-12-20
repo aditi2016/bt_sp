@@ -9,14 +9,16 @@
 // appid = 220179075101428
 // app secret = 911c170641c8b38c8407f199f0b47c9d
 
-$page_access_token = 'EAADIQGZBO8vQBAOxGPzgo4iQo4VNkLYYWoOMjpSxrb2HZB6ASnH4tU5zqZCRdiiwIGUO7tv4jwzUZCDznkvEbJVxQZB5PHeWbx6GRV6qEZBMUL4e4mGoTYXfK3YvO4alWlljDWzDlNhbBSUgdVorEc00KDrkosFFtXD0mUK8WWkXo4wfyuhWBJ';
+// 596434263827904_798097066994955
+
+$page_access_token = 'EAACEdEose0cBACTVMANtGS5bQNqs9poweKuQwER70crIaGVAJE5Bey0tZAPm2oJL8ShnlWsmP1clt5qXotFIuZBDIxc8ZAaR4bvgrLDSImE6g2cN2b6k4ZClmVQ3ZAjlAfdsySy9FanX0qoX3ZBe7jSxxeBSqZArnnhcK4TTMv5GQZDZD';
 $page_id = '596434263827904';
 
-$data['picture'] = "http://www.example.com/image.jpg";
-$data['link'] = "http://www.example.com/";
-$data['message'] = "Your message";
-$data['caption'] = "Caption";
-$data['description'] = "Description";
+$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/1053";
+$data['link'] = "http://www.blueteam.com/";
+$data['message'] = "Get Fit and Fine, We pray for you best health!";
+$data['caption'] = "All Customer Service App";
+$data['description'] = "Choose your Yoga Trainer, based on there reliability and quality ";
 
 $data['access_token'] = $page_access_token;
 
