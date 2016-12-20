@@ -1,6 +1,6 @@
 <?php
 
-$config['callback_url']         =   'http://blueteam.in/sandbox/facebook/app/?fbTrue=true'; //   /?fbTrue=true allow you to code process section.
+$config['callback_url']         =   'http://blueteam.in/sandbox/facebookShareApp/app/?fbTrue=true'; //   /?fbTrue=true allow you to code process section.
 
 //Facebook configuration
 $config['App_ID']      =   '220179075101428';
