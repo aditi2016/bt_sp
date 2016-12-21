@@ -71,6 +71,8 @@ function getAllServices(){
                 $category->services = $services;
             }
 
+            var_dump($categories);die();
+
             $db = null;
             echo '{"allServices": ' . json_encode($categories) . '}';
 
