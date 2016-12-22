@@ -61,7 +61,9 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	
 </head>
 
-<body style="font-family:Gotham SSm A,Gotham SSm B,Halvetica,sans-serif;letter-spacing:normal" class="buy-service projects dedicated-page" data-device-type="">
+<body style="font-family:Gotham SSm A,Gotham SSm B,Halvetica,sans-serif;letter-spacing:normal" class="buy-service projects dedicated-page" data-device-type="" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
+            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
+			background-position: top;">
 	<div id="dummy-react"><!-- react-empty: 1 --></div>
 	<div id="header">
 	  <header style=""  >
@@ -83,9 +85,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 		
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
-	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
-            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
-			background-position: top;">
+	<div id="main-content" >
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  <div class="row">

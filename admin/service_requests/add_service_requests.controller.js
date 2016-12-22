@@ -16,6 +16,7 @@
         vm.data.datetimeValue = new Date();
         vm.data.datetimeValue.setHours(7);
         vm.data.datetimeValue.setMinutes(0);
+        
         initController();
         vm.oldCity = 0;
         function initController() {
