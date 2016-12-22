@@ -8,10 +8,11 @@ $serviceProviderId = $url[1];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
 $location = $_GET['l'];
-$service = mysqli_query($dbHandle, "SELECT a.price,b.service_img, a.negotiable,a.hourly,b.name, b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a JOIN services AS b
-                                            WHERE a.service_provider_id = '$serviceProviderId'
-                                            AND a.service_id = b.id and a.service_id = '$serviceNameUrl' ;");
+$service = mysqli_query($dbHandle, "SELECT a.price,b.service_img, a.negotiable,a.hourly,b.name, 
+									b.pic_id, b.description FROM service_provider_service_mapping AS a
+									JOIN services AS b WHERE a.service_provider_id = 
+									'$serviceProviderId' AND a.service_id = b.id and 
+									a.service_id = '$serviceNameUrl' ;");
 $serviceData = mysqli_fetch_array($service);
 if($serviceData['pic_id']== 0) $img = 1075;
 else $img = $serviceData['pic_id'] ;
@@ -32,10 +33,10 @@ $profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$pic;
 $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE 
                                         service_provider_id = '$serviceProviderId' ;");
 
-$allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, a.hourly,b.name,b.pic_id, b.description
-                                            FROM service_provider_service_mapping AS a JOIN services AS b
-                                            WHERE a.service_provider_id = '$serviceProviderId'
-                                            AND a.service_id = b.id AND b.status = 'active' ;");
+$allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, a.hourly,b.name,b.pic_id, 
+										b.description FROM service_provider_service_mapping AS a JOIN
+										services AS b WHERE a.service_provider_id ='$serviceProviderId'
+                                        AND a.service_id = b.id AND b.status = 'active' ;");
 
 $serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
 
@@ -156,18 +157,15 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 			  	  <span class="price-display-type">Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?></span>
 				</span>
 				<div class="pp-container">
-				  <span class="hide-embed rate">Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span>
+				  <span class="">Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span>
 				</div>
 			  </div>
 			  <div class="clearfix property-info">
 			  	<span class="prifile-img">
 			  		<img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;'>
 			  	</span>
-				<h1 class="main-text" itemprop="name"><?=$serviceProviderData['name']; ?></h1>
-				<h2 class="builder-text">
-				  <span itemprop="brand"><?=$serviceProviderData['organization']; ?></span>
-				</h2>
-				<div class="location-info"><?=$serviceProviderData['description']; ?></div>
+				<p class="main-text" itemprop="name" style="font-size: 16px;"><?=$serviceProviderData['name']; ?><br/><?=$serviceProviderData['organization']; ?><br/><?=$serviceProviderData['description']; ?>
+				</p>
 			  </div>
 			</div>
 		  </div>
@@ -178,16 +176,16 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
             <?php
             $flag = true;
             while ( $photos = mysqli_fetch_array($photosArray)) {
-            	if($photos['photo_id']== 0) $img = 1075;
-				else $img = $photos['photo_id'] ;
+            	if($photos['photo_id']== 0) $image = 1075;
+				else $image = $photos['photo_id'] ;
                 if($flag){
                  echo "<div  style='text-align:center'  class='item active'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business webebsite template'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business webebsite template'>
                        </div>";
                 }
                 else {
                  echo "<div  style='text-align:center'  class='item'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business themes'>
+                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business themes'>
                        </div>";  
                 }
                 $flag = false;
@@ -199,7 +197,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
             </div>
           </section>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-12">
+          <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 30px;background-color: #fff;">
           <?php if(isset($_GET['s'])) { 
           	echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$serviceName."\",\"".$location."\");' style='text-decoration:none;'>
                     <div class='flat-img'>
@@ -240,7 +238,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
               <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
 			</div>
 		  
-            <a style="text-decoration: none; color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
+            <a style="text-decoration: none; background:#fff;color:#000;white-space: nowrap; position: absolute;padding: 25px;" onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
               <div class='price'>
 			    <span class='value'><b><?=$serviceName ;?></b><br/>
 			    <?=$servicePrice ;?><i class='icon icon-rupee'></i> <?=$servicePerHour ;?><br/>
