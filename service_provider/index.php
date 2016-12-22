@@ -8,7 +8,7 @@ $serviceProviderId = $url[1];
 $serviceUrl = explode("-",$_GET['s']);
 $serviceNameUrl = $serviceUrl[1];
 $location = $_GET['l'];
-$service = mysqli_query($dbHandle, "SELECT a.price, a.negotiable,a.hourly,b.name, b.pic_id, b.description
+$service = mysqli_query($dbHandle, "SELECT a.price,b.service_img, a.negotiable,a.hourly,b.name, b.pic_id, b.description
                                             FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
                                             AND a.service_id = b.id and a.service_id = '$serviceNameUrl' ;");
@@ -36,6 +36,8 @@ $allServices = mysqli_query($dbHandle, "SELECT a.price, a.negotiable, a.hourly,b
                                             FROM service_provider_service_mapping AS a JOIN services AS b
                                             WHERE a.service_provider_id = '$serviceProviderId'
                                             AND a.service_id = b.id AND b.status = 'active' ;");
+
+$serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
 
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
@@ -140,7 +142,9 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
-	<div id="main-content"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
+	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
+            background-image: url('<?= $serviceImg ?>');background-size:cover;background-repeat: no-repeat;
+			background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  <div class="row">
