@@ -143,7 +143,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
 	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
-            background-image: url('<?= $serviceImg ?>');background-size:cover;background-repeat: no-repeat;
+            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
 			background-position: top;"><!-- / not of primary and secondary as it will be true if all its keys would be having a false value. -->
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
