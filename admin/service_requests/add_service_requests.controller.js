@@ -16,12 +16,13 @@
         vm.data.datetimeValue = new Date();
         vm.data.datetimeValue.setHours(7);
         vm.data.datetimeValue.setMinutes(0);
-        
+        vm.takeStartTime = openCalender;
         initController();
         vm.oldCity = 0;
         function initController() {
             loadUser();
             getAllServices();
+            openCalender();
         }
         function isEmpty(obj){
             return (Object.getOwnPropertyNames(obj).length === 0);
@@ -39,12 +40,15 @@
                 });
         }
         vm.data.startTimeSet = false;
-
-        vm.takeStartTime = function () {
-            console.log(vm.data.datetimeValue.toString(), vm.data.drv.toString());
-            vm.data.startTimeSet = true;
-        };
-        //onclick="remove('+itemSelected.id+')"<i class="glyphicon glyphicon-remove fa-fw" style="cursor:pointer;"  ></i>
+        function openCalender(){
+            $('.takeStartTime').datetimepicker({
+                
+                weekStart: 1,
+                todayBtn:  1,
+                autoclose: 1,
+                todayHighlight: 1
+            });
+        }
         vm.addServiceProvider = function() {
                        
             console.log("addServiceProvider function",vm.selected);

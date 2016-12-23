@@ -91,9 +91,9 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 		  <div class="row">
 	      <div class="col-lg-9 col-md-9 col-sm-12">
 			  <div class="image-info mw">
-				<div class="image-info-inner">
+				<div class="image-info-inner" style="background-color: #fff;margin-bottom: 10px;padding-top: 10px;">
 				  <div class="price-details"></div>
-				  <div class="clearfix property-info">
+				  <div class="clearfix property-info" >
 				  	<span class="prifile-img">
 				  		<img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;padding-bottom:20px; '>
 				  	</span>
@@ -134,12 +134,12 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
                 foreach ($allServiceProviders as $serviceProvider ) {
                 	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
                 	else $perHour ="";
-                	if($serviceProviders['price']=="") $price = 0;
-                	else $price = $serviceProviders['price'] ;
-                	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
-					else $img = $serviceProviders['profile_pic_id'] ;
+                	if($serviceProvider->price=="") $price = 0;
+                	else $price = $serviceProvider->price;
+                	if($serviceProvider->profile_pic_id== 0) $img2 = 1075;
+					else $img2 = $serviceProvider->profile_pic_id ;
                     echo "<div><a style='text-decoration:none;' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
-                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' height='70px' width='70px'>
+                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img2."' height='70px' width='70px'>
                             <p style='font-size:12px;margin:-70px 0 0 80px;color:#000;'>".$serviceProvider->name."<br/>".$price."<i class='icon icon-rupee'></i> ".$perHour." <br/><br/>
                             <button class='btn btn-info'>View Details</button><br/>
                             </p>

@@ -107,8 +107,8 @@
                     </div>
                     <div class="form-group">
                         <label for="datetimeValue">Starting Date & Time</label>
-                        <a name="datetimeValue" type="date" class="form-control" ion-datetime-picker am-pm ng-model="vm.data.datetimeValue" disablepreviousdates ng-click="vm.takeStartTime()"  >{{data.drv =vm.data.datetimeValue | date: 'yyyy-MM-dd h:mm a'}}</a>
-                        <date-time-picker ng-model="vm.data.datetimeValue">{{data.drv =vm.data.datetimeValue | date: 'yyyy-MM-dd h:mm a'}}</date-time-picker>
+                        <!-- <input name="datetimeValue" type="date" class="form-control" ion-datetime-picker am-pm ng-model="vm.data.datetimeValue" disablepreviousdates ng-click="vm.takeStartTime()"  >{{data.drv =vm.data.datetimeValue | date: 'yyyy-MM-dd h:mm a'}} -->
+                        <input class="form-control takeStartTime"  ng-modal="vm.data.datetimeValue" ng-click="vm.takeStartTime()">
                     </div>
                     <div class="form-group">
                         <label for="totalHour">Number of Hours</label>

@@ -151,8 +151,9 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		  <div class="row">
 	      <div class="col-lg-9 col-md-9 col-sm-12">
 		  <div class="image-info mw">
-			<div class="image-info-inner">
-			  <div class="price-details">
+			<div class="image-info-inner" style="background-color: #fff;
+										margin-bottom: 10px;padding: 20px;">
+			  <div class="price-details" style="padding: 10px;">
 				<span class="price-info" >
 			  	  <span class="price-display-type">Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?></span>
 				</span>
@@ -174,23 +175,20 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
             <div id="myCarousel" class="carousel slide">
               <div class="carousel-inner">
             <?php
-            $flag = true;
-            while ( $photos = mysqli_fetch_array($photosArray)) {
-            	if($photos['photo_id']== 0) $image = 1075;
-				else $image = $photos['photo_id'] ;
-                if($flag){
-                 echo "<div  style='text-align:center'  class='item active'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business webebsite template'>
-                       </div>";
-                }
-                else {
-                 echo "<div  style='text-align:center'  class='item'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business themes'>
-                       </div>";  
-                }
-                $flag = false;
-             } 
-            ?>
+				echo "<div  style='text-align:center'  class='item active'>
+	                        <img src='".$serviceImg."' alt='business webebsite template'>
+	                       </div>";
+
+	            while ( $photos = mysqli_fetch_array($photosArray)) {
+	            	if($photos['photo_id']== 0) $image = 1075;
+					else $image = $photos['photo_id'] ;
+	                echo "<div  style='text-align:center'  class='item'>
+	                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business themes'>
+	                       </div>";  
+
+	             } 
+	        ?>
+            
               </div>
               <a class="left carousel-control"  href="#myCarousel" data-slide="prev">&lsaquo;</a>
               <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
@@ -219,7 +217,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
                ?>
                 <i class="glyphicon glyphicon-star"></i>
                 <span style="margin:4px 0 0 10px;position: absolute;">
-                 Awesome : <?php echo (isset($marvelous)) ? $marvelous : "0";?></span><hr/>
+                 Awesome : <?php echo (isset($marvelous)) ? $marvelous : "1";?></span><hr/>
 				<i class="glyphicon glyphicon-heart"></i>
 				<span style="margin:4px 0 0 10px;position: absolute;">
 				 Good : <?php echo(isset($appreciation)) ? $appreciation : "0";?></span><hr/>
@@ -232,9 +230,9 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		  	</div>
 		  </div>
           <?php if(isset($_GET['s'])) { ?>
-		  <a class="flat-link " style="vertical-align: middle;margin-left: 220px;">
+		  <a class="flat-link " style="vertical-align: middle;margin-left: 220px;background:#fff;">
 		  	
-            <div class='flat-img'>
+            <div class='flat-img' style="background:#fff;">
               <div class='img'  style='background-image:url(<?=$icon ; ?>)'></div>
 			</div>
 		  
