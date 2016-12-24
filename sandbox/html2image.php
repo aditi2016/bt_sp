@@ -90,7 +90,7 @@ function call_p2i($bgImg,$logo,$focus,$target)
             letter-spacing: -1px;
             background: rgb(0, 0, 0); /* fallback color */
             background: rgba(0, 0, 0, 0.7);
-            padding: 5px;
+            padding: 8px;
         }
     </style>
 </head>
