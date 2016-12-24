@@ -15,7 +15,7 @@
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
 
-            <li><a href="#/employee/{{ vm.inUser.md5_id }}"><i class="fa fa-user fa-fw"></i> {{ vm.inUser.name}}</a>
+            <li><a ><i class="fa fa-user fa-fw"></i> {{ vm.inUser.name}}</a>
             </li>
             <!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings </a>
             </li>-->
@@ -37,24 +37,12 @@
                         <a href="#/manager" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#/service" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service</a>
+                        <a href="#/service" ><i class="fa fa-dashboard fa-fw"></i> Services</a>
                     </li>
+                    
                     <li>
-                        <a href="#/addServiceProvider" class="active"><i class="fa fa-dashboard fa-fw"></i> Add New Service Provider</a>
+                        <a href="#/serviceRequests" ><i class="fa fa-user fa-fw"></i> Service requests</a>
                     </li>
-                    <li>
-                        <a href="#/serviceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> View Service requests</a>
-                    </li>
-                    <li>
-                        <a href="#/addServiceRequests" class="active"><i class="fa fa-dashboard fa-fw"></i> Add Service request</a>
-                    </li>
-                    <li>
-                        <a href="#/employee/{{ vm.inUser.md5_id }}"><i class="fa fa-table fa-fw"></i> My Performance</a>
-                    </li>
-
-                    <!--<li>
-                        <a href="#"><i class="glyphicon glyphicon-cog fa-fw"></i> Settings</a>
-                    </li>-->
                     <li>
                         <a ng-click="vm.logout()"><i class="glyphicon glyphicon-off fa-fw"></i> Logout</a>
                     </li>
@@ -164,16 +152,18 @@
                     </a>
                 </div>
             </div>
-            <a ng-click="vm.filterIt('all')">See All</a>
         </div>
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Team Performance
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Find Partners
                         <div class="pull-right">
-                            <div class="btn-group">
+                            <a type="button" href="#/addServiceProvider">
+                                <i class="fa fa-group fa-fw"></i> Add New Partner +
+                            </a>
+                            <!-- <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                     {{ vm.whichMonth.name }}
                                     <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -189,7 +179,7 @@
                                     <li><a href="">Currently for {{ vm.whichMonth.name }}</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- /.panel-heading -->
@@ -224,6 +214,96 @@
                             </tbody>
                         </table>
                             </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+
+
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Partners Not installed App
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                        <table datatable="ng"  class="table table-bordered table-hover table-striped" style="max-width: 99%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Service</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Address</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="notInstallApp in vm.notInstallApps" >
+                                    <td>{{ notInstallApp.id }} </td>
+                                    <td>{{ notInstallApp.service_name }} </td>
+                                    <td>{{ notInstallApp.name }} </td>
+                                    <td>{{ notInstallApp.mobile }} </td>
+                                    <td>{{ notInstallApp.address }} </td>
+                                    <td> <a  >ADD + </a></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+
+
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Partners Not Using App
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                        <table datatable="ng"  class="table table-bordered table-hover table-striped" style="max-width: 99%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Service</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Address</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="notUsingApp in vm.notUsingApps" >
+                                    <td>{{ notUsingApp.id }} </td>
+                                    <td>{{ notUsingApp.service_name }} </td>
+                                    <td>{{ notUsingApp.name }} </td>
+                                    <td>{{ notUsingApp.mobile }} </td>
+                                    <td>{{ notUsingApp.address }} </td>
+                                    <td> <a  >ADD + </a></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                     <!-- /.panel-body -->
                 </div>

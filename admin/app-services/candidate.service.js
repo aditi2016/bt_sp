@@ -34,6 +34,8 @@
         service.uploadImg = uploadImg;
         service.getAllServices = getAllServices;
         service.getService = getService;
+        service.notInstallApps = notInstallApps;
+        service.notUsingApps = notUsingApps;
         service.getAllServiceRequests = getAllServiceRequests;
         service.CreateServiceProviderService = CreateServiceProviderService;
 
@@ -132,6 +134,12 @@
         }
         function getAllServices() {
             return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function notInstallApps() {
+            return $http.get(urlSP + '/service_provider?type=not_install').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function notUsingApps() {
+            return $http.get(urlSP + '/service_provider?type=not_using').then(handleSuccess, handleError('Error getting cities'));
         }
         function getAllServiceRequests() {
             return $http.get('https://blueteam.in/api/all-service-requests').then(handleSuccess, handleError('Error getting cities'));

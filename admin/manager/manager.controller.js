@@ -39,6 +39,8 @@
 
             loadMonths();
             loadUser();
+            loadNotInstallApps();
+            loadNotUsingApps();
             loadToCallCandidates();
 
         }
@@ -184,7 +186,22 @@
                 });
 
         }
-
+        function loadNotInstallApps(){
+            vm.dataLoading = true;
+            CandidateService.notInstallApps()
+                .then(function (response) {
+                    vm.notInstallApps = response.service_providers;
+                    vm.dataLoading = false;
+                });
+        }
+        function loadNotUsingApps(){
+            vm.dataLoading = true;
+            CandidateService.notUsingApps()
+                .then(function (response) {
+                    vm.notInstallApps = response.service_providers;
+                    vm.dataLoading = false;
+                });
+        }
         /*function loadCurrentUser() {
             UserService.GetByUsername($rootScope.globals.currentUser.username)
                 .then(function (user) {
