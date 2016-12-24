@@ -10,15 +10,15 @@
 // app secret = 911c170641c8b38c8407f199f0b47c9d
 
 // 596434263827904_798097066994955
-
-$page_access_token = 'EAACEdEose0cBACTVMANtGS5bQNqs9poweKuQwER70crIaGVAJE5Bey0tZAPm2oJL8ShnlWsmP1clt5qXotFIuZBDIxc8ZAaR4bvgrLDSImE6g2cN2b6k4ZClmVQ3ZAjlAfdsySy9FanX0qoX3ZBe7jSxxeBSqZArnnhcK4TTMv5GQZDZD';
+//EAADIQGZBO8vQBAA13ZBVVSWAAhgPulqN8BFYCWU5OOTdEJ2phD00IwC5hGZA1TQZCfjBaKYFGRNO1eKmQDdRFyKnlZC773JwmDJ62YZCZBiVL5dr7J27uJpboRBiL6uHzOA7izum02VHspssk3vpQomAhMPvl1nDxIoco2q3vcWYQZDZD
+$page_access_token = 'EAADIQGZBO8vQBAN86wOjzGZBFSFw2W8BqQZCBjrS9XwQGKnZCmaeWg17X8ZBXh2R9Arwgb9UkDOPXXUq0dVR8rLJpb3ojKUvOTG5ZBdR52etFT0qpn5rmLZBLuW5ZA5w5ESuce5vIpLxZAsSjoRaBVdov6R1Y5L8fxK4ZD';
 $page_id = '596434263827904';
 
-$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/1053";
-$data['link'] = "http://www.blueteam.com/";
-$data['message'] = "Get Fit and Fine, We pray for you best health!";
+$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/904";
+$data['link'] = "http://www.blueteam.in/";
+$data['message'] = "Diet-chat is not just about eating , its about learning to live!";
 $data['caption'] = "All Customer Service App";
-$data['description'] = "Choose your Yoga Trainer, based on there reliability and quality ";
+$data['description'] = "Diet-chat is not just about eating , its about learning to live. ";
 
 $data['access_token'] = $page_access_token;
 
