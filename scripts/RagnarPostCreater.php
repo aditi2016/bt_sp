@@ -16,11 +16,11 @@ $posts = mysqli_query($dbHandle, "
                   WHERE a.gen_img_id = 0 and a.`status` = 'not-approved' and a.company_id = b.id");
 
 while ( $post = mysqli_fetch_array($posts)) {
-    $genId = getGenPost($post['raw_img_id'],$post['logo_id'],$post['description'],"Get ".$post['title']." Services<br>Download Now Blueteam Mobile App" ,$post['link']);
+    $genId = getGenPost($post['raw_img_id'],$post['logo_id'],$post['description'],"Get ".$post['title']." Services<br>Download Now <br>BlueTeam Mobile App" ,$post['link']);
     $sql="UPDATE `ragnar_social`.`posts` SET `gen_img_id` = '".$genId."' WHERE `posts`.`id` =".$post['id'].";";
     echo $sql;
-    break;
-    //mysqli_query($dbHandle, $sql);
+    //break;
+    mysqli_query($dbHandle, $sql);
 
 }
 
