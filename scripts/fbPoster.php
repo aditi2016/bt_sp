@@ -42,7 +42,7 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $return = curl_exec($ch);
 $fbReturn = json_decode($return);
-
+var_dump($fbReturn);
 curl_close($ch);
 
 if($fbReturn->id){
