@@ -39,6 +39,7 @@
         service.notUsingApps = notUsingApps;
         service.getAllServiceRequests = getAllServiceRequests;
         service.CreateServiceProviderService = CreateServiceProviderService;
+        service.CreateServiceRequest = CreateServiceRequest;
 
         return service;
 
@@ -158,6 +159,9 @@
         }
         function CreateServiceProvider(user) {
             return $http.post(urlSP + '/service_provider', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        function CreateServiceRequest(data) {
+            return $http.post('https://blueteam.in/api/service_request', data).then(handleSuccess, handleError('Error getting cities'));
         }
         function CreateServiceProviderService(id,user) {
             return $http.post(urlSP + '/service_provider/'+id+'/services', user).then(handleSuccess, handleError('Error creating user'));

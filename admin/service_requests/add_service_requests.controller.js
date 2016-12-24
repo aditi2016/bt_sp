@@ -13,9 +13,6 @@
         vm.example1model = []; 
         vm.selected = [];
         vm.data = [];
-        vm.data.datetimeValue = new Date();
-        vm.data.datetimeValue.setHours(7);
-        vm.data.datetimeValue.setMinutes(0);
         vm.takeStartTime = openCalender;
         initController();
         vm.oldCity = 0;
@@ -39,56 +36,49 @@
                     console.log(vm.allServices.name);
                 });
         }
-        vm.data.startTimeSet = false;
+        
         function openCalender(){
             $('.takeStartTime').datetimepicker({
                 
                 weekStart: 1,
-                todayBtn:  1,
                 autoclose: 1,
-                todayHighlight: 1
+                format : 'yyyy-mm-dd hh:ii'
             });
         }
-        vm.addServiceProvider = function() {
-                       
-            console.log("addServiceProvider function",vm.selected);
+        vm.addServiceRequest = function() {
+            
             vm.dataLoading = true;
-            if(vm.registered == false){
-                var services = vm.data.serviceName ;
-                var city = vm.data.cityId;
-                var area = vm.data.areaId;
-                var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.areaId+
-                            '","city_id" : "'+vm.data.cityId+'","mobile" : "'+vm.data.mobile+
-                            '","name" : "'+vm.data.name+'","description" : "'+vm.data.description+
-                            '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
-            }
-            else {
-                var services = vm.selected.toString() ;
-                var city = vm.data.city_id;
-                var area = vm.data.area_id;
-                var provider = '{"address" : "'+vm.data.address+'","area_id" : "'+vm.data.area_id+
-                            '","city_id" : "'+vm.data.city_id+'","mobile" : "'+vm.data.mobile+
-                            '","name" : "'+vm.data.name+'","description" : "'+vm.data.description+
-                            '","organization" : "'+vm.data.organization+'","email" : "'+vm.data.email+'"}';
-            }
-            if(services.length == 0){
-                alert("please select at least 1 service");
+            var datetime = $('#datetimeValue').val();
+            var startTime = datetime.split(" ")[1]+":00";
+            var time = startTime.split(":");
+            var endtime = ""+parseInt(parseInt(vm.data.totalHour)+parseInt(time[0]))+":"+time[1]+":00";
+            console.log(datetime+'/'+startTime+'/'+endtime);
+            if(datetime == undefined || datetime == ""){
+                alert("please select starting date and time of service");
                 vm.dataLoading = false;
             }
-            else if(city == undefined){
-                alert("Select City");
+            else if(vm.data.service == undefined){
+                alert("Select Service");
                 vm.dataLoading = false;
             }
-            else if(area == undefined){
-                alert("Select Area");
+            else if(vm.data.totalHour == undefined){
+                alert("Please enter total number of hours of service needed");
                 vm.dataLoading = false;
             }
             else {
-                CandidateService.CreateServiceProvider(provider)
+
+                var request = '{"root": {"name":"'+vm.data.name+'","mobile":"'+vm.data.mobile+'","requirements":"'
+                            +vm.data.service+'","service_id":"'+vm.data.service+'","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+                            +datetime+'","service_type": "direct-service",'+'"remarks": "'+vm.data.remarks
+                            +' by blueteam admin page","start_time":"'+startTime+'",'+'"end_time":"'+endtime
+                            +'","location":"","address":"'+vm.data.address+'","priority": "3",'
+                            +'"service_provider_id":"0"}}';
+                console.log(request);
+                CandidateService.CreateServiceRequest(request)
                     .then(function (response) {
-                        if (response.service_providers.id) {
+                        if (response.root.sr_id) {
                             FlashService.Success('Added successful', true);
-                            $location.path('/serviceprovider/'+response.service_providers.id+'/service/'+services);
+                            $location.path('#/serviceRequests');
                             
                         } else {
                             FlashService.Error(response.message);
