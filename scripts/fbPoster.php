@@ -18,13 +18,13 @@ $posts = mysqli_query($dbHandle, "
                   a.gen_img_id, b.logo_id
                 FROM `posts` as a
                   inner join companies as b
-                  WHERE a.gen_img_id = 0
+                  WHERE a.gen_img_id != 0
                       and a.`status` = 'approved'
                       and a.id NOT IN (SELECT post_id FROM post_tracks WHERE 1)
                       and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
 
 $post = mysqli_fetch_array($posts);
-var_dump($post);
+//var_dump($post);
 
 $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
 $data['link'] = "http://".$post['link'];
@@ -34,7 +34,7 @@ $data['description'] = $post['description'];
 
 $data['access_token'] = $page_access_token;
 
-var_dump($data);
+//var_dump($data);
 
 $post_url = 'https://graph.facebook.com/'.$page_id.'/feed';
 
