@@ -24,6 +24,7 @@ $posts = mysqli_query($dbHandle, "
                       and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
 
 $post = mysqli_fetch_array($posts);
+var_dump($post);
 
 $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
 $data['link'] = "http://".$post['link'];
