@@ -20,7 +20,7 @@ function getServiceProviderByType(){
 
     $type = $app->request()->get('type');
     if($type == 'not_install'){
-        $sql = "SELECT * FROM service_providers WHERE password = '' AND profile_pic_id = 0 ";        
+        $sql = "SELECT * FROM service_providers WHERE password = '' AND profile_pic_id = '0' ";        
         try {
             $db = getDB();
             $stmt = $db->prepare($sql);            
