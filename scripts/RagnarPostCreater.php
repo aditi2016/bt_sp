@@ -31,6 +31,7 @@ function getGenPost($bgImg,$logo,$focus,$target,$link){
             "&logo_img_url=http://api.file-dog.shatkonlabs.com/files/rahul/$logo&".
             "focus=$focus&".
             "target=$target&link=$link";
+    echo $url;
     $response = file_get_contents($url);
     $json = json_decode($response,true);
 
