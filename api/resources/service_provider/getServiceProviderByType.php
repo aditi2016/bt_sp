@@ -19,7 +19,7 @@ function getServiceProviderByType(){
     }
 
     $type = $app->request()->get('type');
-    var_dump($type);die();
+
     if($type == 'not_install'){
         $sql = "SELECT * FROM service_providers WHERE password = '' AND profile_pic_id = '0' ";        
         try {
@@ -28,7 +28,7 @@ function getServiceProviderByType(){
             $stmt->execute();
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
-            echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
+            echo '{"service_providers": ' . json_encode($serviceProviders) . ''.$sql.'}';
         } catch (PDOException $e) {
             //error_log($e->getMessage(), 3, '/var/tmp/php.log');
             echo '{"error":{"text":' . $e->getMessage() . '}}';
