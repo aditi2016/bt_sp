@@ -35,6 +35,7 @@
         service.getAllServices = getAllServices;
         service.getService = getService;
         service.notInstallApps = notInstallApps;
+        service.changeStatus = changeStatus;
         service.notUsingApps = notUsingApps;
         service.getAllServiceRequests = getAllServiceRequests;
         service.CreateServiceProviderService = CreateServiceProviderService;
@@ -113,7 +114,9 @@
         function UpdateInstance(instance) {
             return $http.post('http://api.bulldog.shatkonlabs.com/instance', instance).then(handleSuccess, handleError('Error updating user'));
         }
-
+        function changeStatus(data) {
+            return $http.post('https://blueteam.in/api/service_request/sr_id', data).then(handleSuccess, handleError('Error getting cities'));
+        }
         function Delete(id) {
             return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
