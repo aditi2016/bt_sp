@@ -28,9 +28,8 @@ function getServiceProviderByType(){
             $stmt->execute();
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
-            echo '{"service_providers": ' . json_encode($serviceProviders) . ''.$sql.'}';
+            echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
-            //error_log($e->getMessage(), 3, '/var/tmp/php.log');
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
     }
@@ -45,7 +44,6 @@ function getServiceProviderByType(){
             $db = null;
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
-            //error_log($e->getMessage(), 3, '/var/tmp/php.log');
             echo '{"error":{"text":' . $e->getMessage() . '}}';
         }
     }
