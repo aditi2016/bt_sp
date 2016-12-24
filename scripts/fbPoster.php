@@ -33,6 +33,8 @@ $data['description'] = $post['description'];
 
 $data['access_token'] = $page_access_token;
 
+var_dump($data);
+
 $post_url = 'https://graph.facebook.com/'.$page_id.'/feed';
 
 $ch = curl_init();
