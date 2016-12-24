@@ -25,6 +25,11 @@ while ( $post = mysqli_fetch_array($posts)) {
 }
 
 function getGenPost($bgImg,$logo,$focus,$target,$link){
+    $bgImg = urlencode($bgImg);
+    $logo = urlencode($logo);
+    $focus = urlencode($focus);
+    $target = urlencode($target);
+    $link = urlencode($link);
     //$address = urlencode($address);
     $url = "http://blueteam.in/sandbox/html2image.php?".
             "base_img_url=http://api.file-dog.shatkonlabs.com/files/rahul/$bgImg".
