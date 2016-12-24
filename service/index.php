@@ -15,8 +15,8 @@ if($serviceData['pic_id']== 0) $pic = 1075;
 else $pic = $serviceData['pic_id'] ;
 if($serviceData['service_img']== 0) $img = 1075;
 else $img = $serviceData['service_img'] ;
-$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
-$serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['service_img'];
+$profilePic = "http://api.file-dog.shatkonlabs.com/files/rahul/".$pic;
+$serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$img;
 /*
  * SET @p = POINTFROMTEXT('POINT(28.4594965 77.0266383)');
 
@@ -84,63 +84,62 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 	<div id="search-results"></div>
 	<div id="notification-container"></div>
 	<div id="main-content" style="overflow-y: hidden ! important;overflow-x: hidden ! important;
-            background-image: url('<?= $serviceImg ?>');background-size:contain;background-repeat: no-repeat;
+            background-image: url('<?= $serviceImg ?>');background-size:cover;background-repeat: no-repeat;
 			background-position: top;">
 	  <div id="dedicated-buy-np-container" >
 		<div class="banner-section mw">
 		  <div class="row">
 	      <div class="col-lg-9 col-md-9 col-sm-12">
-		  <div class="image-info mw">
-			<div class="image-info-inner">
-			  
-			  <div class="clearfix property-info">
-			  	<span class="prifile-img">
-			  		<img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;'>
-			  	</span>
-				<h1 class="main-text" itemprop="name"><?=$serviceData['name']; ?></h1>
-				<h2 class="builder-text">
-				  <span itemprop="brand"><?=$serviceData['description']; ?></span>
-				</h2>
+			  <div class="image-info mw">
+				<div class="image-info-inner" style="background-color: #fff;margin-bottom: 10px;padding-top: 10px;">
+				  <div class="price-details"></div>
+				  <div class="clearfix property-info" >
+				  	<span class="prifile-img">
+				  		<img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;padding-bottom:20px; '>
+				  	</span>
+					<p class="main-text" itemprop="name" style="font-size: 14px;word-break: normal;width:70%">
+						<?=$serviceData['name']; ?><br/><?=$serviceData['description']; ?>
+					</p>
+				  </div>
+				</div>
 			  </div>
-			</div>
-		  </div>
-		  
-	      <section id="carouselSection" style="text-align:center">
-            <div id="myCarousel" class="carousel slide">
-              <div class="carousel-inner">
-            <?php
-			echo "<div  style='text-align:center'  class='item active'>
-                        <img src='".$serviceImg."' alt='business webebsite template'>
-                       </div>";
+			  
+		      <section id="carouselSection" style="text-align:center">
+	            <div id="myCarousel" class="carousel slide">
+	              <div class="carousel-inner">
+	            <?php
+				echo "<div  style='text-align:center'  class='item active'>
+	                        <img src='".$serviceImg."' alt='business webebsite template'>
+	                       </div>";
 
-            while ( $photos = mysqli_fetch_array($photosArray)) {
-            	if($photos['photo_id']== 0) $img = 1075;
-				else $img = $photos['photo_id'] ;
-                echo "<div  style='text-align:center'  class='item'>
-                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' alt='business themes'>
-                       </div>";  
+	            while ( $photos = mysqli_fetch_array($photosArray)) {
+	            	if($photos['photo_id']== 0) $image = 1075;
+					else $image = $photos['photo_id'] ;
+	                echo "<div  style='text-align:center'  class='item'>
+	                        <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$image."' alt='business themes'>
+	                       </div>";  
 
-             } 
-            ?>
-              </div>
-              <a class="left carousel-control"  href="#myCarousel" data-slide="prev">&lsaquo;</a>
-              <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
-            </div>
-          </section>
+	             } 
+	            ?>
+	              </div>
+	              <a class="left carousel-control"  href="#myCarousel" data-slide="prev">&lsaquo;</a>
+	              <a class="right carousel-control"  href="#myCarousel" data-slide="next">&rsaquo;</a>
+	            </div>
+	          </section>
 		  </div>
 		  <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 30px;background-color: #fff;">
-        	<p style="white-space: nowrap;"><?= count($allServiceProviders) ?> Service Providers Found</p>
+        	<p style="white-space: nowrap; padding-top: 10px;"><?= count($allServiceProviders) ?> Service Providers Found</p>
 			<hr/>
 			  <?php
                 foreach ($allServiceProviders as $serviceProvider ) {
                 	if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
                 	else $perHour ="";
-                	if($serviceProviders['price']=="") $price = 0;
-                	else $price = $serviceProviders['price'] ;
-                	if($serviceProviders['profile_pic_id']== 0) $img = 1075;
-					else $img = $serviceProviders['profile_pic_id'] ;
+                	if($serviceProvider->price=="") $price = 0;
+                	else $price = $serviceProvider->price;
+                	if($serviceProvider->profile_pic_id== 0) $img2 = 1075;
+					else $img2 = $serviceProvider->profile_pic_id ;
                     echo "<div><a style='text-decoration:none;' href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."' style='text-decoration:none;'>
-                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img."' height='70px' width='70px'>
+                            <img src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img2."' height='70px' width='70px'>
                             <p style='font-size:12px;margin:-70px 0 0 80px;color:#000;'>".$serviceProvider->name."<br/>".$price."<i class='icon icon-rupee'></i> ".$perHour." <br/><br/>
                             <button class='btn btn-info'>View Details</button><br/>
                             </p>
@@ -167,7 +166,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 				}
               ?>
               	
-			</div>
+			
 		  </div>
      	</div>
 		  

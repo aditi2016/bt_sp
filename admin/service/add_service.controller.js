@@ -87,36 +87,11 @@
         vm.addService = function() {
             console.log("addService function",vm.data);
             vm.dataLoading = true;
-            /*if(vm.registered){
+            if(vm.registered){
                 var provider = '{"name" : "'+vm.data.pname+'","pic_id" : "'+vm.data.ppic_id+
                             '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
                             '","description" : "'+vm.data.pdescription+'"}';
-            }
-            else {
-                if (vm.data.category_id == undefined){
-                    alert("Please Select category");
-                    vm.dataLoading = false;
-                }
-                else {
-                    var provider = '{"name" : "'+vm.data.pname+'","pic_id" : "'+vm.data.ppic_id+
-                            '","service_img" : "'+vm.data.pservice_img+'","status" : "'+vm.data.pstatus+
-                            '","description" : "'+vm.data.pdescription+'","category_id" : "'+vm.data.category_id+'"}';
-                }
-            }*/
-            if (vm.data.status == undefined){
-                alert("Please Select Status");
-                vm.dataLoading = false;
-            }
-            else if (vm.data.pic_id == undefined){
-                alert("Please Upload service Icon");
-                vm.dataLoading = false;
-            }
-            else if (vm.data.service_img == undefined){
-                alert("Please Upload service image");
-                vm.dataLoading = false;
-            }
-            else {
-                CandidateService.CreateService(vm.data)
+                CandidateService.CreateService(provider)
                     .then(function (response) {
                         if (response.service.id) {
                             FlashService.Success('Added successful', true);
@@ -125,9 +100,46 @@
                             FlashService.Error(response.message);
                             vm.dataLoading = false;
                         }
-                    });                    
+                    }); 
             }
-            
+            else {
+                var provider = '{"name" : "'+vm.data.name+'","pic_id" : "'+vm.data.pic_id+
+                            '","service_img" : "'+vm.data.service_img+'","status" : "'+vm.data.status+
+                            '","description" : "'+vm.data.description+'","category_id" : "'+vm.data.category_id+'"}';
+                
+                if (vm.data.category_id == undefined){
+                    alert("Please Select category");
+                    vm.dataLoading = false;
+                }
+                else if (vm.data.status == undefined){
+                    alert("Please Select Status");
+                    vm.dataLoading = false;
+                }
+                else if (vm.data.name == undefined){
+                    alert("Please Enter name");
+                    vm.dataLoading = false;
+                }
+                else if (vm.data.pic_id == undefined){
+                    alert("Please Upload service Icon");
+                    vm.dataLoading = false;
+                }
+                else if (vm.data.service_img == undefined){
+                    alert("Please Upload service image");
+                    vm.dataLoading = false;
+                }
+                else {
+                    CandidateService.CreateService(provider)
+                        .then(function (response) {
+                            if (response.service.id) {
+                                FlashService.Success('Added successful', true);
+                                $location.path('/service');
+                            } else {
+                                FlashService.Error(response.message);
+                                vm.dataLoading = false;
+                            }
+                        });                    
+                }
+            }
         }
     }
 

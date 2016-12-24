@@ -14,12 +14,13 @@
         vm.allUsers = [];
         
         vm.dataLoading = false;
-
+        vm.getAllServiceRequests = getAllServiceRequests;
+        vm.allStatus = [];
         initController();
 
         function initController() {
             loadUser();
-            getAllServiceRequests();
+            getAllServiceRequests('open');
         }
        
         vm.logout = function(){
@@ -35,10 +36,10 @@
             console.log("in user",vm.inUser);
         }
 
-        function getAllServiceRequests(){
+        function getAllServiceRequests(type){
             vm.dataLoading = true;
 
-            CandidateService.getAllServiceRequests()
+            CandidateService.getAllServiceRequests(type)
                 .then(function (response) {
                     vm.serviceRequests = response.root.srs;
 
