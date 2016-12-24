@@ -33,6 +33,7 @@ function getGenPost($bgImg,$logo,$focus,$target,$link){
             "target=$target&link=$link";
     $response = file_get_contents($url);
     $json = json_decode($response,true);
+    var_dump($json);
 
 
     return $json->file->id;
