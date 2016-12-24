@@ -26,7 +26,7 @@ $posts = mysqli_query($dbHandle, "
 $post = mysqli_fetch_array($posts);
 
 $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
-$data['link'] = $post['link'];
+$data['link'] = "http://".$post['link'];
 $data['message'] = $post['description'].". http://www.blueteam.in/";
 $data['caption'] = "Get ". $post['title']." services";
 $data['description'] = $post['description'];
