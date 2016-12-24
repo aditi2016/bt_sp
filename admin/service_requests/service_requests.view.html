@@ -71,7 +71,17 @@
                         <span class="pull-right">
                             <a type="button" href="#/addServiceRequests">
                                 <i class="fa fa-user fa-fw"></i> Add New Request +
-                            </a>
+                            </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <label>View By Status</label>
+                            <select class='selectpicker' name='status' ng-model="vm.data.status" ng-change="vm.getAllServiceRequests(vm.data.status);">
+                                <option value='open' selected>Open</option>
+                                <option value='paid'>Paid</option>
+                                <option value='due'>Due</option>
+                                <option value='issue'>Issue</option>
+                                <option value='followback'>Followback</option>
+                                <option value='feedback'>Feedback</option>
+
+                            </select>
                         </span>
                     </div>
                     <!-- /.panel-heading -->

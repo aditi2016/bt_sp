@@ -141,8 +141,8 @@
         function notUsingApps() {
             return $http.get(urlSP + '/service_provider?type=not_using').then(handleSuccess, handleError('Error getting cities'));
         }
-        function getAllServiceRequests() {
-            return $http.get('https://blueteam.in/api/all-service-requests').then(handleSuccess, handleError('Error getting cities'));
+        function getAllServiceRequests(type) {
+            return $http.get('https://blueteam.in/api/cem_mysr/3?status='+type).then(handleSuccess, handleError('Error getting cities'));
         }
         function getService(id) {
             return $http.get(urlSP + '/services/'+id).then(handleSuccess, handleError('Error getting cities'));
