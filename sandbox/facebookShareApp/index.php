@@ -14,7 +14,7 @@
 $page_access_token = 'EAADIQGZBO8vQBAN86wOjzGZBFSFw2W8BqQZCBjrS9XwQGKnZCmaeWg17X8ZBXh2R9Arwgb9UkDOPXXUq0dVR8rLJpb3ojKUvOTG5ZBdR52etFT0qpn5rmLZBLuW5ZA5w5ESuce5vIpLxZAsSjoRaBVdov6R1Y5L8fxK4ZD';
 $page_id = '596434263827904';
 
-$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/904";
+$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/1336";
 $data['link'] = "http://www.blueteam.in/";
 $data['message'] = "Diet-chat is not just about eating , its about learning to live!";
 $data['caption'] = "All Customer Service App";
