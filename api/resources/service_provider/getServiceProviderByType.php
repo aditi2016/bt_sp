@@ -21,7 +21,7 @@ function getServiceProviderByType(){
     $type = $app->request()->get('type');
 
     if($type == 'not_install'){
-        $sql = "SELECT `id`
+        $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `email`, `id`, `profile_pic_id`
               FROM service_providers WHERE password = '' AND profile_pic_id = '0' ";
 
         try {
@@ -31,6 +31,16 @@ function getServiceProviderByType(){
 
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
+            foreach($serviceProviders as $key => $value) {
+                $value['name'] = addslashes($value['name']);
+                $value['organization'] = addslashes($value['organization']);
+                $value['description'] = addslashes($value['description']);
+                $value['address'] = addslashes($value['address']);
+                $value['mobile_no'] = addslashes($value['mobile_no']);
+                $value['email'] = addslashes($value['email']);
+                $value['profile_pic_id'] = addslashes($value['profile_pic_id']);
+
+            }
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -38,7 +48,7 @@ function getServiceProviderByType(){
     }
     elseif ($type == 'not_using') {
         $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `email`, `id`, `profile_pic_id`
-            FROM service_providers WHERE id NOT IN
+FROM service_providers WHERE id NOT IN
                     (SELECT DISTINCT service_provider_id FROM invoice WHERE 1) ";        
         try {
             $db = getDB();
