@@ -40,7 +40,7 @@ function getServiceProviderByType(){
                 $value->email = htmlspecialchars($value->email);
 
             }
-            var_dump($serviceProviders);
+            //var_dump($serviceProviders);
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
@@ -56,6 +56,15 @@ FROM service_providers WHERE id NOT IN
             $stmt->execute();
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
+            foreach($serviceProviders as $key => $value) {
+                $value->name = htmlspecialchars($value->name);
+                $value->organization = htmlspecialchars($value->organization);
+                $value->description = htmlspecialchars($value->description);
+                $value->address = htmlspecialchars($value->address);
+                $value->mobile_no = htmlspecialchars($value->mobile_no);
+                $value->email = htmlspecialchars($value->email);
+
+            }
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
