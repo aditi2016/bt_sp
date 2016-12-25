@@ -32,13 +32,12 @@ function getServiceProviderByType(){
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
             foreach($serviceProviders as $key => $value) {
-                $value['name'] = addslashes($value['name']);
-                $value['organization'] = addslashes($value['organization']);
-                $value['description'] = addslashes($value['description']);
-                $value['address'] = addslashes($value['address']);
-                $value['mobile_no'] = addslashes($value['mobile_no']);
-                $value['email'] = addslashes($value['email']);
-                $value['profile_pic_id'] = addslashes($value['profile_pic_id']);
+                $value->name = addslashes($value->name);
+                $value->organization = addslashes($value->organization);
+                $value->description = addslashes($value->description);
+                $value->address = addslashes($value->address);
+                $value->mobile_no = addslashes($value->mobile_no);
+                $value->email = addslashes($value->email);
 
             }
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
