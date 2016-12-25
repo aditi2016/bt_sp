@@ -32,12 +32,12 @@ function getServiceProviderByType(){
             $serviceProviders = $stmt->fetchAll(PDO::FETCH_OBJ);
             $db = null;
             foreach($serviceProviders as $key => $value) {
-                $value->name = addslashes($value->name);
-                $value->organization = addslashes($value->organization);
-                $value->description = addslashes($value->description);
-                $value->address = addslashes($value->address);
-                $value->mobile_no = addslashes($value->mobile_no);
-                $value->email = addslashes($value->email);
+                $value->name = htmlspecialchars($value->name);
+                $value->organization = htmlspecialchars($value->organization);
+                $value->description = htmlspecialchars($value->description);
+                $value->address = htmlspecialchars($value->address);
+                $value->mobile_no = htmlspecialchars($value->mobile_no);
+                $value->email = htmlspecialchars($value->email);
 
             }
             var_dump($serviceProviders);
