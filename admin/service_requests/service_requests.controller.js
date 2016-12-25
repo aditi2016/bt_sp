@@ -19,6 +19,7 @@
         vm.status = 'open'
         vm.chStatus = chStatus;
         vm.changeStatus = changeStatus;
+        vm.upRequest = upRequest;
         initController();
 
         function initController() {
@@ -62,7 +63,7 @@
                             vm.data.changeStatus+'" }}';
                 CandidateService.changeStatus(data)
                     .then(function (response) {
-                        $("#statusUpdate").modal("hide");
+                        $("#updateRequest").modal("hide");
                         getAllServiceRequests(vm.status);
                     });
             }
@@ -72,10 +73,10 @@
             if(vm.data.serviceRequestId == undefined){
                 alert("Error occured. Please Try Again");
             }
-            else if(vm.data.address == undefined){
+            else if(vm.data.paddress == undefined){
                 alert("Please enter address");
             }
-            else if(vm.data.remarks == undefined){
+            else if(vm.data.premarks == undefined){
                 alert("Please enter remarks");
             }
             else {
