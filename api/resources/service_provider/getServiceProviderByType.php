@@ -40,6 +40,7 @@ function getServiceProviderByType(){
                 $value->email = addslashes($value->email);
 
             }
+            var_dump($serviceProviders);
             echo '{"service_providers": ' . json_encode($serviceProviders) . '}';
         } catch (PDOException $e) {
             echo '{"error":{"text":' . $e->getMessage() . '}}';
