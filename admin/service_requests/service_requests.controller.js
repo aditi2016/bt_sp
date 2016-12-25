@@ -45,8 +45,8 @@
         }
         function upRequest(id, address, remarks) {
             vm.data.serviceRequestId = id;
-            vm.data.address = address;
-            vm.data.remarks = remarks;
+            vm.data.paddress = address;
+            vm.data.premarks = remarks;
             $("#updateRequest").modal("show");
         }
         function changeStatus() {
@@ -69,6 +69,25 @@
         }
         vm.updateSR = function (){
             vm.dataLoading = true;
+            if(vm.data.serviceRequestId == undefined){
+                alert("Error occured. Please Try Again");
+            }
+            else if(vm.data.address == undefined){
+                alert("Please enter address");
+            }
+            else if(vm.data.remarks == undefined){
+                alert("Please enter remarks");
+            }
+            else {
+                var data = '{"root": { "sr_id": "'+vm.data.serviceRequestId+
+                            '", "user_id": "3", "key": "address", "value": "'+
+                            vm.data.address+'", "remark": "'+ vm.data.remarks+'" }}';
+                CandidateService.changeStatus(data)
+                    .then(function (response) {
+                        $("#statusUpdate").modal("hide");
+                        getAllServiceRequests(vm.status);
+                    });
+            }
         }
         function getAllServiceRequests(type){
             vm.dataLoading = true;
