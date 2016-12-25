@@ -41,7 +41,13 @@
         function chStatus(id) {
             vm.data.serviceRequestId = id;
             vm.data.changeStatus = vm.status;
-            $("#bookNow").modal("show");
+            $("#statusUpdate").modal("show");
+        }
+        function upRequest(id, address, remarks) {
+            vm.data.serviceRequestId = id;
+            vm.data.address = address;
+            vm.data.remarks = remarks;
+            $("#updateRequest").modal("show");
         }
         function changeStatus() {
             if(vm.data.serviceRequestId == undefined){
@@ -56,10 +62,13 @@
                             vm.data.changeStatus+'" }}';
                 CandidateService.changeStatus(data)
                     .then(function (response) {
-                        $("#bookNow").modal("hide");
+                        $("#statusUpdate").modal("hide");
                         getAllServiceRequests(vm.status);
                     });
             }
+        }
+        vm.updateSR = function (){
+            vm.dataLoading = true;
         }
         function getAllServiceRequests(type){
             vm.dataLoading = true;

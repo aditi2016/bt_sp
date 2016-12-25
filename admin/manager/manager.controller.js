@@ -90,8 +90,6 @@
             if(!vm.inUser.name)
                 $location.path('/login');
             console.log("in user",vm.inUser);
-
-
         }
 
         vm.filterIt = function(status){
@@ -198,7 +196,7 @@
             vm.dataLoading = true;
             CandidateService.notUsingApps()
                 .then(function (response) {
-                    vm.notInstallApps = response.service_providers;
+                    vm.notUsingApps = response.service_providers;
                     vm.dataLoading = false;
                 });
         }
