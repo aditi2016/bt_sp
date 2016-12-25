@@ -21,7 +21,8 @@ function getServiceProviderByType(){
     $type = $app->request()->get('type');
 
     if($type == 'not_install'){
-        $sql = "SELECT * FROM blueteam_service_providers.service_providers WHERE password = '' AND profile_pic_id = '0' ";
+        $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `email`, `id`, `profile_pic_id`
+              FROM service_providers WHERE password = '' AND profile_pic_id = '0' ";
 
         try {
             $db = getDB();
@@ -36,7 +37,8 @@ function getServiceProviderByType(){
         }
     }
     elseif ($type == 'not_using') {
-        $sql = "SELECT * FROM service_providers WHERE id NOT IN 
+        $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `email`, `id`, `profile_pic_id`
+            FROM service_providers WHERE id NOT IN
                     (SELECT DISTINCT service_provider_id FROM invoice WHERE 1) ";        
         try {
             $db = getDB();
