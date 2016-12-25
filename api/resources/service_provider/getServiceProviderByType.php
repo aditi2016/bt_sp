@@ -49,7 +49,7 @@ function getServiceProviderByType(){
     elseif ($type == 'not_using') {
         $sql = "SELECT `name`, `organization`, `description`, `address`, `mobile_no`, `email`, `id`, `profile_pic_id`
 FROM service_providers WHERE id NOT IN
-                    (SELECT DISTINCT service_provider_id FROM invoice WHERE 1) ";        
+                    (SELECT DISTINCT service_provider_id FROM invoice WHERE 1) and password != '' AND profile_pic_id != '0' ";        
         try {
             $db = getDB();
             $stmt = $db->prepare($sql);
