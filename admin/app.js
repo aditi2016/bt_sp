@@ -56,6 +56,11 @@
                 templateUrl: 'service/add_service.view.html',
                 controllerAs: 'vm'
             })
+            .when('/addWorker/:id', {
+                controller: 'AddWorkerController',
+                templateUrl: 'worker/add_worker.view.html',
+                controllerAs: 'vm'
+            })
 
             .when('/employee/:emp', {
                 controller: 'EmployeeController',
