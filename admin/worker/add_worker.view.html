@@ -72,34 +72,34 @@
                     <div class="col-lg-6">
                     <fieldset>
                         
-                        <div class="form-group" ng-class="{ 'has-error': form.worker_name.$dirty && form.worker_name.$error.required }">
-                            <input class="form-control" placeholder="Worker name" type="text" name="worker_name" id="worker_name" ng-model="vm.data.worker_name" required >
-                            <span ng-show="form.worker_name.$dirty && form.worker_name.$error.required" class="help-block">Worker name is required</span>
+                        <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                            <input class="form-control" placeholder="Worker name" type="text" name="name" id="name" ng-model="vm.data.name" required >
+                            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Worker name is required</span>
                         </div>
 
-                        <div class="form-group" ng-class="{ 'has-error': form.worker_mobile.$dirty && form.worker_mobile.$error.required }">
-                            <input class="form-control" placeholder="Worker mobile" type="number" name="worker_mobile" id="worker_mobile" ng-model="vm.data.worker_mobile" pattern="[7-9][0-9]{9}" required >
-                            <span ng-show="form.worker_mobile.$dirty && form.worker_mobile.$error.required" class="help-block">Worker mobile is required</span>
+                        <div class="form-group" ng-class="{ 'has-error': form.mobile.$dirty && form.mobile.$error.required }">
+                            <input class="form-control" placeholder="Worker mobile" type="number" name="mobile" id="mobile" ng-model="vm.data.mobile" pattern="[7-9][0-9]{9}" required >
+                            <span ng-show="form.mobile.$dirty && form.mobile.$error.required" class="help-block">Worker mobile is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.worker_address.$dirty && form.worker_address.$error.required }">
-                            <input class="form-control" placeholder="Worker address" type="text" name="worker_address" id="worker_address" ng-model="vm.data.worker_address" required >
-                            <span ng-show="form.worker_address.$dirty && form.worker_address.$error.required" class="help-block">Worker address is required</span>
+                        <div class="form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">
+                            <input class="form-control" placeholder="Worker address" type="text" name="address" id="address" ng-model="vm.data.address" required >
+                            <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">Worker address is required</span>
                         </div>
 
                         <div class="form-group">
-                            <label for="worker_service">Service Name</label>                           
-                            <select name="worker_service" class="form-control" ng-model="vm.data.worker_service" required>
+                            <label for="service">Service Name</label>                           
+                            <select name="service" class="form-control" ng-model="vm.data.service" required>
                                 <option value="{{service.id}}" ng-repeat="service in vm.allServices">{{service.name}}</option>
                             </select>
                         </div>
 
-                        <div class="form-group" ng-class="{ 'has-error': form.worker_emergency_no.$dirty && form.worker_emergency_no.$error.required }">
-                            <input class="form-control" placeholder="Worker emergency contact number" type="number" name="worker_emergency_no" id="worker_emergency_no" ng-model="vm.data.worker_emergency_no" pattern="[7-9][0-9]{9}" required >
-                            <span ng-show="form.worker_emergency_no.$dirty && form.worker_emergency_no.$error.required" class="help-block">Worker emergency contact number is required</span>
+                        <div class="form-group" ng-class="{ 'has-error': form.emergency_no.$dirty && form.emergency_no.$error.required }">
+                            <input class="form-control" placeholder="Worker emergency contact number" type="number" name="emergency_no" id="emergency_no" ng-model="vm.data.emergency_no" pattern="[7-9][0-9]{9}" required >
+                            <span ng-show="form.emergency_no.$dirty && form.emergency_no.$error.required" class="help-block">Worker emergency contact number is required</span>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error': form.worker_native_add.$dirty && form.worker_native_add.$error.required }">
-                            <input class="form-control" placeholder="Worker native address" type="text" name="worker_native_add" id="worker_native_add" ng-model="vm.data.worker_native_add" required >
-                            <span ng-show="form.worker_native_add.$dirty && form.worker_native_add.$error.required" class="help-block">Worker native address is required</span>
+                        <div class="form-group" ng-class="{ 'has-error': form.native_add.$dirty && form.native_add.$error.required }">
+                            <input class="form-control" placeholder="Worker native address" type="text" name="native_add" id="native_add" ng-model="vm.data.native_add" required >
+                            <span ng-show="form.native_add.$dirty && form.native_add.$error.required" class="help-block">Worker native address is required</span>
                         </div>
                         <div>
                             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-lg btn-success btn-block">Add Worker</button>

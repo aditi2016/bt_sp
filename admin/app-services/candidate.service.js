@@ -170,10 +170,9 @@
         function CreateService(user) {
             return $http.post(urlSP + '/services', user).then(handleSuccess, handleError('Error creating user'));
         }
-        function addWorker(user, societyId) {
-            var root = {};
-            root['root'] = user;
-            return $http.post('http://blueteam.in/api/society/'+societyId+'/addWorker', root).then(handleSuccess, handleError('Error creating user'));
+        function addWorker(data, societyId) {
+            
+            return $http.post('http://blueteam.in/api/society/'+societyId+'/addWorker', data).then(handleSuccess, handleError('Error creating user'));
         }
         function uploadImg(id) {
             var fileUrl = document.getElementById(id);
