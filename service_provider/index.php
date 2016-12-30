@@ -634,7 +634,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		            type: 'post',
 		            dataType: 'json',
 		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","requirements":"'
-		            		+serviceId+'","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+		            		+<?=$serviceName;?>+'",,"service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
 		            		+startDatetime+'","service_type": "direct-service",'+'"remarks": "'+remarks
 		            		+' by bt_sp web page","start_time":"'+startHour+'",'+'"end_time":"'+endtime
 		            		+'","location":"'+location+'","address":"'+bookAddress+'","priority": "3",'

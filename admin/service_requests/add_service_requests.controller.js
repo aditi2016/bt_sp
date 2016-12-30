@@ -76,7 +76,7 @@
             else {
 
                 var request = '{"root": {"name":"'+vm.data.name+'","mobile":"'+vm.data.mobile+'","requirements":"'
-                            +vm.data.service+'","service_id":"'+vm.data.service+'","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+                            +vm.data.service+'","service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
                             +datetime+'","service_type": "direct-service",'+'"remarks": "'+vm.data.remarks
                             +' by blueteam admin page","start_time":"'+startTime+'",'+'"end_time":"'+endtime
                             +'","location":"","address":"'+vm.data.address+'","priority": "3",'
