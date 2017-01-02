@@ -38,43 +38,47 @@ function getServicesGeo(){
                     ) < s.range";
 
     try {
-        $db = getDB();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $services = $stmt->fetchAll(PDO::FETCH_OBJ);
+        if(!isset($_SESSION['geo_services'])) {
+            $db = getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+            $services = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        $cities = array();
+            $cities = array();
 
-        foreach($services as $service){
-            //var_dump($service);die();
-            if (array_key_exists($service->city, $cities)) {
-                if (array_key_exists($service->area, $cities[$service->city])) {
+            foreach ($services as $service) {
+                //var_dump($service);die();
+                if (array_key_exists($service->city, $cities)) {
+                    if (array_key_exists($service->area, $cities[$service->city])) {
 
-                    $cities[$service->city][$service->area]['services'][$service->service] = $service->service_id;
-                }
-                else{
-                    $cities[$service->city][$service->area] = array(
-                            'services'=>array($service->service => $service->service_id),
-                            'location'=> $service->lat .",". $service->lng
+                        $cities[$service->city][$service->area]['services'][$service->service] = $service->service_id;
+                    } else {
+                        $cities[$service->city][$service->area] = array(
+                            'services' => array($service->service => $service->service_id),
+                            'location' => $service->lat . "," . $service->lng
                         );
 
+                    }
+
+                } else {
+                    $cities[$service->city] = array(
+                        $service->area => array(
+                            'services' => array($service->service => $service->service_id),
+                            'location' => $service->lat . "," . $service->lng
+                        ));
+
                 }
 
-            }
-            else {
-                $cities[$service->city] = array(
-                                    $service->area => array(
-                                                    'services'=>array($service->service => $service->service_id),
-                                                    'location' => $service->lat .",". $service->lng
-                                    ));
 
             }
 
 
+            $db = null;
+            $_SESSION['geo_services'] = $cities;
+
+        }else{
+            $cities = $_SESSION['geo_services'];
         }
-
-
-        $db = null;
         echo '{"services": ' . json_encode($cities) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
