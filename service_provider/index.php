@@ -167,7 +167,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	    <div >
 	      <input type="text" id="search_box" style="vertical-align: middle;color: #000;min-width: 400px;
 	       		margin: 2px;" class="" >
-	      <button id="search" class="btn btn-info"onclick="search();"><i class="icon-search"></i></button>
+	      <button id="search" class="btn btn-info" onclick="search();"><i class="icon-search"></i></button>
 	    </div>
 
 	  </header>
@@ -456,7 +456,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 						</div>  
 							  
 						<div class="form-field sent-button-container">
-						  <button id="getInTouch" class="btn btn-info"onclick="getInTouch();">Get In Touch</button>
+						  <button id="getInTouch" class="btn btn-info" onclick="getInTouch();">Get In Touch</button>
 						</div>
 						<div class="hide on-error-container"></div>
 					  </div>
