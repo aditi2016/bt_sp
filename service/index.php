@@ -41,16 +41,44 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 											b.description FROM service_provider_service_mapping AS a
                                             JOIN services AS b WHERE a.service_id = b.id 
                                             AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
-
+$metaData = $serviceData['name']." ".$serviceData['description'] ;
+$metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 ?>
 <!DOCTYPE html>
 <html data-placeholder-focus="false" lang="en"><head>
 	<link type="text/css" rel="stylesheet" href="index_files/fonts.css">
 	<meta charset="utf-8">
-	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
-	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+   <!-- for Google -->
+    <meta name="description" content="<?=$metaData; ?>" />
+    <meta name="keywords" content="<?=$metaDescription; ?>" />
+    <meta name="author" content="BlueTeam" />
+    <meta name="copyright" content="true" />
+    <meta name="application-name" content="website" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="<?=$serviceData['name'] ;?>" />
+    <meta name="og:author" content="BlueTeam" />
+    <meta property="og:type" content="website"/>
+
+    <meta name="p:domain_verify" content=""/>
+    <meta property="og:image" content='<?= $serviceImg ; ?>' />
+    <meta property="og:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta property="og:image:type" content="image/jpeg" />
+
+    <meta property="og:description" content="<?=$metaDescription; ?>" />
+
+    <!-- for Twitter -->
+    <!-- <meta name="twitter:card" content="n/a" /> -->
+    <meta name="twitter:site" content="@hireblueteam">
+    <meta name="twitter:creator" content="@hireblueteam">
+    <meta name="twitter:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta name="twitter:title" content="<?=$serviceData['name'] ;?>" />
+    <meta name="twitter:description" content="<?=$metaDescription; ?>" />
+    <meta name="twitter:image" content="<?= $serviceImg ; ?>" />
+
 	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">
 	<link rel="stylesheet" href="index_files/custom.css" type="text/css" media="screen">	
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
