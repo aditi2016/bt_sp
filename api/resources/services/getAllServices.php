@@ -12,6 +12,7 @@ function getAllServices(){
     global $app;
     $category = $app->request()->get('category');
     $type = $app->request()->get('type');
+    $areaId = $app->request()->get('area_id');
 
     if(isset($type)&&$type == "hot"){
         getHotServices();
@@ -19,7 +20,7 @@ function getAllServices(){
     }
 
     if(isset($type)&&$type == "geo"){
-        getServicesGeo();
+        getServicesGeo($areaId);
         die();
     }
 
