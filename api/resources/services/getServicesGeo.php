@@ -82,10 +82,11 @@ function getServicesGeo(){
 
             //$_SESSION['geo_services'] = $cities;
             fwrite($servicesJson, json_encode($cities));
+            var_dump($cities);die();
             fclose($servicesJson);
         }else{
             $cities = json_decode(file_get_contents('services.json'));
-            var_dump($cities);die();
+            //var_dump($cities);die();
         }
 
         echo '{"services": ' . json_encode($cities) . '}';
