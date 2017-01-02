@@ -46,26 +46,26 @@ function getServicesGeo(){
         $cities = array();
 
         foreach($services as $service){
-            var_dump($service);die();
-            if (array_key_exists($service.city, $cities)) {
-                if (array_key_exists($service.area, $cities[$service.city])) {
+            //var_dump($service);die();
+            if (array_key_exists($service->city, $cities)) {
+                if (array_key_exists($service->area, $cities[$service->city])) {
 
-                    $cities[$service.city][$service.area]['services'][$service.service] = $service.service_id;
+                    $cities[$service->city][$service->area]['services'][$service->service] = $service->service_id;
                 }
                 else{
-                    $cities[$service.city][$service.area] = array(
-                            'services'=>array($service.service => $service.service_id),
-                            'location'=> $service.lat .",". $service.lng
+                    $cities[$service->city][$service->area] = array(
+                            'services'=>array($service->service => $service->service_id),
+                            'location'=> $service->lat .",". $service->lng
                         );
 
                 }
 
             }
             else {
-                $cities[$service.city] = array(
-                                    $service.area => array(
-                                                    'services'=>array($service.service => service.service_id),
-                                                    'location'=> $service.lat .",". $service.lng
+                $cities[$service->city] = array(
+                                    $service->area => array(
+                                                    'services'=>array($service->service => $service->service_id),
+                                                    'location' => $service->lat .",". $service->lng
                                     ));
 
             }
