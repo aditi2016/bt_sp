@@ -46,6 +46,7 @@ function getServicesGeo(){
         $cities = array();
 
         foreach($services as $service){
+            var_dump($service);die();
             if (array_key_exists($service.city, $cities)) {
                 if (array_key_exists($service.area, $cities[$service.city])) {
 
