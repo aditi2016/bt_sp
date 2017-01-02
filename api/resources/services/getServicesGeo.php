@@ -39,7 +39,7 @@ function getServicesGeo(){
                     ) < s.range";
 
     try {
-        if(!file_exists ("services.json") && (time()-filemtime("services.json") > 86400)) {
+        if(!file_exists ("services.json") || (time()-filemtime("services.json") > 86400)) {
             $servicesJson = fopen("services.json", "w") or die("Unable to open file!");
             $db = getDB();
             $stmt = $db->prepare($sql);
