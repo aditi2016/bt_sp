@@ -40,7 +40,7 @@ function getServicesGeo(){
 
     try {
         if(!file_exists ("services.json") ||
-            (time()-filemtime("services.json") > 86400) || !json_decode(file_get_contents('services.json'))) {
+            (time()-filemtime("services.json") > 86400) || is_null(json_decode(file_get_contents('services.json')))) {
             $servicesJson = fopen("services.json", "w") or die("Unable to open file!");
             $db = getDB();
             $stmt = $db->prepare($sql);
