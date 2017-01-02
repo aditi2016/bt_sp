@@ -37,6 +37,7 @@
         service.notInstallApps = notInstallApps;
         service.changeStatus = changeStatus;
         service.notUsingApps = notUsingApps;
+        service.addWorker = addWorker;
         service.getAllServiceRequests = getAllServiceRequests;
         service.CreateServiceProviderService = CreateServiceProviderService;
         service.CreateServiceRequest = CreateServiceRequest;
@@ -168,6 +169,10 @@
         }
         function CreateService(user) {
             return $http.post(urlSP + '/services', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        function addWorker(data, societyId) {
+            
+            return $http.post('http://blueteam.in/api/society/'+societyId+'/addWorker', data).then(handleSuccess, handleError('Error creating user'));
         }
         function uploadImg(id) {
             var fileUrl = document.getElementById(id);

@@ -61,15 +61,47 @@ $reliabilityScore = round((($serviceProviderData['reliability_score']/(4*$servic
 $qualityTotal = 4*($marvelous+$appreciation+$suggestion+$complain) ;
 $quality = ($marvelous*4)+($appreciation*3)+($suggestion*2)+$complain ;
 $qualityScore = round((($quality/$qualityTotal)*100),2) ;
-
+$locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
+$areaName = str_replace('-',', ',$locationDetails[area]['name']);
+$cityName = str_replace('-',', ',$locationDetails[city]['name']);
+$metaData = $serviceProviderData['name'].", ".$serviceProviderData['organization'].", ".
+			$serviceProviderData['description'].", ".$serviceName.", ".$serviceData['description']
+			." ".$areaName." ".$cityName ;
+$metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ?>
 <!DOCTYPE html>
 <html data-placeholder-focus="false" lang="en"><head>
 	<link type="text/css" rel="stylesheet" href="index_files/fonts.css">
 	<meta charset="utf-8">
-	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
-	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+   <!-- for Google -->
+    <meta name="description" content="<?=$metaData; ?>" />
+    <meta name="keywords" content="<?=$metaDescription; ?>" />
+    <meta name="author" content="BlueTeam" />
+    <meta name="copyright" content="true" />
+    <meta name="application-name" content="website" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="<?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?>" />
+    <meta name="og:author" content="BlueTeam" />
+    <meta property="og:type" content="website"/>
+
+    <meta name="p:domain_verify" content=""/>
+    <meta property="og:image" content='<?= $profilePic ; ?>' />
+    <meta property="og:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
+    <meta property="og:image:type" content="image/jpeg" />
+
+    <meta property="og:description" content="<?=$metaDescription; ?>" />
+
+    <!-- for Twitter -->
+    <!-- <meta name="twitter:card" content="n/a" /> -->
+    <meta name="twitter:site" content="@hireblueteam">
+    <meta name="twitter:creator" content="@hireblueteam">
+    <meta name="twitter:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
+    <meta name="twitter:title" content="<?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?>" />
+    <meta name="twitter:description" content="<?=$metaDescription; ?>" />
+    <meta name="twitter:image" content="<?= $profilePic ; ?>" />
 	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">
 	
 	<link rel="stylesheet" href="index_files/custom.css" type="text/css" media="screen">	
@@ -77,7 +109,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
-	<title>service provider</title>
+	<title><?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?></title>
 	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>
@@ -135,7 +167,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 	    <div >
 	      <input type="text" id="search_box" style="vertical-align: middle;color: #000;min-width: 400px;
 	       		margin: 2px;" class="" >
-	      <button id="search" class="btn btn-info"onclick="search();"><i class="icon-search"></i></button>
+	      <button id="search" class="btn btn-info" onclick="search();"><i class="icon-search"></i></button>
 	    </div>
 
 	  </header>
@@ -424,7 +456,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 						</div>  
 							  
 						<div class="form-field sent-button-container">
-						  <button id="getInTouch" class="btn btn-info"onclick="getInTouch();">Get In Touch</button>
+						  <button id="getInTouch" class="btn btn-info" onclick="getInTouch();">Get In Touch</button>
 						</div>
 						<div class="hide on-error-container"></div>
 					  </div>
@@ -634,7 +666,7 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 		            type: 'post',
 		            dataType: 'json',
 		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","requirements":"'
-		            		+serviceId+'","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+		            		+<?=$serviceName;?>+'",,"service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
 		            		+startDatetime+'","service_type": "direct-service",'+'"remarks": "'+remarks
 		            		+' by bt_sp web page","start_time":"'+startHour+'",'+'"end_time":"'+endtime
 		            		+'","location":"'+location+'","address":"'+bookAddress+'","priority": "3",'

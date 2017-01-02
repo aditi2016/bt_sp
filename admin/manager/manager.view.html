@@ -238,22 +238,20 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Service</th>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
+                                    <th>Name / Mobile / Email</th>
+                                    <th>Organization</th>
+                                    <th>Description</th>
                                     <th>Address</th>
-                                    <th>Operation</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <tr ng-repeat="notInstallApp in vm.notInstallApps" >
                                     <td>{{ notInstallApp.id }} </td>
-                                    <td>{{ notInstallApp.service_name }} </td>
-                                    <td>{{ notInstallApp.name }} </td>
-                                    <td>{{ notInstallApp.mobile }} </td>
+                                    <td>{{ notInstallApp.name }} ({{notInstallApp.mobile_no}}) ({{notInstallApp.email}})</td>
+                                    <td>{{ notInstallApp.organization }} </td>
+                                    <td>{{ notInstallApp.description }} </td>
                                     <td>{{ notInstallApp.address }} </td>
-                                    <td> <a  >ADD + </a></td>
                                 </tr>
 
                             </tbody>
@@ -283,22 +281,20 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Service</th>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
+                                    <th>Name / Mobile / Email</th>
+                                    <th>Organization</th>
+                                    <th>Description</th>
                                     <th>Address</th>
-                                    <th>Operation</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <tr ng-repeat="notUsingApp in vm.notUsingApps" >
                                     <td>{{ notUsingApp.id }} </td>
-                                    <td>{{ notUsingApp.service_name }} </td>
-                                    <td>{{ notUsingApp.name }} </td>
-                                    <td>{{ notUsingApp.mobile }} </td>
+                                    <td>{{ notUsingApp.name }} ({{notUsingApp.mobile_no}}) ({{notUsingApp.email}})</td>
+                                    <td>{{ notUsingApp.organization }} </td>
+                                    <td>{{ notUsingApp.description }} </td>
                                     <td>{{ notUsingApp.address }} </td>
-                                    <td> <a  >ADD + </a></td>
                                 </tr>
 
                             </tbody>

@@ -19,6 +19,7 @@
         vm.status = 'open'
         vm.chStatus = chStatus;
         vm.changeStatus = changeStatus;
+        vm.upRequest = upRequest;
         initController();
 
         function initController() {
@@ -41,7 +42,13 @@
         function chStatus(id) {
             vm.data.serviceRequestId = id;
             vm.data.changeStatus = vm.status;
-            $("#bookNow").modal("show");
+            $("#statusUpdate").modal("show");
+        }
+        function upRequest(id, address, remarks) {
+            vm.data.serviceRequestId = id;
+            vm.data.paddress = address;
+            vm.data.premarks = remarks;
+            $("#updateRequest").modal("show");
         }
         function changeStatus() {
             if(vm.data.serviceRequestId == undefined){
@@ -56,7 +63,29 @@
                             vm.data.changeStatus+'" }}';
                 CandidateService.changeStatus(data)
                     .then(function (response) {
-                        $("#bookNow").modal("hide");
+                        $("#updateRequest").modal("hide");
+                        getAllServiceRequests(vm.status);
+                    });
+            }
+        }
+        vm.updateSR = function (){
+            vm.dataLoading = true;
+            if(vm.data.serviceRequestId == undefined){
+                alert("Error occured. Please Try Again");
+            }
+            else if(vm.data.paddress == undefined){
+                alert("Please enter address");
+            }
+            else if(vm.data.premarks == undefined){
+                alert("Please enter remarks");
+            }
+            else {
+                var data = '{"root": { "sr_id": "'+vm.data.serviceRequestId+
+                            '", "user_id": "3", "key": "address", "value": "'+
+                            vm.data.address+'", "remark": "'+ vm.data.remarks+'" }}';
+                CandidateService.changeStatus(data)
+                    .then(function (response) {
+                        $("#statusUpdate").modal("hide");
                         getAllServiceRequests(vm.status);
                     });
             }
