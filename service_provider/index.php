@@ -64,8 +64,8 @@ $qualityScore = round((($quality/$qualityTotal)*100),2) ;
 $locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
 $areaName = str_replace('-',', ',$locationDetails[area]['name']);
 $cityName = str_replace('-',', ',$locationDetails[city]['name']);
-$metaData = $serviceProviderData['name']." ".$serviceProviderData['organization']." ".
-			$serviceProviderData['description']." ".$serviceName." ".$serviceData['description']
+$metaData = $serviceProviderData['name'].", ".$serviceProviderData['organization'].", ".
+			$serviceProviderData['description'].", ".$serviceName.", ".$serviceData['description']
 			." ".$areaName." ".$cityName ;
 $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ?>
@@ -89,7 +89,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     <meta name="p:domain_verify" content=""/>
     <meta property="og:image" content='<?= $profilePic ; ?>' />
-    <meta property="og:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta property="og:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
     <meta property="og:image:type" content="image/jpeg" />
 
     <meta property="og:description" content="<?=$metaDescription; ?>" />
@@ -98,7 +98,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <!-- <meta name="twitter:card" content="n/a" /> -->
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
-    <meta name="twitter:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta name="twitter:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
     <meta name="twitter:title" content="<?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $profilePic ; ?>" />
@@ -109,7 +109,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
-	<title>service provider</title>
+	<title><?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?></title>
 	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>

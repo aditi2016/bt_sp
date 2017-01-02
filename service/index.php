@@ -44,7 +44,7 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 $locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
 $areaName = str_replace('-',', ',$locationDetails[area]['name']);
 $cityName = str_replace('-',', ',$locationDetails[city]['name']);
-$metaData = $serviceData['name']." ".$serviceData['description']." ".$areaName." ".$cityName ;
+$metaData = $serviceData['name'].", ".$serviceData['description'].", ".$areaName.", ".$cityName ;
 $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 ?>
@@ -68,7 +68,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     <meta name="p:domain_verify" content=""/>
     <meta property="og:image" content='<?= $serviceImg ; ?>' />
-    <meta property="og:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta property="og:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
     <meta property="og:image:type" content="image/jpeg" />
 
     <meta property="og:description" content="<?=$metaDescription; ?>" />
@@ -77,7 +77,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <!-- <meta name="twitter:card" content="n/a" /> -->
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
-    <meta name="twitter:url" content="<?php echo 'www.blueteam.in' ; ?>" />
+    <meta name="twitter:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
     <meta name="twitter:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $serviceImg ; ?>" />
@@ -87,7 +87,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
-	<title>service provider</title>
+	<title><?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?></title>
 	<link rel="icon" type="image/png"  href="../favicon.ico">
 	
 </head>
