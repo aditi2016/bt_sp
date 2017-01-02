@@ -61,8 +61,12 @@ $reliabilityScore = round((($serviceProviderData['reliability_score']/(4*$servic
 $qualityTotal = 4*($marvelous+$appreciation+$suggestion+$complain) ;
 $quality = ($marvelous*4)+($appreciation*3)+($suggestion*2)+$complain ;
 $qualityScore = round((($quality/$qualityTotal)*100),2) ;
+$locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
+$areaName = str_replace('-',', ',$locationDetails[area]['name']);
+$cityName = str_replace('-',', ',$locationDetails[city]['name']);
 $metaData = $serviceProviderData['name']." ".$serviceProviderData['organization']." ".
-			$serviceProviderData['description']." ".$serviceName." ".$serviceData['description'] ;
+			$serviceProviderData['description']." ".$serviceName." ".$serviceData['description']
+			." ".$areaName." ".$cityName ;
 $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ?>
 <!DOCTYPE html>
@@ -79,7 +83,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="application-name" content="website" />
 
     <!-- for Facebook -->
-    <meta property="og:title" content="<?=$serviceProviderData['name'] ;?>" />
+    <meta property="og:title" content="<?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="og:author" content="BlueTeam" />
     <meta property="og:type" content="website"/>
 
@@ -95,7 +99,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
     <meta name="twitter:url" content="<?php echo 'www.blueteam.in' ; ?>" />
-    <meta name="twitter:title" content="<?=$serviceProviderData['name'] ;?>" />
+    <meta name="twitter:title" content="<?php echo $serviceProviderData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $profilePic ; ?>" />
 	<link rel="stylesheet" href="index_files/dedicated_page-afeb09052819dd920d48a269a058338d.css" type="text/css" media="screen">

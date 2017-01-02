@@ -41,7 +41,10 @@ $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.ho
 											b.description FROM service_provider_service_mapping AS a
                                             JOIN services AS b WHERE a.service_id = b.id 
                                             AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
-$metaData = $serviceData['name']." ".$serviceData['description'] ;
+$locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
+$areaName = str_replace('-',', ',$locationDetails[area]['name']);
+$cityName = str_replace('-',', ',$locationDetails[city]['name']);
+$metaData = $serviceData['name']." ".$serviceData['description']." ".$areaName." ".$cityName ;
 $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 ?>
@@ -59,7 +62,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="application-name" content="website" />
 
     <!-- for Facebook -->
-    <meta property="og:title" content="<?=$serviceData['name'] ;?>" />
+    <meta property="og:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="og:author" content="BlueTeam" />
     <meta property="og:type" content="website"/>
 
@@ -75,7 +78,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
     <meta name="twitter:url" content="<?php echo 'www.blueteam.in' ; ?>" />
-    <meta name="twitter:title" content="<?=$serviceData['name'] ;?>" />
+    <meta name="twitter:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $serviceImg ; ?>" />
 
