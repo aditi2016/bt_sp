@@ -12,8 +12,8 @@
 	    curl_close($ch);
 	    return $output;
 	}
-	$dbHandle = mysqli_connect("localhost","root","redhat111111","blueteam_service_providers");
-	$dbHandleBluenet = mysqli_connect("localhost","root","redhat111111","bluenet_v3");
+	$dbHandle = mysqli_connect("localhost","root","redhat@11111p","blueteam_service_providers");
+	$dbHandleBluenet = mysqli_connect("localhost","root","redhat@11111p","bluenet_v3");
 	function extractCommonWords($string){
       $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from','how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will','with','und','the','www','you','your','yours','true');
    
