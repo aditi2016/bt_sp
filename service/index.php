@@ -68,7 +68,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     <meta name="p:domain_verify" content=""/>
     <meta property="og:image" content='<?= $serviceImg ; ?>' />
-    <meta property="og:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
+    <meta property="og:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
     <meta property="og:image:type" content="image/jpeg" />
 
     <meta property="og:description" content="<?=$metaDescription; ?>" />
@@ -77,7 +77,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <!-- <meta name="twitter:card" content="n/a" /> -->
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
-    <meta name="twitter:url" content="<?php echo $_SERVER['REQUEST_URI'] ; ?>" />
+    <meta name="twitter:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
     <meta name="twitter:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $serviceImg ; ?>" />
