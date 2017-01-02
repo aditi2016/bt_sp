@@ -39,14 +39,18 @@ function getServicesGeo(){
                     ) < s.range";
 
     try {
-        if(!file_exists ("services.json") || (time()-filemtime("services.json") > 86400)) {
+        $cities = array();
+        if(!file_exists ("services.json") ||
+            (time()-filemtime("services.json") > 86400) ||
+            is_null(json_decode(file_get_contents('services.json')))) {
             $servicesJson = fopen("services.json", "w") or die("Unable to open file!");
+
             $db = getDB();
             $stmt = $db->prepare($sql);
             $stmt->execute();
             $services = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-            $cities = array();
+
 
             foreach ($services as $service) {
                 //var_dump($service);die();
@@ -79,9 +83,12 @@ function getServicesGeo(){
 
             //$_SESSION['geo_services'] = $cities;
             fwrite($servicesJson, json_encode($cities));
+            var_dump($cities);die();
             fclose($servicesJson);
-        }else{
+        }
+        else{
             $cities = json_decode(file_get_contents('services.json'));
+            //var_dump($cities);die();
         }
 
         echo '{"services": ' . json_encode($cities) . '}';
