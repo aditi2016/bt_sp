@@ -25,13 +25,13 @@ X( a.gps_location ) , Y( a.gps_location ) , X( sp.gps_location ) , Y( sp.gps_loc
 function getServicesGeo($areaId = 0){
 
 
-    $sql = "SELECT c.name as city, a.name as area, s.id as service_id, s.name as service,X( a.gps_location ) as lat , Y( a.gps_location ) as lng
+    $sql = "SELECT DISTINCT s.id as service_id, s.name as service,X( a.gps_location ) as lat , Y( a.gps_location ) as lng
                     FROM areas AS a
                     INNER JOIN services AS s
-                    INNER JOIN cities AS c
+
                     INNER JOIN service_provider_service_mapping AS spm
                     INNER JOIN service_providers AS sp
-                    WHERE a.id = :area_id AND a.city_id = c.id
+                    WHERE a.id = :area_id
                     AND spm.service_id = s.id
                     AND spm.service_provider_id = sp.id
                     AND CalculateDistanceKm(
