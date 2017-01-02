@@ -24,6 +24,7 @@ X( a.gps_location ) , Y( a.gps_location ) , X( sp.gps_location ) , Y( sp.gps_loc
 
 function getServicesGeo(){
 
+
     $sql = "SELECT c.name as city, a.name as area, s.id as service_id, s.name as service,X( a.gps_location ) as lat , Y( a.gps_location ) as lng
                     FROM areas AS a
                     INNER JOIN services AS s
@@ -38,7 +39,8 @@ function getServicesGeo(){
                     ) < s.range";
 
     try {
-        if(!isset($_SESSION['geo_services'])) {
+        if(file_exists ("services.json") && (time()-filemtime("services.json") > 86400)) {
+            $servicesJson = fopen("services.json", "w") or die("Unable to open file!");
             $db = getDB();
             $stmt = $db->prepare($sql);
             $stmt->execute();
@@ -74,11 +76,14 @@ function getServicesGeo(){
 
 
             $db = null;
-            $_SESSION['geo_services'] = $cities;
 
+            //$_SESSION['geo_services'] = $cities;
+            fwrite($servicesJson, json_encode($cities));
+            fclose($servicesJson);
         }else{
-            $cities = $_SESSION['geo_services'];
+            $cities = json_decode(file_get_contents('services.json'));
         }
+
         echo '{"services": ' . json_encode($cities) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
