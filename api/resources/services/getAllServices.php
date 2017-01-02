@@ -18,6 +18,11 @@ function getAllServices(){
         die();
     }
 
+    if(isset($type)&&$type == "geo"){
+        getServicesGeo();
+        die();
+    }
+
     if(isset($type)&&$type == "not-found"){
         servicesNeedLookUp();
         die();

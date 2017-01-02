@@ -25,34 +25,34 @@ $posts = mysqli_query($dbHandle, "
 
 $post = mysqli_fetch_array($posts);
 //var_dump($post);
+if($post['link']){
+    $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
+    $data['link'] = "http://".$post['link'];
+    $data['message'] = $post['description'].". http://www.blueteam.in/";
+    $data['caption'] = "Get ". $post['title']." services";
+    $data['description'] = $post['description'];
 
-$data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
-$data['link'] = "http://".$post['link'];
-$data['message'] = $post['description'].". http://www.blueteam.in/";
-$data['caption'] = "Get ". $post['title']." services";
-$data['description'] = $post['description'];
-
-$data['access_token'] = $page_access_token;
+    $data['access_token'] = $page_access_token;
 
 //var_dump($data);
 
-$post_url = 'https://graph.facebook.com/'.$page_id.'/feed';
+    $post_url = 'https://graph.facebook.com/'.$page_id.'/feed';
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $post_url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$return = curl_exec($ch);
-$fbReturn = json_decode($return);
-var_dump($fbReturn);
-curl_close($ch);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $post_url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $return = curl_exec($ch);
+    $fbReturn = json_decode($return);
+    var_dump($fbReturn);
+    curl_close($ch);
 
-if($fbReturn->id){
-    $sql = "INSERT INTO
+    if($fbReturn->id){
+        $sql = "INSERT INTO
                 `post_tracks`(`post_id`, `social_network_id`, `publish_id`, `publish_datatime`, `creation`)
               VALUES (".$post['id'].",1,'".$fbReturn->id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
-    mysqli_query($dbHandle, $sql);
+        mysqli_query($dbHandle, $sql);
+    }
 }
-
 mysqli_close($dbHandle);
