@@ -22,7 +22,7 @@ X( a.gps_location ) , Y( a.gps_location ) , X( sp.gps_location ) , Y( sp.gps_loc
 
 */
 
-function getServicesGeo(){
+function getServicesGeo($areaId = 0){
 
 
     $sql = "SELECT c.name as city, a.name as area, s.id as service_id, s.name as service,X( a.gps_location ) as lat , Y( a.gps_location ) as lng
@@ -31,7 +31,7 @@ function getServicesGeo(){
                     INNER JOIN cities AS c
                     INNER JOIN service_provider_service_mapping AS spm
                     INNER JOIN service_providers AS sp
-                    WHERE a.city_id = c.id
+                    WHERE a.id = :area_id AND a.city_id = c.id
                     AND spm.service_id = s.id
                     AND spm.service_provider_id = sp.id
                     AND CalculateDistanceKm(
@@ -39,20 +39,21 @@ function getServicesGeo(){
                     ) < s.range";
 
     try {
-        $cities = array();
-        if(/*!file_exists ("services.json") ||*/
+        /*$cities = array();
+        if(/*!file_exists ("services.json") ||
             (time()-filemtime("services.json") > 86400) ||
             is_null(json_decode(file_get_contents('services.json')))) {
-            $servicesJson = fopen("services.json", "w") or die("Unable to open file!");
+            $servicesJson = fopen("services.json", "w") or die("Unable to open file!");*/
 
             $db = getDB();
             $stmt = $db->prepare($sql);
+            $stmt->bindParam("area_id", $areaId);
             $stmt->execute();
             $services = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 
 
-            foreach ($services as $service) {
+            /*foreach ($services as $service) {
                 //var_dump($service);die();
                 if (array_key_exists($service->city, $cities)) {
                     if (array_key_exists($service->area, $cities[$service->city])) {
@@ -76,22 +77,22 @@ function getServicesGeo(){
                 }
 
 
-            }
+            }*/
 
 
             $db = null;
 
-            //$_SESSION['geo_services'] = $cities;
+            /*//$_SESSION['geo_services'] = $cities;
             fwrite($servicesJson, json_encode($cities));
             var_dump($cities);die();
-            fclose($servicesJson);
-        }
+            fclose($servicesJson);*/
+       /* }
         else{
             $cities = json_decode(file_get_contents('services.json'));
             //var_dump($cities);die();
-        }
+        }*/
 
-        echo '{"services": ' . json_encode($cities) . '}';
+        echo '{"services": ' . json_encode($services) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
