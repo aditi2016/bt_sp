@@ -1,4 +1,6 @@
 <?php
+require_once "getHtmlGenTemp.php";
+
 $apikey = "2ae4363709e08c29"; //please input your RESTful api key here.
 $api_url = "http://api.page2images.com/html2image";
 
@@ -53,68 +55,7 @@ function call_p2i($bgImg,$logo,$focus,$target)
     set_time_limit($timeout+10);
     $start_time = time();
     $timeout_flag = false;
-    $html = "<!DOCTYPE html>
-<html lang=\"en\">
-<head>
-    <meta charset=\"UTF-8\">
-    <title>Title</title>
-    <style>
-        html,body{
-            margin:0;
-            height:100%;
-            overflow:hidden;
-        }
-        #img{
-            width: 100px;
-            top: 100px;
-            left: 50px;
-            height: 100px;
-            position:absolute;
-
-        }
-        #h2 {
-            position: absolute;
-            text-align: center;
-            top: 100px;
-            left: 10px;
-
-        }
-        #h22 {
-
-            text-align: center;
-
-
-        }
-        h2 span {
-            color: white;
-            font: bold 24px/45px Helvetica, Sans-Serif;
-            letter-spacing: -1px;
-            background: rgb(0, 0, 0); /* fallback color */
-            background: rgba(0, 0, 0, 0.7);
-            padding: 8px;
-        }
-    </style>
-</head>
-<body style=\"overflow-x: hidden ! important;
-            background-image: url('".$bgImg."');
-            background-size:cover;background-repeat: no-repeat;
-			background-position: top;\">
-
-
-
-
-<div id=\"h2\" style=\"width: 30%\">
-    <img  src='".$logo."' height=\"100px\" width=\"100px\" style=\"text-align: center\"/>
-    <div >
-    <h2 ><span>".$focus."</span></h2>
-    </div>
-    <div id=\"h22\">
-        <h2 ><span>".$target."</span></h2>
-    </div>
-</div>
-</body>
-</html>";
-
+    $html = getHtmlGenTemp(array('bgImg' => $bgImg,'logo'=>$logo,'focus'=>$focus,'target'=>$target));
     //Note: free rate plan user cannot use SSL url.
     $url = ""; //This is the URL of the page. We will use it to generate relative path to get remote resources: css, js or images.
 
