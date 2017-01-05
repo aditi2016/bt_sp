@@ -481,6 +481,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	  	function getInTouch() {
 	  		$("#getInTouch").attr('disabled','disabled');
 	  		var mobile = $('#inputContact').val();
+	  		setCookie('mobile', mobile, 10);
 	  		if(validatePhone(mobile)){
 				$.ajax({
 					type: "POST",
@@ -521,6 +522,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 				alert("Please enter valid Name");
 			}
 			else {
+				setCookie('name', name, 10);
+				setCookie('mobile', mobile, 10);
 				$.ajax({
 					type: "POST",
 					url: "ajax/insert.php",
@@ -587,6 +590,15 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		            }
 		         }
 		    });
+		    var userMobile = getCookie('mobile');
+		    var userName = getCookie('name');
+		    var userAddress = getCookie('address');
+		   	$("#inputContact").val(userMobile);
+		   	$("#bookMobile").val(userMobile);
+		   	$("#userMobile").val(userMobile);
+		   	$("#userName").val(userName);
+		   	$("#bookName").val(userName);
+		   	$("#bookAddress").val(userAddress);
 		});
 		function search() {
 			$("#search").attr('disabled','disabled');
@@ -661,6 +673,9 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			else {
 				var startDatetime = startDate+":00";
 				var startHour = startTime+":00:00";
+				setCookie('name', bookName, 10);
+				setCookie('mobile', bookMobile, 10);
+				setCookie('address', bookAddress, 10);
 				$.ajax({
 		            url: 'https://blueteam.in/api/service_request',
 		            type: 'post',
@@ -699,6 +714,26 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
         autoclose: true,
         todayBtn: true});
 	  } );
+	  function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	  }
+	  function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i < ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0) == ' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
+	  }
 	</script>
 	<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

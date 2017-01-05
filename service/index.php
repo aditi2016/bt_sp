@@ -62,7 +62,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="application-name" content="website" />
 
     <!-- for Facebook -->
-    <meta property="og:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
+    <meta property="og:title" content="<?php echo $serviceName.", ".$areaName.", ".$cityName ;?>" />
     <meta name="og:author" content="BlueTeam" />
     <meta property="og:type" content="website"/>
 
@@ -78,7 +78,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <meta name="twitter:site" content="@hireblueteam">
     <meta name="twitter:creator" content="@hireblueteam">
     <meta name="twitter:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
-    <meta name="twitter:title" content="<?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?>" />
+    <meta name="twitter:title" content="<?php echo $serviceName.", ".$areaName.", ".$cityName ;?>" />
     <meta name="twitter:description" content="<?=$metaDescription; ?>" />
     <meta name="twitter:image" content="<?= $serviceImg ; ?>" />
 
@@ -87,8 +87,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	<link rel="stylesheet" href="index_files/bootstrap.css" type="text/css" media="screen">	
 	<link href="" type="image/png" rel="shortcut icon">
 	<link href="" type="image/png" rel="apple-touch-icon">
-	<title><?php echo $serviceData['name'].", ".$areaName.", ".$cityName ;?></title>
+	<title><?php echo $serviceName.", ".$areaName.", ".$cityName ;?></title>
 	<link rel="icon" type="image/png"  href="../favicon.ico">
+	<style type="text/css">
+		#map{
+			min-height: 500px;
+		}
+	</style>
 	
 </head>
 
@@ -348,13 +353,36 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		  </div>
 		</div>
 	  </div>
+	  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <h4 class="modal-title" id="myModalLabel">Please select your location</h4>
+	            </div>
+	            <div class="modal-body">
+	                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+	                <div id="map" ></div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                <button type="button" class="btn btn-primary" onclick="loadServicePage()">Take Loction</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 	<script src="index_files/jquery-1.10.2.js"></script>
 	  <!-- BOOTSTRAP SCRIPTS -->
 	<script src="index_files/bootstrap.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVq_N_uJLaBm3pYRIZfz3gy-7A-iqFfTg&libraries=places"
+        async defer></script>
 	<script type="text/javascript">
+		var lat = 28.4595;
+    	var lng = 77.0266;
 	  	function getInTouch() {
 	  		$("#getInTouch").attr('disabled','disabled');
 	  		var mobile = $('#inputContact').val();
+	  		setCookie('mobile', mobile, 10);
 	  		if(validatePhone(mobile)){
 				$.ajax({
 					type: "POST",
@@ -386,6 +414,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 				alert("Please enter valid mobile number");
 			}
 	  		else {
+	  			setCookie('mobile', mobile, 10);
+	  			setCookie('name', name, 10);
 				$.ajax({
 					type: "POST",
 					url: "ajax/add_services.php",
@@ -430,6 +460,9 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			return str.replace(new RegExp(find, 'g'), replace);
 		}
 		$(document).ready(function() {
+			$("#map-button").click(function(){
+	            $("#map").toggle(1000);
+	        });
 		    $('#search_box').keydown(function(event) {
 		        if (event.keyCode == 13) {
 		            var keywords = replaceAll('\\s', '', $('#search_box').val());
@@ -442,6 +475,11 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		            }
 		         }
 		    });
+		   	var userMobile = getCookie('mobile');
+		   	var userName = getCookie('name');
+		   	$("#inputContact").val(userMobile); 
+		   	$("#requestMobile").val(userMobile); 
+		   	$("#requestName").val(userName); 
 		});
 		function search() {
 			$("#search").attr('disabled','disabled');
@@ -464,6 +502,136 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			$("#search").removeAttr('disabled');
 			return false;
 		}
+		function initAutocomplete() {
+
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	            center:  {lat:lat,lng:lng},
+	            zoom: 13,
+	            mapTypeId: google.maps.MapTypeId.ROADMAP
+	        });
+
+	        // Create the search box and link it to the UI element.
+	        var input = document.getElementById('pac-input');
+	        var searchBox = new google.maps.places.SearchBox(input);
+	        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+	        // Bias the SearchBox results towards current map's viewport.
+	        map.addListener('bounds_changed', function() {
+	            searchBox.setBounds(map.getBounds());
+	        });
+
+	        google.maps.event.addListener(map,'center_changed', function() {
+	            $.get( "http://api.sp.blueteam.in/location/"+map.getCenter().lat()+","+map.getCenter().lng(), function( data ) {
+	                //alert( "Data Loaded: " + data );
+	            });
+	            lat = map.getCenter().lat();
+	            lng = map.getCenter().lng();
+	        });
+
+
+
+	        var markers = [];
+	        // Listen for the event fired when the user selects a prediction and retrieve
+	        // more details for that place.
+	        searchBox.addListener('places_changed', function() {
+	            var places = searchBox.getPlaces();
+
+	            if (places.length == 0) {
+	                return;
+	            }
+
+	            // Clear out the old markers.
+	            markers.forEach(function(marker) {
+	                marker.setMap(null);
+	            });
+	            markers = [];
+
+	            // For each place, get the icon, name and location.
+	            var bounds = new google.maps.LatLngBounds();
+	            places.forEach(function(place) {
+	                if (!place.geometry) {
+	                    console.log("Returned place contains no geometry");
+	                    return;
+	                }
+	                var icon = {
+	                    url: place.icon,
+	                    size: new google.maps.Size(71, 71),
+	                    origin: new google.maps.Point(0, 0),
+	                    anchor: new google.maps.Point(17, 34),
+	                    scaledSize: new google.maps.Size(25, 25)
+	                };
+
+	                // Create a marker for each place.
+	                /*markers.push(new google.maps.Marker({
+	                 map: map,
+	                 icon: icon,
+	                 title: place.name,
+	                 position: place.geometry.location
+	                 }));*/
+
+	                if (place.geometry.viewport) {
+	                    // Only geocodes have viewport.
+	                    bounds.union(place.geometry.viewport);
+	                } else {
+	                    bounds.extend(place.geometry.location);
+	                }
+	            });
+	            map.fitBounds(bounds);
+
+	        });
+	        $('<div/>').addClass('centerMarker').appendTo(map.getDiv())
+	            //do something onclick
+	            .click(function() {
+	                var that = $(this);
+	                if (!that.data('win')) {
+	                    that.data('win', new google.maps.InfoWindow({
+	                        content: 'So, you are at this location!'
+	                    }));
+	                    that.data('win').bindTo('position', map, 'center');
+	                }
+	                that.data('win').open(map);
+	            });
+	    }
+		function getUrlVars() {
+		    var vars = {};
+		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+		    function(m,key,value) {
+		      vars[key] = value;
+		    });
+		    return vars;
+		}
+		function loadServicePage(){
+			var serviceData = getUrlVars()["load"];
+	        window.location.href = 'http://blueteam.in/service/index.php?load='+serviceData+'&l='+lat+','+lng;
+	    }
+	    function getLocation() {
+	    	$('#myModal').modal('toggle');
+	    	setTimeout(initAutocomplete, 2000);
+	    }
+		var locationDetails = getUrlVars()["l"];
+		if(locationDetails == undefined || locationDetails == null || locationDetails == ""){
+			setTimeout(getLocation,2000);       	
+		}
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var ca = document.cookie.split(';');
+		    for(var i = 0; i < ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0) == ' ') {
+		            c = c.substring(1);
+		        }
+		        if (c.indexOf(name) == 0) {
+		            return c.substring(name.length, c.length);
+		        }
+		    }
+		    return "";
+		}
 	</script>
 	<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -477,5 +645,6 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 </script>
 	<script src="index_files/bootstrap-modal.js"></script>
 	<script src="index_files/business_ltd_1.0.js"></script>
+	
 </body>
 </html>
