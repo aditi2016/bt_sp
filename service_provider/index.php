@@ -147,7 +147,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow();">Book</button>
+	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow(<?=$serviceName;?>);">Book</button>
 	      </div>
 	    </div>
 
@@ -633,7 +633,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		  if (!matches) return false;
 		  else return true ;
 		}
-		function bookNow(){
+		function bookNow(serviceName){
 			$("#bookService").attr('disabled','disabled');
 			var bookName = replaceAll('\\s', '', $("#bookName").val());
 			var bookMobile = replaceAll('\\s', '', $("#bookMobile").val());
@@ -681,7 +681,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		            type: 'post',
 		            dataType: 'json',
 		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","requirements":"'
-		            		+<?=$serviceName;?>+'",,"service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+		            		+serviceName+'","service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
 		            		+startDatetime+'","service_type": "direct-service",'+'"remarks": "'+remarks
 		            		+' by bt_sp web page","start_time":"'+startHour+'",'+'"end_time":"'+endtime
 		            		+'","location":"'+location+'","address":"'+bookAddress+'","priority": "3",'

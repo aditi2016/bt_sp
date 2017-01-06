@@ -509,7 +509,11 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	            zoom: 13,
 	            mapTypeId: google.maps.MapTypeId.ROADMAP
 	        });
-
+	        var marker = new google.maps.Marker({
+			    position: {lat:lat,lng:lng},
+			    draggable: true
+			});
+			marker.setMap(map);
 	        // Create the search box and link it to the UI element.
 	        var input = document.getElementById('pac-input');
 	        var searchBox = new google.maps.places.SearchBox(input);
@@ -526,10 +530,12 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	            });
 	            lat = map.getCenter().lat();
 	            lng = map.getCenter().lng();
+	            marker.setMap(null);	            
+	            marker = new google.maps.Marker({
+	                position: {lat:lat,lng:lng}
+                });
+                marker.setMap(map);
 	        });
-
-
-
 	        var markers = [];
 	        // Listen for the event fired when the user selects a prediction and retrieve
 	        // more details for that place.
@@ -539,13 +545,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	            if (places.length == 0) {
 	                return;
 	            }
-
-	            // Clear out the old markers.
-	            markers.forEach(function(marker) {
-	                marker.setMap(null);
-	            });
-	            markers = [];
-
+	            
 	            // For each place, get the icon, name and location.
 	            var bounds = new google.maps.LatLngBounds();
 	            places.forEach(function(place) {
@@ -561,13 +561,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	                    scaledSize: new google.maps.Size(25, 25)
 	                };
 
-	                // Create a marker for each place.
-	                /*markers.push(new google.maps.Marker({
-	                 map: map,
-	                 icon: icon,
-	                 title: place.name,
-	                 position: place.geometry.location
-	                 }));*/
+	                /*marker = new google.maps.Marker({
+		                 map: map,
+		                 icon: icon,
+		                 title: place.name,
+		                 position: place.geometry.location
+	                });
+	                marker.setMap(map);*/
 
 	                if (place.geometry.viewport) {
 	                    // Only geocodes have viewport.
@@ -582,7 +582,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	        $('<div/>').addClass('centerMarker').appendTo(map.getDiv())
 	            //do something onclick
 	            .click(function() {
-	                var that = $(this);
+	                var that = $(this);	                
 	                if (!that.data('win')) {
 	                    that.data('win', new google.maps.InfoWindow({
 	                        content: 'So, you are at this location!'
