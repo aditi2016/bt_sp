@@ -147,7 +147,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow();">Book</button>
+	        <button type="button" id="bookService" class="btn btn-info" onclick="bookNow('<?=$serviceName;?>');">Book</button>
 	      </div>
 	    </div>
 
@@ -481,6 +481,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	  	function getInTouch() {
 	  		$("#getInTouch").attr('disabled','disabled');
 	  		var mobile = $('#inputContact').val();
+	  		setCookie('mobile', mobile, 10);
 	  		if(validatePhone(mobile)){
 				$.ajax({
 					type: "POST",
@@ -521,6 +522,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 				alert("Please enter valid Name");
 			}
 			else {
+				setCookie('name', name, 10);
+				setCookie('mobile', mobile, 10);
 				$.ajax({
 					type: "POST",
 					url: "ajax/insert.php",
@@ -587,6 +590,15 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		            }
 		         }
 		    });
+		    var userMobile = getCookie('mobile');
+		    var userName = getCookie('name');
+		    var userAddress = getCookie('address');
+		   	$("#inputContact").val(userMobile);
+		   	$("#bookMobile").val(userMobile);
+		   	$("#userMobile").val(userMobile);
+		   	$("#userName").val(userName);
+		   	$("#bookName").val(userName);
+		   	$("#bookAddress").val(userAddress);
 		});
 		function search() {
 			$("#search").attr('disabled','disabled');
@@ -621,7 +633,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		  if (!matches) return false;
 		  else return true ;
 		}
-		function bookNow(){
+		function bookNow(serviceName){
 			$("#bookService").attr('disabled','disabled');
 			var bookName = replaceAll('\\s', '', $("#bookName").val());
 			var bookMobile = replaceAll('\\s', '', $("#bookMobile").val());
@@ -661,12 +673,15 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			else {
 				var startDatetime = startDate+":00";
 				var startHour = startTime+":00:00";
+				setCookie('name', bookName, 10);
+				setCookie('mobile', bookMobile, 10);
+				setCookie('address', bookAddress, 10);
 				$.ajax({
 		            url: 'https://blueteam.in/api/service_request',
 		            type: 'post',
 		            dataType: 'json',
 		            data: '{"root": {"name":"'+bookName+'","mobile":"'+bookMobile+'","requirements":"'
-		            		+<?=$serviceName;?>+'",,"service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
+		            		+serviceName+'","service_id":"0","user_id": "27","user_type":"customer",'+'"start_datatime":"'
 		            		+startDatetime+'","service_type": "direct-service",'+'"remarks": "'+remarks
 		            		+' by bt_sp web page","start_time":"'+startHour+'",'+'"end_time":"'+endtime
 		            		+'","location":"'+location+'","address":"'+bookAddress+'","priority": "3",'
@@ -699,7 +714,37 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
         autoclose: true,
         todayBtn: true});
 	  } );
+	  function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	  }
+	  function getCookie(cname) {
+	    var name = cname + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i = 0; i < ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0) == ' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
+	  }
 	</script>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70488081-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 	<script src="index_files/business_ltd_1.0.js"></script>
 </body>
 </html>

@@ -79,7 +79,7 @@
                 vm.uploadIcon('dl');
                 vm.uploadIcon('pv');
             }
-            //while (true){
+            
 
             if(
                 vm.filesUpStatus["vc"] &&
@@ -98,7 +98,6 @@
                 }, 3000);
                 return;
             }
-            //}
             var vm.data.worker_vc = vm.data.worker_vc || 0 ;
             var vm.data.worker_ac = vm.data.worker_ac || 0 ;
             var vm.data.worker_pc = vm.data.worker_pc || 0 ;
