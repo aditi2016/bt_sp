@@ -14,7 +14,7 @@
 <input type="button"  value="Logout" onclick="logout()" />
 
 <div id="profile"></div>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 
     function logout()
     {
@@ -81,7 +81,7 @@
         po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
     })();
-</script>
+</script>-->
 <div
     class="fb-like"
     data-share="true"
@@ -89,7 +89,7 @@
     data-show-faces="true">
 </div>
 //https://api.genderize.io/?name=usa
-<script type="text/javascript">
+<!--<script type="text/javascript">
     (function() {
         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
         po.src = 'https://apis.google.com/js/client:plusone.js';
@@ -112,7 +112,7 @@
             console.log('Sign-in state: ' + authResult['error']);
         }
     }
-</script>
+</script>-->
 <script>
     window.fbAsyncInit = function() {
         FB.init({

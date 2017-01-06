@@ -29,6 +29,8 @@ if($post['link']){
     $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
     $data['link'] = "http://".$post['link'];
     $data['message'] = $post['description'].". http://www.blueteam.in/";
+    $data['place'] = "596434263827904";
+    $data['tags'] = "1171173419603719,100002809855250,100000358351533,100002585406559,100001960570336,100002155051482";
     $data['caption'] = "Get ". $post['title']." services";
     $data['description'] = $post['description'];
 
