@@ -532,7 +532,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 	            lng = map.getCenter().lng();
 	            marker.setMap(null);	            
 	            marker = new google.maps.Marker({
-	                position: {lat:lat,lng:lng}
+	                position: {lat:lat,lng:lng},
+	                draggable: true
                 });
                 marker.setMap(map);
 	        });
