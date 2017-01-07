@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>
-
+hi i am page title
     </title>
 </head>
 <body>
@@ -116,7 +116,7 @@
 <script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '220179075101428',
+            appId      : '235401549997398',
             xfbml      : true,
             status : true, // check login status
             cookie : true, // enable cookies to allow the server to access the session
@@ -125,9 +125,23 @@
         });
 
         FB.getLoginStatus(function(response) {
+            var data = {title:document.title,url:window.location.href,user_id:"0"}
             if (response.status === 'connected') {
                 console.log(response);
-                alert ("Your UID is " + response.authResponse.userID);
+                //alert ("Page Title"+document.title+", page url"+window.location.href +", Your UID is " + response.authResponse.userID);
+                data.user_id = response.authResponse.userID;
+            }
+
+            console.log(data);
+            var xhr = new XMLHttpRequest();
+            xhr.open( "POST","http://api.ragnar.shatkonlabs.com/access", true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            // send the collected data as JSON
+            xhr.send(JSON.stringify(data));
+
+            xhr.onloadend = function () {
+                // done
             }
         });
 
