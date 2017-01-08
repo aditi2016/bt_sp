@@ -90,8 +90,8 @@ foreach($keywords as $word => $t){
 }
 $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
 
-echo $post['description'];
-die();
+//echo $post['description'];
+//die();
 // Set status message
 $tweetMessage = $post['description'].". http://www.blueteam.in/";
 unlink("Tmpfile.png");
