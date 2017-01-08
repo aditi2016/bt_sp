@@ -84,6 +84,7 @@ $post = mysqli_fetch_array($posts);
 //str_replace("world","Peter","Hello world!")
 
 $keywords = extractCommonWords($post['description']);
+var_dump($keywords);
 foreach($keywords as $word){
     echo $word;
     str_replace($word,"#".$word,$post['description']);
