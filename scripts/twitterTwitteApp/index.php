@@ -72,7 +72,7 @@ if(strlen($tweetMessage) <= 140)
     if($id){
         $sql = "INSERT INTO
                 `post_tracks`(`post_id`, `social_network_id`, `publish_id`, `publish_datatime`, `creation`)
-              VALUES (".$post['id'].",1,'".$id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
+              VALUES (".$post['id'].",2,'".$id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
         mysqli_query($dbHandle, $sql);
     }
 
