@@ -14,6 +14,40 @@ require "vendor/autoload.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
+function extractCommonWords($string){
+    $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from',
+        'how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will',
+        'with','und','the','www','you','your','yours','true');
+
+    $string = preg_replace('/\s\s+/i', '', $string); // replace whitespace
+    $string = trim($string); // trim the string
+    $string = preg_replace('/[^a-zA-Z0-9 -]/', '', $string); // only take alphanumerical characters, but keep the spaces and dashes too…
+    $string = strtolower($string); // make it lowercase
+
+    preg_match_all('/\b.*?\b/i', $string, $matchWords);
+    $matchWords = $matchWords[0];
+
+    foreach ( $matchWords as $key=>$item ) {
+        if ( $item == '' || in_array(strtolower($item), $stopWords) || strlen($item) <= 3 ) {
+            unset($matchWords[$key]);
+        }
+    }
+    $wordCountArr = array();
+    if ( is_array($matchWords) ) {
+        foreach ( $matchWords as $key => $val ) {
+            $val = strtolower($val);
+            if ( isset($wordCountArr[$val]) ) {
+                $wordCountArr[$val]++;
+            } else {
+                $wordCountArr[$val] = 1;
+            }
+        }
+    }
+    arsort($wordCountArr);
+    $wordCountArr = array_slice($wordCountArr, 0, 10);
+    return $wordCountArr;
+}
+
 
 
 // Set keys
@@ -47,6 +81,12 @@ $posts = mysqli_query($dbHandle, "
                       and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
 
 $post = mysqli_fetch_array($posts);
+//str_replace("world","Peter","Hello world!")
+
+$keywords = extractCommonWords($post['description']);
+foreach($keywords as $word){
+    str_replace($word,"#".$word,$post['description']);
+}
 
 // Set status message
 $tweetMessage = $post['description'].". http://www.blueteam.in/";
