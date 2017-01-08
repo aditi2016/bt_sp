@@ -20,7 +20,7 @@ $posts = mysqli_query($dbHandle, "
                   inner join companies as b
                   WHERE a.gen_img_id != 0
                       and a.`status` = 'approved'
-                      and a.id NOT IN (SELECT post_id FROM post_tracks WHERE 1)
+                      and a.id NOT IN (SELECT post_id FROM post_tracks WHERE social_network_id = 1)
                       and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
 
 $post = mysqli_fetch_array($posts);
