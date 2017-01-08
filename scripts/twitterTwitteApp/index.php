@@ -87,6 +87,7 @@ $keywords = extractCommonWords($post['description']);
 foreach($keywords as $word){
     str_replace($word,"#".$word,$post['description']);
 }
+echo $post['description'];
 
 // Set status message
 $tweetMessage = $post['description'].". http://www.blueteam.in/";
