@@ -82,7 +82,7 @@ $posts = mysqli_query($dbHandle, "
 
 $post = mysqli_fetch_array($posts);
 //str_replace("world","Peter","Hello world!")
-$post['description'] = $post['title'] . ": " .$post['description'];
+$post['description'] = str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
 $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
 foreach($keywords as $word => $t){
