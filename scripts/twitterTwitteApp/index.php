@@ -86,11 +86,11 @@ $post = mysqli_fetch_array($posts);
 $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
 foreach($keywords as $word => $t){
-    echo $word."\n";
-    $post['description'] = str_replace($word,"#".$word,$post['description']);
+    //echo $word."\n";
+    $post['description'] = str_ireplace($word,"#".$word,$post['description']);
 }
-echo $post['description'];
-die();
+//echo $post['description'];
+//die();
 // Set status message
 $tweetMessage = $post['description'].". http://www.blueteam.in/";
 unlink("Tmpfile.png");
