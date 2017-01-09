@@ -107,8 +107,7 @@ $twitte = [
 ];
 
 // Check for 140 characters
-if(strlen($tweetMessage) <= 140)
-{
+//if(strlen($tweetMessage) <= 140) {
     // Post the status message
     $return  = $tweet->post('statuses/update', $twitte);
     var_dump($return);
@@ -120,5 +119,5 @@ if(strlen($tweetMessage) <= 140)
         mysqli_query($dbHandle, $sql);
     }
 
-}
+//}
 mysqli_close($dbHandle);
