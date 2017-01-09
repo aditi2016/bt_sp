@@ -94,7 +94,7 @@ $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .
 //die();
 // Set status message
 
-$tweetMessage = $post['description'].". http://www.blueteam.in/";
+$tweetMessage = $post['description']." http://blueteam.in";
 while(strlen($tweetMessage) >= 140){
     $tweetMessage = substr($tweetMessage, 0, -5);
 }
