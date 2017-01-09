@@ -98,6 +98,7 @@ $tweetMessage = $post['description'].". http://www.blueteam.in/";
 while(strlen($tweetMessage) >= 140){
     $tweetMessage = substr($string, 0, -5);
 }
+var_dump($tweetMessage);die();
 unlink("Tmpfile.png");
 file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'],'r'));
 
