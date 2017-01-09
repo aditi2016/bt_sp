@@ -93,7 +93,11 @@ $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .
 //echo $post['description'];
 //die();
 // Set status message
+
 $tweetMessage = $post['description'].". http://www.blueteam.in/";
+while(strlen($tweetMessage) >= 140){
+    $tweetMessage = substr($string, 0, -5);
+}
 unlink("Tmpfile.png");
 file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'],'r'));
 
@@ -102,12 +106,13 @@ file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/file
 $media1 = $tweet->upload('media/upload', ['media' => 'Tmpfile.png']);
 
 $twitte = [
-    'status' => $post['description'].". http://www.blueteam.in/",
+    'status' => $tweetMessage,
     'media_ids' => implode(',', [$media1->media_id_string])
 ];
 
 // Check for 140 characters
-//if(strlen($tweetMessage) <= 140) {
+
+if(strlen($tweetMessage) <= 140) {
     // Post the status message
     $return  = $tweet->post('statuses/update', $twitte);
     var_dump($return);
@@ -119,5 +124,5 @@ $twitte = [
         mysqli_query($dbHandle, $sql);
     }
 
-//}
+}
 mysqli_close($dbHandle);
