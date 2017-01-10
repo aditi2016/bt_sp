@@ -2,14 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: spider-ninja
- * Date: 12/24/16
- * Time: 10:18 PM
+ * Date: 12/13/16
+ * Time: 5:39 PM
  */
+
+// Consumer Key (API Key) :  GJ8nBBmK5sUFpy7WkZyk6ZOIj
+//  Consumer Secret (API Secret) : soBlTyK67eyoGQqt166K4ozDXA1qZnNElVdE28ZmxZe3z3laQ7
+//
+
+require "vendor/autoload.php";
+
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 function extractCommonWords($string){
     $stopWords = array('i','a','about','an','and','are','as','at','be','by','com','de','en','for','from',
         'how','in','is','it','la','of','on','or','that','the','this','to','was','what','when','where','who','will',
-        'with','und','the','www', 'also', 'you','your','yours','true');
+        'with','und','the','www','you', 'also','your','yours','true');
 
     $string = preg_replace('/\s\s+/i', '', $string); // replace whitespace
     $string = trim($string); // trim the string
@@ -40,9 +48,24 @@ function extractCommonWords($string){
     return $wordCountArr;
 }
 
-$page_access_token = 'EAADIQGZBO8vQBAN86wOjzGZBFSFw2W8BqQZCBjrS9XwQGKnZCmaeWg17X8ZBXh2R9Arwgb9UkDOPXXUq0dVR8rLJpb3ojKUvOTG5ZBdR52etFT0qpn5rmLZBLuW5ZA5w5ESuce5vIpLxZAsSjoRaBVdov6R1Y5L8fxK4ZD';
 
-$page_id = '596434263827904';
+
+// Set keys
+/*
+$consumerKey = 'GJ8nBBmK5sUFpy7WkZyk6ZOIj';
+$consumerSecret = 'soBlTyK67eyoGQqt166K4ozDXA1qZnNElVdE28ZmxZe3z3laQ7';
+$accessToken = '292829217-mmSdUyy92ZF6qOVs1v2qJ5NQ3ztpAn7im7axROuJ';
+$accessTokenSecret = 'Sg4qeC7CO1L6sBC4otiQUihexIPYVK4nqpDHoEOF4wTOt';*/
+
+
+$consumerKey = 'MPboILZOxGkHMJJ3uE9R8sza1';
+$consumerSecret = 'qugVOpu1xgCqNnVAVyp1D94coKIpP8OWBZHzbbtpqBxhqnSCon';
+$accessToken = '810109676230758400-FKet7dBddu5zXhLIWHOycyFxiueg1Fw';
+$accessTokenSecret = 'OQLGNYplpgKmB1sV0hLkYvfKHdTmFoH8dswe866mpJwTf';
+
+$tweet = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+$tweet->setTimeouts(10, 15);
+//$content = $connection->get("account/verify_credentials");
 
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
 
@@ -54,10 +77,11 @@ $posts = mysqli_query($dbHandle, "
                   inner join companies as b
                   WHERE a.gen_img_id != 0
                       and a.`status` = 'approved'
-                      and a.id NOT IN (SELECT post_id FROM post_tracks WHERE social_network_id = 1)
+                      and a.id NOT IN (SELECT post_id FROM post_tracks WHERE social_network_id = 2)
                       and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
 
 $post = mysqli_fetch_array($posts);
+//str_replace("world","Peter","Hello world!")
 $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
 foreach($keywords as $word => $t){
@@ -66,37 +90,40 @@ foreach($keywords as $word => $t){
 }
 $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
 
-//var_dump($post);
-if($post['link']){
-    $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
-    $data['link'] = "http://".$post['link'];
-    $data['message'] = $post['description'].". http://www.blueteam.in/";
-    $data['place'] = "596434263827904";
-    $data['tags'] = "1171173419603719,100002809855250,100000358351533,100002585406559,100001960570336,100002155051482";
-    $data['caption'] = "Get ". $post['title']." services";
-    $data['description'] = $post['description'];
+//echo $post['description'];
+//die();
+// Set status message
 
-    $data['access_token'] = $page_access_token;
+$tweetMessage = $post['description']." http://blueteam.in";
+while(strlen($tweetMessage) >= 140){
+    $tweetMessage = substr($tweetMessage, 0, -5);
+}
+//var_dump($tweetMessage);die();
+unlink("Tmpfile.png");
+file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'],'r'));
 
-//var_dump($data);
 
-    $post_url = 'https://graph.facebook.com/'.$page_id.'/feed';
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $post_url);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $return = curl_exec($ch);
-    $fbReturn = json_decode($return);
-    var_dump($fbReturn);
-    curl_close($ch);
+$media1 = $tweet->upload('media/upload', ['media' => 'Tmpfile.png']);
 
-    if($fbReturn->id){
+$twitte = [
+    'status' => $tweetMessage,
+    'media_ids' => implode(',', [$media1->media_id_string])
+];
+
+// Check for 140 characters
+
+if(strlen($tweetMessage) <= 140) {
+    // Post the status message
+    $return  = $tweet->post('statuses/update', $twitte);
+    var_dump($return);
+    $id = $return->id_str;
+    if($id){
         $sql = "INSERT INTO
                 `post_tracks`(`post_id`, `social_network_id`, `publish_id`, `publish_datatime`, `creation`)
-              VALUES (".$post['id'].",1,'".$fbReturn->id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
+              VALUES (".$post['id'].",2,'".$id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
         mysqli_query($dbHandle, $sql);
     }
+
 }
 mysqli_close($dbHandle);

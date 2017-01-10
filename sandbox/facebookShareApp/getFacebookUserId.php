@@ -6,7 +6,7 @@
 <html>
 <head>
     <title>
-
+hi i am page title
     </title>
 </head>
 <body>
@@ -14,7 +14,7 @@
 <input type="button"  value="Logout" onclick="logout()" />
 
 <div id="profile"></div>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 
     function logout()
     {
@@ -81,7 +81,7 @@
         po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
     })();
-</script>
+</script>-->
 <div
     class="fb-like"
     data-share="true"
@@ -89,7 +89,7 @@
     data-show-faces="true">
 </div>
 //https://api.genderize.io/?name=usa
-<script type="text/javascript">
+<!--<script type="text/javascript">
     (function() {
         var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
         po.src = 'https://apis.google.com/js/client:plusone.js';
@@ -112,11 +112,68 @@
             console.log('Sign-in state: ' + authResult['error']);
         }
     }
+</script>-->
+<script>
+    var info={
+
+        timeOpened:new Date(),
+        timezone:(new Date()).getTimezoneOffset()/60,
+
+        pageon(){return window.location.pathname},
+        referrer(){return document.referrer},
+        previousSites(){return history.length},
+
+        browserName(){return navigator.appName},
+        browserEngine(){return navigator.product},
+        browserVersion1a(){return navigator.appVersion},
+        browserVersion1b(){return navigator.userAgent},
+        browserLanguage(){return navigator.language},
+        browserOnline(){return navigator.onLine},
+        browserPlatform(){return navigator.platform},
+        javaEnabled(){return navigator.javaEnabled()},
+        dataCookiesEnabled(){return navigator.cookieEnabled},
+        dataCookies1(){return document.cookie},
+        dataCookies2(){return decodeURIComponent(document.cookie.split(";"))},
+        dataStorage(){return localStorage},
+
+        sizeScreenW(){return screen.width},
+        sizeScreenH(){return screen.height},
+        sizeDocW(){return document.width},
+        sizeDocH(){return document.height},
+        sizeInW(){return innerWidth},
+        sizeInH(){return innerHeight},
+        sizeAvailW(){return screen.availWidth},
+        sizeAvailH(){return screen.availHeight},
+        scrColorDepth(){return screen.colorDepth},
+        scrPixelDepth(){return screen.pixelDepth},
+
+
+        latitude(){return position.coords.latitude},
+        longitude(){return position.coords.longitude},
+        accuracy(){return position.coords.accuracy},
+        altitude(){return position.coords.altitude},
+        altitudeAccuracy(){return position.coords.altitudeAccuracy},
+        heading(){return position.coords.heading},
+        speed(){return position.coords.speed},
+        timestamp(){return position.timestamp},
+
+
+    };
+    console.log(info.previousSites());
+</script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/userinfo/1.1.0/userinfo.min.js"></script>
+<script type="text/javascript">
+    UserInfo.getInfo(function(data) {
+        // the "data" object contains the info
+        console.log(data);
+    }, function(err) {
+        // the "err" object contains useful information in case of an error
+    });
 </script>
 <script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '220179075101428',
+            appId      : '235401549997398',
             xfbml      : true,
             status : true, // check login status
             cookie : true, // enable cookies to allow the server to access the session
@@ -125,15 +182,35 @@
         });
 
         FB.getLoginStatus(function(response) {
+            console.log("inside login");
+            var data = {title:document.title,url:window.location.href,user_id:"0"}
+            console.log("Login status response ",response);
             if (response.status === 'connected') {
-                console.log(response);
-                alert ("Your UID is " + response.authResponse.userID);
+
+                //alert ("Page Title"+document.title+", page url"+window.location.href +", Your UID is " + response.authResponse.userID);
+                data.user_id = response.authResponse.userID;
+                console.log("fb id: ",response.authResponse.userID);
+            }
+
+            console.log(data);
+            var xhr = new XMLHttpRequest();
+            xhr.open( "POST","http://api.ragnar.shatkonlabs.com/access", true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+            // send the collected data as JSON
+            xhr.send(JSON.stringify(data));
+
+            xhr.onloadend = function () {
+                // done
             }
         });
 
-        FB.api('/me', {fields: 'last_name'}, function(response) {
-            console.log(response);
-        });
+        FB.api('/me', { locale: 'en_US', fields: 'name, email' },
+            function(response) {
+                console.log("me api response",response);
+            }
+
+        );
 
 
     };
