@@ -21,7 +21,7 @@ function getAllServiceProviders($id){
     $areaData = $stmt->fetchAll(PDO::FETCH_OBJ);
     
     if($areaData !== NULL){
-       $area_id = $areaData->id; 
+       $area_id = $areaData[0]->id; 
     }
     else {
         $url = "http://api.sp.blueteam.in/location/".$location;
