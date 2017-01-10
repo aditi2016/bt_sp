@@ -11,7 +11,7 @@
 
 function getAllServiceProviders($id){
     global $app;
-
+    $db = getDB();
     $location = $app->request()->get('location');
     $p = explode(",",$location);
     
@@ -66,7 +66,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
     //who was looking for it ( service_look_id, customer_name, customer_mobile)
 
     try {
-        $db = getDB();
+        
 
         //updating accesses
         $stmt = $db->prepare($sqlUpdateAccess);
