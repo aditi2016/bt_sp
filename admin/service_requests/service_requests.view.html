@@ -82,6 +82,20 @@
                                 <option value='feedback'>Feedback</option>
 
                             </select>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    {{ vm.whichMonth.name }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li ng-repeat="month in vm.threeMonths" >
+                                        <a ng-click="vm.currentMonthIndex=$index;vm.setCurrentMon()">{{ month.name }}</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="">Currently for {{ vm.whichMonth.name }}</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </span>
                     </div>
                     <!-- /.panel-heading -->

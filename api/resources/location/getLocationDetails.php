@@ -9,11 +9,12 @@
 function getLocationDetails($id){
 
 
-    $locDetails = getGPSLocationDetails($id);
+    
     $p = explode(",",$id);
     $point = $p[0]." ".$p[1];
     //GeomFromText( 'POINT(:location)' )
-
+    
+    $locDetails = getGPSLocationDetails($id);
     $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
     $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
@@ -73,7 +74,7 @@ function getGPSLocationDetails($loc){
 
         if(isset($value->address_components)) {
             foreach ($value->address_components as $acValue) {
-                //var_dump($acValue);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+               
                 if (isset($acValue->types)) {
                     if (!isset($return['country']) && !is_bool(array_search('country', $acValue->types)) ) {
                         $return['country'] = array('name' => $acValue->long_name);
