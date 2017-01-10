@@ -15,7 +15,7 @@ function getAllServiceProviders($id){
     $location = $app->request()->get('location');
     $p = explode(",",$location);
     
-    $areaUrl = "SELECT id, city_id, CalculateDistanceKm("$p[0]", "$p[1]", X( gps_location ) , Y( gps_location )) AS diatance FROM areas WHERE CalculateDistanceKm("$p[0]", "$p[1]", X( gps_location ) , Y( gps_location )) < 1 ORDER BY diatance ASC LIMIT 1";
+    $areaUrl = "SELECT id, city_id, CalculateDistanceKm(".$p[0].", ".$p[1].", X( gps_location ) , Y( gps_location )) AS diatance FROM areas WHERE CalculateDistanceKm(".$p[0].", ".$p[1].", X( gps_location ) , Y( gps_location )) < 1 ORDER BY diatance ASC LIMIT 1";
     $stmt = $db->prepare($areaUrl);
     $stmt->execute();
     $areaData = $stmt->fetchAll(PDO::FETCH_OBJ);
