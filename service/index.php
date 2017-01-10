@@ -29,7 +29,6 @@ $photosArray = mysqli_query($dbHandle, "SELECT photo_id FROM photos WHERE servic
 
 $url = "http://api.sp.blueteam.in/service/".$serviceId."?location=".$_GET['l'];
 $allServiceProviders = json_decode(httpGet($url))->service_providers;
-var_dump($url);die();
 $lookUpId = json_decode(httpGet($url))->lookup_id;
 /*
 $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a.id, a.profile_pic_id, 
@@ -634,57 +633,18 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		    return "";
 		}
 	</script>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-70488081-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 	<script src="index_files/bootstrap-modal.js"></script>
 	<script src="index_files/business_ltd_1.0.js"></script>
-	<script>
-		window.fbAsyncInit = function() {
-			FB.init({
-				appId      : '235401549997398',
-				xfbml      : true,
-				status : true, // check login status
-				cookie : true, // enable cookies to allow the server to access the session
-
-				version    : 'v2.8'
-			});
-
-			FB.getLoginStatus(function(response) {
-				var data = {title:document.title,url:window.location.href,user_id:"0"}
-				if (response.status === 'connected') {
-					console.log(response);
-					//alert ("Page Title"+document.title+", page url"+window.location.href +", Your UID is " + response.authResponse.userID);
-					data.user_id = response.authResponse.userID;
-				}
-
-				console.log(data);
-				var xhr = new XMLHttpRequest();
-				xhr.open( "POST","http://api.ragnar.shatkonlabs.com/access", true);
-				xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-
-				// send the collected data as JSON
-				xhr.send(JSON.stringify(data));
-
-				xhr.onloadend = function () {
-					// done
-				}
-			});
-
-			FB.api('/me', {fields: 'last_name'}, function(response) {
-				console.log(response);
-			});
-
-
-		};
-
-		(function(d, s, id){
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {return;}
-			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-
-
-	</script>
 	
 </body>
 </html>
