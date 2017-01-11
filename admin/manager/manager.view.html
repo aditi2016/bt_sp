@@ -310,6 +310,86 @@
             <!-- /.col-lg-8 -->
 
         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Services Searched by Users
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                        <table datatable="ng"  class="table table-bordered table-hover table-striped" style="max-width: 99%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Search Keywords</th>
+                                    <th>IP Address</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="searchResult in vm.searchResults" >
+                                    <td>{{ searchResult.id }} </td>
+                                    <td>{{ searchResult.string }}</td>
+                                    <td>{{ searchResult.ip }} </td>
+                                    <td>{{ searchResult.creation }} </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+
+
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Users Interested In Services
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                        <table datatable="ng"  class="table table-bordered table-hover table-striped" style="max-width: 99%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th> Service Name</th>
+                                    <th>Number of Times Looked</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="interestedService in vm.interestedServices" >
+                                    <td>{{ interestedService.service_id }} </td>
+                                    <td>{{ interestedService.name }}</td>
+                                    <td>{{ interestedService.cnt }} </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+
+
+            </div>
+            <!-- /.col-lg-8 -->
+
+        </div>
         <!-- /.row -->
     </div>
     <!-- /#page-wrapper -->

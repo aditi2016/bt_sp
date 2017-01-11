@@ -41,6 +41,8 @@
         service.getAllServiceRequests = getAllServiceRequests;
         service.CreateServiceProviderService = CreateServiceProviderService;
         service.CreateServiceRequest = CreateServiceRequest;
+        service.getInterestedServices = getInterestedServices;
+        service.getSearchResults = getSearchResults;
 
         return service;
 
@@ -157,6 +159,12 @@
         }
         function getCityAreas(id) {
             return $http.get(urlSP + '/cities/'+id+'/areas').then(handleSuccess, handleError('Error getting areas'));
+        }
+        function getInterestedServices() {
+            return $http.get(urlSP + '/interest').then(handleSuccess, handleError('Error getting areas'));
+        }
+        function getSearchResults() {
+            return $http.get(urlSP + '/search').then(handleSuccess, handleError('Error getting areas'));
         }
         function CreateServiceProvider(user) {
             return $http.post(urlSP + '/service_provider', user).then(handleSuccess, handleError('Error creating user'));
