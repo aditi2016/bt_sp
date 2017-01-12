@@ -71,7 +71,7 @@ $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
 
 $posts = mysqli_query($dbHandle, "
                 SELECT
-                  a.`id`, a.`company_id`, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
+                  a.`id`, a.`company_id`, a.user_id, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
                   a.gen_img_id, b.logo_id
                 FROM `posts` as a
                   inner join companies as b
@@ -94,7 +94,11 @@ $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .
 //die();
 // Set status message
 
-$tweetMessage = $post['description']." http://blueteam.in";
+if(strlen($tweetMessage) <= 100)
+    $tweetMessage = $post['description']." http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-t';
+else
+$tweetMessage = $post['description']." http://".$post['link'];
+
 while(strlen($tweetMessage) >= 140){
     $tweetMessage = substr($tweetMessage, 0, -5);
 }
