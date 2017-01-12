@@ -11,12 +11,23 @@
 
 function getAllServiceProviders($id){
     global $app;
-
+    $db = getDB();
     $location = $app->request()->get('location');
-
-    $url = "http://api.sp.blueteam.in/location/".$location;
-    $locDetails = json_decode(httpGet($url));
-    $area_id = $locDetails->location_details->area->id;
+    $p = explode(",",$location);
+    
+    $areaUrl = "SELECT id, city_id, CalculateDistanceKm(".$p[0].", ".$p[1].", X( gps_location ) , Y( gps_location )) AS diatance FROM areas WHERE CalculateDistanceKm(".$p[0].", ".$p[1].", X( gps_location ) , Y( gps_location )) < 1 ORDER BY diatance ASC LIMIT 1";
+    $stmt = $db->prepare($areaUrl);
+    $stmt->execute();
+    $areaData = $stmt->fetchAll(PDO::FETCH_OBJ);
+    
+    if($areaData !== NULL){
+       $area_id = $areaData[0]->id; 
+    }
+    else {
+        $url = "http://api.sp.blueteam.in/location/".$location;
+        $locDetails = json_decode(httpGet($url));
+        $area_id = $locDetails->location_details->area->id;
+    }
 
     /*
      * SET @p = POINTFROMTEXT('POINT(28.4594965 77.0266383)');
@@ -55,7 +66,7 @@ FROM service_providers where CalculateDistanceKm(X(@p), Y(@p), X(gps_location), 
     //who was looking for it ( service_look_id, customer_name, customer_mobile)
 
     try {
-        $db = getDB();
+        
 
         //updating accesses
         $stmt = $db->prepare($sqlUpdateAccess);

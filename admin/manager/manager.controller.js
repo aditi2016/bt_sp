@@ -37,11 +37,12 @@
           //  loadCurrentUser();
            // loadAllUsers();
 
-            loadMonths();
             loadUser();
             loadNotInstallApps();
             loadNotUsingApps();
             loadToCallCandidates();
+            getInterestedServices();
+            getSearchResults();
 
         }
 
@@ -189,6 +190,22 @@
             CandidateService.notInstallApps()
                 .then(function (response) {
                     vm.notInstallApps = response.service_providers;
+                    vm.dataLoading = false;
+                });
+        }
+        function getSearchResults(){
+            vm.dataLoading = true;
+            CandidateService.getSearchResults()
+                .then(function (response) {
+                    vm.searchResults = response.searchs;
+                    vm.dataLoading = false;
+                });
+        }
+        function getInterestedServices(){
+            vm.dataLoading = true;
+            CandidateService.getInterestedServices()
+                .then(function (response) {
+                    vm.interestedServices = response.interestedServices;
                     vm.dataLoading = false;
                 });
         }

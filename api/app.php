@@ -60,6 +60,8 @@ $app->get('/cities/:id/areas','getAllCityAreas');
 // location
 $app->get('/location/:id','getLocationDetails');
 $app->get('/category','getCategories');
+$app->get('/search','getSearchResults');
+$app->get('/interest','getInteresredServices');
 
 
 // service provider services

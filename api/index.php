@@ -36,6 +36,8 @@ require_once"resources/service_provider/getAllServiceProviders.php";
 //search resource
 
 require_once "resources/search/search.php";
+require_once "resources/search/getSearchResults.php";
+require_once "resources/search/getInteresredServices.php";
 require_once "resources/category/getCategories.php";
 
 // service provider invoice
