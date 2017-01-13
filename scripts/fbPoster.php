@@ -48,7 +48,7 @@ $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
 
 $posts = mysqli_query($dbHandle, "
                 SELECT
-                  a.`id`, a.`company_id`, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
+                  a.`id`, a.`company_id`, a.user_id, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
                   a.gen_img_id, b.logo_id
                 FROM `posts` as a
                   inner join companies as b
@@ -69,8 +69,8 @@ $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .
 //var_dump($post);
 if($post['link']){
     $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
-    $data['link'] = "http://".$post['link'];
-    $data['message'] = $post['description'].". http://www.blueteam.in/";
+    $data['link'] = "http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
+    $data['message'] = $post['description'].". http://".$post['link']."/";
     $data['place'] = "596434263827904";
     $data['tags'] = "1171173419603719,100002809855250,100000358351533,100002585406559,100001960570336,100002155051482";
     $data['caption'] = "Get ". $post['title']." services";
