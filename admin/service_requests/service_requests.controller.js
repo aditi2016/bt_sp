@@ -23,13 +23,13 @@
         vm.threeMonths = [];
         vm.whichMonth = {};
         vm.currentMonthIndex = 0;
-        vm.setCurrentMon = function(){
-            //console.log("i am in setCurrentMonth",vm.currentMonthIndex);
+        vm.setCurrentMon = function(monthname){
+            console.log("i am in setCurrentMonth",monthname);
 
-            vm.whichMonth.name = vm.threeMonths[vm.currentMonthIndex].name;
+            vm.whichMonth.name = monthname;
             vm.whichMonth.num = vm.threeMonths[vm.currentMonthIndex].num;
-            console.log("i am in setCurrentMonth",vm.whichMonth);
-            loadToCallCandidates();
+            //console.log("i am in setCurrentMonth",vm.whichMonth);
+            //loadToCallCandidates();
 
         }
 
@@ -49,11 +49,24 @@
             months[11] = "December";
 
             var myDate = new Date();
-            vm.whichMonth.name = months[myDate.getMonth()];
-            vm.whichMonth.num = (myDate.getFullYear(), myDate.getMonth());
-            vm.threeMonths[0] = {"name":months[myDate.getMonth()],"num":(myDate.getFullYear(), myDate.getMonth())};
-            vm.threeMonths[1] = {"name":months[myDate.getMonth()-1], "num":(myDate.getFullYear(), myDate.getMonth()-1)};
-            vm.threeMonths[2] = {"name":months[myDate.getMonth()-2],"num":(myDate.getFullYear(), myDate.getMonth()-2)};
+            vm.whichMonth.name = months[myDate.getMonth()].toString()+", "+myDate.getFullYear().toString();
+            vm.whichMonth.num = myDate.getMonth();
+            vm.threeMonths[0] = {"name":months[myDate.getMonth()].toString()+", "+myDate.getFullYear().toString(),"num":myDate.getMonth()};
+            if((myDate.getMonth()-1) < 0){
+                vm.threeMonths[1] = {"name":"December, "+(myDate.getFullYear()-1).toString(), "num":11};
+                vm.threeMonths[2] = {"name":"November, "+(myDate.getFullYear()-1).toString(), "num":10};
+            }
+            else {
+                if((myDate.getMonth()-2) <0){
+                    vm.threeMonths[1] = {"name":months[myDate.getMonth()-1].toString()+", "+myDate.getFullYear().toString(), "num":myDate.getMonth()-1};
+                    vm.threeMonths[2] = {"name":"December, "+(myDate.getFullYear()-1).toString(), "num":11};
+                }
+                else {
+                    vm.threeMonths[1] = {"name":months[myDate.getMonth()-1].toString()+", "+myDate.getFullYear().toString(), "num":myDate.getMonth()-1};
+                    vm.threeMonths[2] = {"name":months[myDate.getMonth()-2].toString()+", "+myDate.getFullYear().toString(),"num":myDate.getMonth()-2};
+                }                
+            }        
+            
             console.log(vm.threeMonths);
         }
         initController();
