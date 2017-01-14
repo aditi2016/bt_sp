@@ -6,7 +6,7 @@ $api_url = "http://api.page2images.com/html2image";
 
 $bgImg = $_GET['base_img_url'];
 $logo = $_GET['logo_img_url'];
-$focus = $_GET['focus'];
+$focus = $_GET['focus']."<br>Share If You Agree";
 $target = $_GET['target'];
 $link = $_GET['link'];
 
