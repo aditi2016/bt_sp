@@ -17,9 +17,9 @@ function getExpansesTypes($id){
 
         $stmt->execute();
 
-        var_dump($stmt->fetchAll(PDO::FETCH_OBJ));die();
+        //var_dump($stmt->fetchAll(PDO::FETCH_OBJ));die();
 
-        $expanseTypes = explode(',',explode(')',explode('(',$stmt->fetchAll(PDO::FETCH_OBJ)[0]->Type)[1]));
+        $expanseTypes = explode(',',explode(')',explode('(',$stmt->fetchAll(PDO::FETCH_OBJ)[0]->Type)[1])[0]);
 
 
         $db = null;
