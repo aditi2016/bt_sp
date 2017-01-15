@@ -33,8 +33,8 @@ function insertServiceProviderExpanse($id){
         //$service_provider->status = "new";
 
         $stmt->bindParam("id", $id);
-        $stmt->bindParam("give_to", $expanse->reciver_name);
-        $stmt->bindParam("mobile", $expanse->reciver_mobile);
+        $stmt->bindParam("give_to", $expanse->receiver_name);
+        $stmt->bindParam("mobile", $expanse->receiver_mobile);
         $stmt->bindParam("amount", $expanse->amount);
         $stmt->bindParam("type", $expanse->type);
 
@@ -52,10 +52,10 @@ function insertServiceProviderExpanse($id){
         $message = "You have received Rs." .$expanse->amount . " by ".$sp[0]->organization." (Partner Id: $id)\n as " . $expanse->type . "\n Get BT Partner App\n http://goo.gl/rLK3s5";
 
         if($expanse->send_expanse)
-            sendSMS($expanse->reciver_mobile, $message);
+            sendSMS($expanse->receiver_mobile, $message);
 
         $db = null;
-        echo '{"expanses": ' . json_encode($invoice) . '}';
+        echo '{"expanses": ' . json_encode($expanse) . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';

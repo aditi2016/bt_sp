@@ -50,6 +50,7 @@ $app->get('/service_provider/:id/invoice', 'getServiceProviderInvoice');
 // expanses api
 $app->post('/service_provider/:id/expanse', 'insertServiceProviderExpanse');
 $app->get('/service_provider/:id/expanse', 'getServiceProviderExpanses');
+$app->get('/service_provider/:id/expanse_types', 'getExpansesTypes');
 
 // take feedback request api
 $app->post('/service_provider/:id/feedback_request', 'insertServiceProviderFeedbackRequest');

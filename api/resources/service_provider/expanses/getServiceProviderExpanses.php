@@ -34,8 +34,8 @@ function getServiceProviderExpanses($id){
         $stmt->bindParam("month_year", $d);
 
         $stmt->execute();
-        $invoices = array();
-        $invoices['invoices'] = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $expanses = array();
+        $expanses['expanses'] = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $stmt = $db->prepare($sqlMonthYear);
 
@@ -47,7 +47,7 @@ function getServiceProviderExpanses($id){
 
 
         $db = null;
-        echo '{"invoices": ' . json_encode($invoices) . '}';
+        echo '{"expanses": ' . json_encode($expanses) . '}';
 
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
