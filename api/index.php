@@ -56,6 +56,12 @@ require_once "resources/cities/areas/getAllCityAreas.php";
 //location api
 require_once "resources/location/getLocationDetails.php";
 
+//Expanse api
+
+require_once "resources/service_provider/expanses/getServiceProviderExpanses.php";
+require_once "resources/service_provider/expanses/insertServiceProviderExpance.php";
+
+
 //app
 require_once "app.php";
 
