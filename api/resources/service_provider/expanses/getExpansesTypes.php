@@ -8,7 +8,7 @@
 
 function getExpansesTypes($id){
 
-    $sql = "SHOW COLUMNS.type FROM expanses WHERE Field = 'type'";
+    $sql = "SHOW COLUMNS FROM expanses WHERE Field = 'type'";
 
     try {
         $db = getDB();
