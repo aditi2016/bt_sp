@@ -59,7 +59,7 @@ require_once "resources/location/getLocationDetails.php";
 //Expanse api
 
 require_once "resources/service_provider/expanses/getServiceProviderExpanses.php";
-require_once "resources/service_provider/expanses/insertServiceProviderExpance.php";
+require_once "resources/service_provider/expanses/insertServiceProviderExpanse.php";
 
 
 //app
