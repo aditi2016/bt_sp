@@ -62,6 +62,8 @@ require_once "resources/service_provider/expanses/getServiceProviderExpanses.php
 require_once "resources/service_provider/expanses/insertServiceProviderExpanse.php";
 require_once "resources/service_provider/expanses/getExpansesTypes.php";
 
+require_once "resources/mobac/insertCallLogs.php";
+
 
 //app
 require_once "app.php";
