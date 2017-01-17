@@ -74,6 +74,7 @@ $app->post('/services', 'insertNewServices');
 $app->post('/service_provider/:id/services', 'insertServices');
 
 $app->post('/mobac/:mobile','insertCallLogs');
+$app->get('/mobac/:mobile','insertCallLogs');
 
 /* Ending Routes */
 
