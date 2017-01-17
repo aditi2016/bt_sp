@@ -24,7 +24,8 @@
             loadUser();
             loadNotInstallApps();
             loadNotUsingApps();
-            loadToCallCandidates();
+
+            loadAllSPNotFound();
             getInterestedServices();
         }
 
@@ -34,6 +35,16 @@
             UserService.DeleteInUser();
             $location.path('#/login');
         };
+
+        function loadAllSPNotFound(){
+            vm.dataLoading = true;
+            CandidateService.GetAll()
+                .then(function (response) {
+                    vm.toFindServices = response.services;
+                    vm.dataLoading = false;
+                });
+
+        }
 
         function loadUser(){
             vm.inUser = UserService.GetInUser();

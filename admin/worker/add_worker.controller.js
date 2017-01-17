@@ -98,12 +98,13 @@
                 }, 3000);
                 return;
             }
-            var vm.data.worker_vc = vm.data.worker_vc || 0 ;
+
+            /*var vm.data.worker_vc = vm.data.worker_vc || 0 ;
             var vm.data.worker_ac = vm.data.worker_ac || 0 ;
             var vm.data.worker_pc = vm.data.worker_pc || 0 ;
             var vm.data.worker_photo = vm.data.worker_photo || 0 ;
             var vm.data.worker_dl = vm.data.worker_dl || 0 ;
-            var vm.data.worker_pv = vm.data.worker_pv || 0 ;
+            var vm.data.worker_pv = vm.data.worker_pv || 0 ;*/
             var data = '{"root":{"worker_name":"'+vm.data.name+'","worker_mobile":"'+vm.data.mobile+
             '","worker_address":"'+vm.data.worker_address+'","worker_photo":"'+vm.data.photo+
             '","customer_id":"'+vm.id+'","worker_localId":"'+1+'","worker_service":"'+vm.data.service+
@@ -125,10 +126,10 @@
 
         }
     }
-$wId = createCustomerWorker($db_handle, $input->root->worker_name, $input->root->worker_mobile, 
+/*$wId = createCustomerWorker($db_handle, $input->root->worker_name, $input->root->worker_mobile,
         $input->root->worker_address, $input->root->worker_photo, $input->root->customer_id, 
         $input->root->worker_localId, $input->root->worker_service, $input->root->worker_pv, 
         $input->root->worker_ac, $input->root->worker_vc, $input->root->worker_dl, 
         $input->root->worker_pc,
-        $input->root->worker_emergency_no, $input->root->worker_native_add, $route[2]);
+        $input->root->worker_emergency_no, $input->root->worker_native_add, $route[2]);*/
 })();
