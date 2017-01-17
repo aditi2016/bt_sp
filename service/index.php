@@ -652,6 +652,21 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 </script>
 	<script src="index_files/bootstrap-modal.js"></script>
 	<script src="index_files/business_ltd_1.0.js"></script>
+
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+		(function(){
+			var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+			s1.async=true;
+			s1.src='https://embed.tawk.to/587e31c0a396482372767ed9/default';
+			s1.charset='UTF-8';
+			s1.setAttribute('crossorigin','*');
+			s0.parentNode.insertBefore(s1,s0);
+		})();
+	</script>
+	<!--End of Tawk.to Script-->
+
 	<script type="text/javascript">stLight.options({publisher: "2b116127-b5f0-4211-8a7a-0870727e907d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 	<script>
 		var options={ "publisher": "2b116127-b5f0-4211-8a7a-0870727e907d", "position": "left", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}};
