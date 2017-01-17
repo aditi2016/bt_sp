@@ -93,6 +93,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			min-height: 500px;
 		}
 	</style>
+
+	<script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" id="st_insights_js"
+			src="//w.sharethis.com/button/buttons.js?publisher=2b116127-b5f0-4211-8a7a-0870727e907d"></script>
+	<script type="text/javascript" src="//s.sharethis.com/loader.js"></script>
+	<script type="text/javascript">
+		stLight.options({publisher: "2b116127-b5f0-4211-8a7a-0870727e907d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 	
 </head>
 
@@ -645,6 +652,11 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 </script>
 	<script src="index_files/bootstrap-modal.js"></script>
 	<script src="index_files/business_ltd_1.0.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "2b116127-b5f0-4211-8a7a-0870727e907d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	<script>
+		var options={ "publisher": "2b116127-b5f0-4211-8a7a-0870727e907d", "position": "left", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}};
+		var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+	</script>
 	
 </body>
 </html>
