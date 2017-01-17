@@ -8,12 +8,12 @@
 
 function insertCallLogs($mobile){
 
-    $sqlId = "SELECT * FROM `mobiles` WHERE `mobile` = :mobile";
+    $sqlId = "SELECT * FROM phone_details.`mobiles` WHERE `mobile` = :mobile";
 
-    $sqlInsertMobile = "INSERT INTO `mobiles`(`name`, `mobile`)
+    $sqlInsertMobile = "INSERT INTO phone_details.`mobiles`(`name`, `mobile`)
                   VALUES ('',:mobile)";
 
-    $sqlInsertCallLog = "INSERT INTO `call_logs`(`mobile_id`, `type`)
+    $sqlInsertCallLog = "INSERT INTO phone_details.`call_logs`(`mobile_id`, `type`)
                 VALUES (:id,'other')";
 
     try {
