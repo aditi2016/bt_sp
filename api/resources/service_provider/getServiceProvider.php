@@ -14,6 +14,7 @@ function getServiceProvider($id){
 
     $sqlAmount = "SELECT sum(`amount`) as sum FROM `invoice` WHERE `service_provider_id` = :id AND Month( creation ) = MONTH(CURRENT_DATE())";
 
+    $sqlAmountExpanses = "SELECT sum(`amount`) as sum FROM `expanses` WHERE `service_provider_id` = :id AND Month( creation ) = MONTH(CURRENT_DATE())";
 
 
 
@@ -39,6 +40,15 @@ function getServiceProvider($id){
         $amount = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $serviceProviders[0]->amount = $amount[0]->sum;
+
+        $stmt = $db->prepare($sqlAmountExpanses);
+
+        $stmt->bindParam("id", $id);
+
+        $stmt->execute();
+        $amount = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        $serviceProviders[0]->amount_expanse = $amount[0]->sum;
 
 
         $db = null;
