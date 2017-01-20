@@ -26,6 +26,11 @@ function getServiceProviderInvoice($id){
                         WHERE `service_provider_id` = :id
                         GROUP BY month , year";
 
+    $sqlMonthYearExpanses = "SELECT DISTINCT Month( `creation` ) AS
+                        month , Year( `creation` ) AS year, sum( amount ) as amount
+                        FROM `expanses`
+                        WHERE `service_provider_id` = :id
+                        GROUP BY month , year";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -44,7 +49,19 @@ function getServiceProviderInvoice($id){
         $stmt->execute();
         $invoices['months'] = $stmt->fetchAll(PDO::FETCH_OBJ);
 
+        $stmt = $db->prepare($sqlMonthYearExpanses);
 
+        $stmt->bindParam("id", $id);
+
+        $stmt->execute();
+        $expanses = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        foreach($expanses as $expanse){
+            foreach($invoices['months'] as $t){
+                if($t->month == $expanse->month && $t->year == $expanse->year )
+                    $t->expanse_amount = $expanse->amount;
+            }
+        }
 
         $db = null;
         echo '{"invoices": ' . json_encode($invoices) . '}';
