@@ -73,7 +73,7 @@
                                 <i class="fa fa-user fa-fw"></i> Add New Request +
                             </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <label>View By Status</label>
-                            <select class='selectpicker' name='status' ng-model="vm.status" ng-change="vm.getAllServiceRequests(vm.status);">
+                            <select class='selectpicker' name='status' ng-model="vm.status" ng-change="vm.getAllServiceRequests(vm.status, vm.whichMonth.name);">
                                 <option value='open' selected>Open</option>
                                 <option value='paid'>Paid</option>
                                 <option value='due'>Due</option>

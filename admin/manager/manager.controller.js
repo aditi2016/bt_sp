@@ -24,7 +24,7 @@
             loadUser();
             loadNotInstallApps();
             loadNotUsingApps();
-
+            getSearchResults();
             loadAllSPNotFound();
             getInterestedServices();
         }

@@ -25,12 +25,9 @@
         vm.currentMonthIndex = 0;
         vm.setCurrentMon = function(monthname){
             console.log("i am in setCurrentMonth",monthname);
-
             vm.whichMonth.name = monthname;
             vm.whichMonth.num = vm.threeMonths[vm.currentMonthIndex].num;
-            //console.log("i am in setCurrentMonth",vm.whichMonth);
-            //loadToCallCandidates();
-
+            getAllServiceRequests(vm.status, monthname);
         }
 
         function loadMonths(){
@@ -73,8 +70,8 @@
 
         function initController() {
             loadUser();
-            getAllServiceRequests('open');
             loadMonths();
+            getAllServiceRequests('open', vm.whichMonth.name);
         }
        
         vm.logout = function(){
@@ -140,14 +137,15 @@
                     });
             }
         }
-        function getAllServiceRequests(type){
+        function getAllServiceRequests(type, month){
             vm.dataLoading = true;
             vm.status = type ;
-            CandidateService.getAllServiceRequests(type)
+            if(month == undefined) month = vm.whichMonth.name;
+            CandidateService.getAllServiceRequests(type, month)
                 .then(function (response) {
                     vm.serviceRequests = response.root.srs;
                     vm.dataLoading = false;
-                    console.log(vm.serviceRequests[1].name);
+                    console.log(vm.serviceRequests[0].name);
                 });
 
         }
