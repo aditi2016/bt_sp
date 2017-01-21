@@ -8,7 +8,7 @@
     CallLogsController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location'];
     function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location) {
         var vm = this;
-        vm.registered = false;
+        vm.registered = true;
         vm.user = null;
         vm.inUser = null;
         vm.allUsers = [];
@@ -53,10 +53,10 @@
         vm.typeChanged = function(){
             vm.dataLoading = true;
             if(vm.data.type == 'lead'){
-                vm.registered = true;
+                vm.registered = false;
             }
             else {
-                vm.registered = false;
+                vm.registered = true;
                 var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile
                             +'", "mobile_id": "'+ vm.data.mobile_id+'" }';
                 CandidateService.changeType(vm.data.id, data)
