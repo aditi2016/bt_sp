@@ -93,7 +93,7 @@ while ($company = mysqli_fetch_array($companies)){
         if($post['link']){
             $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
             $data['link'] = "http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
-            $data['message'] = $post['description'].". http://".$post['link']."/";
+            $data['message'] = $post['description']." http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
             $data['place'] = "596434263827904";
 
             if($tags != "")
