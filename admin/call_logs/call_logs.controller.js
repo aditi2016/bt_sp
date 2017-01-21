@@ -52,7 +52,7 @@
         }
         vm.typeChanged = function(){
             vm.dataLoading = true;
-            if(vm.data.type == 'lead'){
+            if(vm.data.type !== 'lead'){
                 vm.registered = false;
             }
             else {
