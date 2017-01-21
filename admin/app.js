@@ -39,6 +39,12 @@
                 controllerAs: 'vm'
             })
 
+            .when('/callLogs', {
+                controller: 'CallLogsController',
+                templateUrl: 'call_logs/call_logs.view.html',
+                controllerAs: 'vm'
+            })
+
             .when('/service', {
                 controller: 'ServiceController',
                 templateUrl: 'service/service.view.html',

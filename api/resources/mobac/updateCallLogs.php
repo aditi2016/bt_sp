@@ -15,6 +15,8 @@ function updateCallLogs($id){
     }
     if(!isset($service->name))
         $service->name = "";
+    if(!isset($service->remarks))
+        $service->remarks = "";
 
     $sqlMobile = "UPDATE mobiles SET name = :name WHERE id = :mobile_id ";
 

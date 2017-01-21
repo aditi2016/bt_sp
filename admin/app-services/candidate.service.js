@@ -43,6 +43,8 @@
         service.CreateServiceRequest = CreateServiceRequest;
         service.getInterestedServices = getInterestedServices;
         service.getSearchResults = getSearchResults;
+        service.getAllCallDetails = getAllCallDetails;
+        service.changeType = changeType;
 
         return service;
 
@@ -138,6 +140,12 @@
         }
         function getCities() {
             return $http.get(urlSP + '/cities').then(handleSuccess, handleError('Error getting cities'));
+        }
+        function changeType(id, data) {
+            return $http.put(urlSP + '/mobac/'+ id, data).then(handleSuccess, handleError('Error updating user'));
+        }
+        function getAllCallDetails() {
+            return $http.get(urlSP + '/mobac').then(handleSuccess, handleError('Error getting contacts'));
         }
         function getAllServices() {
             return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));
