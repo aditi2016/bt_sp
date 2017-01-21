@@ -40,7 +40,7 @@ function extractCommonWords($string){
     return $wordCountArr;
 }
 
-$page_access_token = 'EAADIQGZBO8vQBAN86wOjzGZBFSFw2W8BqQZCBjrS9XwQGKnZCmaeWg17X8ZBXh2R9Arwgb9UkDOPXXUq0dVR8rLJpb3ojKUvOTG5ZBdR52etFT0qpn5rmLZBLuW5ZA5w5ESuce5vIpLxZAsSjoRaBVdov6R1Y5L8fxK4ZD';
+//$page_access_token = 'EAADIQGZBO8vQBAN86wOjzGZBFSFw2W8BqQZCBjrS9XwQGKnZCmaeWg17X8ZBXh2R9Arwgb9UkDOPXXUq0dVR8rLJpb3ojKUvOTG5ZBdR52etFT0qpn5rmLZBLuW5ZA5w5ESuce5vIpLxZAsSjoRaBVdov6R1Y5L8fxK4ZD';
 
 
 
@@ -63,7 +63,7 @@ while ($company = mysqli_fetch_array($companies)){
     }
     $tags = ltrim($tags,',');
 
-    echo "tags: " . $tags . "\npage_id: ". $page_id . "\ncompanyId: " . $companyId."\n";
+    echo "tags: " . $tags . "\npage_id: ". $page_id . "\ncompanyId: " . $companyId."\n access token: ".$page_access_token."\n";
 
     $posts = mysqli_query($dbHandle, "
                 SELECT
@@ -79,6 +79,7 @@ while ($company = mysqli_fetch_array($companies)){
 
     $post = mysqli_fetch_array($posts);
 
+    var_dump($post);
     if(isset($post)){
         $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
