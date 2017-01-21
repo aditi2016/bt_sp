@@ -62,6 +62,8 @@ while ($company = mysqli_fetch_array($companies)){
     }
     $tags = ltrim($tags,',');
 
+    echo "tags: " . $tags . "\npage_id: ". $page_id . "\ncompanyId: " . $companyId."\n";
+
     $posts = mysqli_query($dbHandle, "
                 SELECT
                   a.`id`, a.`company_id`, a.user_id, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
@@ -92,7 +94,8 @@ while ($company = mysqli_fetch_array($companies)){
             $data['message'] = $post['description'].". http://".$post['link']."/";
             $data['place'] = "596434263827904";
 
-            $data['tags'] = $tags;
+            if($tags != "")
+                $data['tags'] = $tags;
             $data['caption'] = "Get ". $post['title']." services";
             $data['description'] = $post['description'];
 
