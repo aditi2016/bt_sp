@@ -53,6 +53,7 @@ $companies = mysqli_query($dbHandle, "SELECT * FROM `auth_keys` WHERE 1");
 while ($company = mysqli_fetch_array($companies)){
     $page_id = $company['page_id'];
     $companyId = $company['company_id'];
+    $page_access_token = $company['access_token'];
 
     $tagsArr = mysqli_query($dbHandle, "SELECT * FROM `tags` WHERE company_id = ".$companyId);
 
