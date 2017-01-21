@@ -62,7 +62,7 @@
                 CandidateService.changeType(vm.data.id, data)
                     .then(function (response) {
                         $("#statusUpdate").modal("hide");
-                        $location.path('/addServiceRequests?mobile='+vm.data.mobile+'&name='+vm.data.name);
+                        $location.path('/addServiceRequests').search({'mobile': vm.data.mobile,'name': vm.data.name});
                     });
             }
         }
