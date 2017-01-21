@@ -48,7 +48,7 @@ $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
 
 //SELECT * FROM `auth_keys` WHERE 1
 
-$companies = mysqli_query($dbHandle, "SELECT * FROM `auth_keys` WHERE 1");
+$companies = mysqli_query($dbHandle, "SELECT * FROM `auth_keys` WHERE status = 0");
 
 while ($company = mysqli_fetch_array($companies)){
     $page_id = $company['page_id'];
