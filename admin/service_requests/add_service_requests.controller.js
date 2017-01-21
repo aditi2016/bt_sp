@@ -16,6 +16,9 @@
         vm.takeStartTime = openCalender;
         initController();
         vm.oldCity = 0;
+        vm.data.mobile = parseInt($location.search().mobile);
+        vm.data.name = $location.search().name;
+        //console.log('hi,' + vm.data.mobile + ','+ vm.data.name);
         function initController() {
             loadUser();
             getAllServices();
