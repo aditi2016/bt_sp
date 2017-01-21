@@ -54,6 +54,14 @@ while ($company = mysqli_fetch_array($companies)){
     $page_id = $company['page_id'];
     $companyId = $company['company_id'];
 
+    $tagsArr = mysqli_query($dbHandle, "SELECT * FROM `tags` WHERE company_id = ".$companyId);
+
+    $tags = "";
+    while ($tag = mysqli_fetch_array($tagsArr)){
+        $tags = $tags. ",".$tag['tag'];
+    }
+    $tags = ltrim($tags,',');
+
     $posts = mysqli_query($dbHandle, "
                 SELECT
                   a.`id`, a.`company_id`, a.user_id, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
@@ -83,7 +91,8 @@ while ($company = mysqli_fetch_array($companies)){
             $data['link'] = "http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
             $data['message'] = $post['description'].". http://".$post['link']."/";
             $data['place'] = "596434263827904";
-            $data['tags'] = "1171173419603719,100002809855250,100000358351533,100002585406559,100001960570336,100002155051482";
+
+            $data['tags'] = $tags;
             $data['caption'] = "Get ". $post['title']." services";
             $data['description'] = $post['description'];
 
