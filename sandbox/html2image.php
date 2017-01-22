@@ -12,9 +12,10 @@ $link = $_GET['link'];
 
 //var_dump(file_get_contents(call_p2i($bgImg,$logo,$focus,$target."<br/><br/>".$link)));die();
 unlink("Tmpfile.png");
-file_put_contents("Tmpfile.png", fopen(call_p2i($bgImg,$logo,$focus,$target."<br/><br/>".$link),'r'));
+//file_put_contents("Tmpfile.png", fopen(call_p2i($bgImg,$logo,$focus,$target."<br/><br/>".$link),'r'));
 
-echo upload_file("Tmpfile.png");
+echo getHtmlGenTemp(array('bgImg' => $bgImg,'logo'=>$logo,'focus'=>$focus,'target'=>$target));
+//echo upload_file("Tmpfile.png");
 
 function upload_file($uri)
 {
