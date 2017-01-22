@@ -23,7 +23,7 @@ while ( $post = mysqli_fetch_array($posts)) {
         echo $sql."\n";
         //break;
         mysqli_query($dbHandle, $sql);
-    }
+    }else
     break;
 
 }
