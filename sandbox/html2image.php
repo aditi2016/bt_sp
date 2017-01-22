@@ -56,7 +56,7 @@ function call_p2i($bgImg,$logo,$focus,$target)
     $start_time = time();
     $timeout_flag = false;
     $html = getHtmlGenTemp(array('bgImg' => $bgImg,'logo'=>$logo,'focus'=>$focus,'target'=>$target));
-    var_dump($html);die();
+    //var_dump($html);die();
     //Note: free rate plan user cannot use SSL url.
     $url = ""; //This is the URL of the page. We will use it to generate relative path to get remote resources: css, js or images.
 
