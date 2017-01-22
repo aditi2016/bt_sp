@@ -55,77 +55,7 @@ function call_p2i($bgImg,$logo,$focus,$target)
     set_time_limit($timeout+10);
     $start_time = time();
     $timeout_flag = false;
-    //$html = getHtmlGenTemp(array('bgImg' => $bgImg,'logo'=>$logo,'focus'=>$focus,'target'=>$target));
-    $html = "<!DOCTYPE html>
-<html lang='en'>
-<head>
-    <meta charset='UTF-8'>
-    <title>Title</title>
-    <style>
-        html,body{
-            margin:0;
-            height:100%;
-            overflow:hidden;
-        }
-        #img{
-            width: 100px;
-            top: 100px;
-            left: 50px;
-            height: 100px;
-            position:absolute;
-
-        }
-        #h2 {
-            position: relative;
-            text-align: center;
-        }
-        #h22 {
-            text-align: center;
-            margin-top:230px;
-        }
-        h2 span {
-            color: white;
-            font: bold 32px Alike Angular, Sans-Serif;
-            background: rgb(0, 0, 0); /* fallback color */
-            background: rgba(0, 0, 0, 0.7);
-            margin-top: 5px;
-            word-wrap: break-word;
-            -webkit-box-shadow: 5px 5px 5px 5px #323232;
-            box-shadow: 5px 5px 5px 5px #323232;
-            padding:0 5px o 5px;
-            box-decoration-break: clone;
-            white-space: pre-wrap;
-        }
-        h1 span {
-            color: white;
-            font: 22px Helvetica, Sans-Serif;
-            background: rgb(0, 0, 0); /* fallback color */
-            background: rgba(0, 0, 0, 0.7);
-            margin-top: 5px;
-        }
-        center {
-            margin-left: 20%;
-            margin-right: 20%;
-            margin-top: 5%;
-        }
-    </style>
-</head>
-<body style='overflow-x: hidden ! important;
-            background-image: url(\"http://api.file-dog.shatkonlabs.com/files/rahul/1641\");
-            background-size:cover;background-repeat: no-repeat;
-            background-position: top;'>
-<center>
-    <div id='h2'>
-    <h2><span>My husband always tell me that I&#39;m the most unrelenting person he&#39;s ever met, and it&#39;s true. If I make a commitment to something I will stick to it no matter what. � Jenny Craig<br>Share If You Agree</span></h2>
-    </div>
-    <div id='h22' >
-        <h1><span>Get Fund Raising for Woman Entrereneur Services<br>Download Now <br>BlueTeam Mobile App</span></h1>
-    </div>
-    <img  src='http://api.file-dog.shatkonlabs.com/files/rahul/1474' height='150px' width='150px' style='margin: 180px 0 0 50px;'/>
-</center>
-</body>
-</html>
-";
+    $html = getHtmlGenTemp(array('bgImg' => $bgImg,'logo'=>$logo,'focus'=>$focus,'target'=>$target));
     //Note: free rate plan user cannot use SSL url.
     $url = ""; //This is the URL of the page. We will use it to generate relative path to get remote resources: css, js or images.
 
