@@ -9,6 +9,7 @@
 function insertCallLogs($mobile){
 
     $sqlId = "SELECT * FROM phone_details.`mobiles` WHERE `mobile` = :mobile";
+    $sqlSelectCallLogs = "SELECT * FROM phone_details.`call_logs` WHERE `mobile_id` = :mobile_id AND creation BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW())";
 
     $sqlInsertMobile = "INSERT INTO phone_details.`mobiles`(`name`, `mobile`)
                   VALUES ('',:mobile)";
@@ -44,12 +45,22 @@ function insertCallLogs($mobile){
 
         }
 
+        $stmt = $db->prepare($sqlSelectCallLogs);
+        $stmt->bindParam("mobile_id", $mobile_id);
+        $stmt->execute();
+        $justEntered = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        if(count($justEntered) >= 1){
+            $returnId = $justEntered[0]->id;
+        }else{
+        
         $stmt = $db->prepare($sqlInsertCallLog);
         $stmt->bindParam("id", $mobile_id);
         $stmt->execute();
+        $returnId = $db->lastInsertId();
+        }
 
-
-        echo '{"service_providers": ' . $db->lastInsertId() . '}';
+        echo '{"service_providers": ' . $returnId . '}';
     } catch (PDOException $e) {
         //error_log($e->getMessage(), 3, '/var/tmp/php.log');
         echo '{"error":{"text":' . $e->getMessage() . '}}';
