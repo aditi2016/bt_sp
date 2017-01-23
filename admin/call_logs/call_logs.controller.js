@@ -42,7 +42,7 @@
             $("#statusUpdate").modal("show");
         }
         vm.changeStatus = function() {
-            var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile +',"name": "'+ vm.data.name
+            var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile +'","name": "'+ vm.data.name
                         +'", "mobile_id": "'+ vm.data.mobile_id+'", "remarks": "'+ vm.data.remarks+'" }';
             CandidateService.changeType(vm.data.id, data)
                 .then(function (response) {
