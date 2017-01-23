@@ -18,6 +18,8 @@ function getServiceProviderInvoice($id){
 
     $sql = "SELECT * FROM `invoice` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
 
+    $sqlExpanse = "SELECT * FROM `expanses` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
+
     //$photosSql = "SELECT photo_id FROM `photos` WHERE `service_provider_id` = :id";
 
     $sqlMonthYear = "SELECT DISTINCT Month( `creation` ) AS
@@ -41,6 +43,15 @@ function getServiceProviderInvoice($id){
         $stmt->execute();
         $invoices = array();
         $invoices['invoices'] = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        $stmt = $db->prepare($sqlExpanse);
+
+        $stmt->bindParam("id", $id);
+        $stmt->bindParam("month_year", $d);
+
+        $stmt->execute();
+        $invoices = array();
+        $invoices['expanses'] = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         $stmt = $db->prepare($sqlMonthYear);
 
