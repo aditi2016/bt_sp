@@ -142,7 +142,7 @@
             return $http.get(urlSP + '/cities').then(handleSuccess, handleError('Error getting cities'));
         }
         function changeType(id, data) {
-            return $http.put(urlSP + '/mobac/'+ id, data).then(handleSuccess, handleError('Error updating user'));
+            return $http.put(urlSP +'/mobac/'+ id, data).then(handleSuccess, handleError('Error updating user'));
         }
         function getAllCallDetails() {
             return $http.get(urlSP + '/mobac').then(handleSuccess, handleError('Error getting contacts'));
