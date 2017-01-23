@@ -16,11 +16,15 @@ $posts = mysqli_query($dbHandle, "
                   WHERE a.gen_img_id = 0 and a.`status` = 'not-approved' and a.company_id = b.id");
 
 while ( $post = mysqli_fetch_array($posts)) {
-    $genId = getGenPost($post['raw_img_id'],$post['logo_id'],$post['description'],"Get ".$post['title']." Services<br>Download Now <br>BlueTeam Mobile App" ,$post['link']);
-    $sql="UPDATE `ragnar_social`.`posts` SET `gen_img_id` = '".$genId."' WHERE `posts`.`id` =".$post['id'].";";
-    echo $sql;
-    //break;
-    mysqli_query($dbHandle, $sql);
+    var_dump($post);
+    $genId = getGenPost($post['raw_img_id'],$post['logo_id'],$post['description'],"Get ".$post['title']." Services<br>Get More Info <br>" ,"www.StandupIndians.com");
+    if(isset($genId) && $genId != 0){
+        $sql="UPDATE `ragnar_social`.`posts` SET `gen_img_id` = '".$genId."' WHERE `posts`.`id` =".$post['id'].";";
+        echo $sql."\n";
+        //break;
+        mysqli_query($dbHandle, $sql);
+    }else
+    break;
 
 }
 
@@ -36,9 +40,11 @@ function getGenPost($bgImg,$logo,$focus,$target,$link){
             "&logo_img_url=http://api.file-dog.shatkonlabs.com/files/rahul/$logo&".
             "focus=$focus&".
             "target=$target&link=$link";
-    echo $url;
+    echo $url ."\n";
     $response = file_get_contents($url);
     $json = json_decode($response,true);
+
+    var_dump($json);
 
     return $json['file']['id'];
 }

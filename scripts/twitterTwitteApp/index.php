@@ -78,7 +78,7 @@ $posts = mysqli_query($dbHandle, "
                   WHERE a.gen_img_id != 0
                       and a.`status` = 'approved'
                       and a.id NOT IN (SELECT post_id FROM post_tracks WHERE social_network_id = 2)
-                      and a.company_id = b.id and a.gen_img_id != 0 limit 0,1");
+                      and a.company_id = b.id and a.gen_img_id != 0 ORDER BY RAND() limit 0,1");
 
 $post = mysqli_fetch_array($posts);
 //str_replace("world","Peter","Hello world!")
