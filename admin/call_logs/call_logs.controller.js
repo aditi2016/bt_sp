@@ -5,8 +5,8 @@
         .module('app')
         .controller('CallLogsController', CallLogsController);
 
-    CallLogsController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location'];
-    function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location) {
+    CallLogsController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location', '$interval'];
+    function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location, $interval) {
         var vm = this;
         vm.registered = true;
         vm.user = null;
@@ -14,13 +14,33 @@
         vm.allUsers = [];
         vm.data = [];
         vm.updateMobile = updateMobile;
+        vm.stopAudio = stopAudio;
         initController();
-
+        $interval(getRecentCall, 120000);
         function initController() {
             loadUser();            
             getAllCallDetails();
+            getRecentCall();
         }
-       
+        function getRecentCall() {
+            CandidateService.getRecentCall()
+                .then(function (response) {
+                    if(response.mobiles[0].id){
+                        vm.recentCall = response.mobiles;
+                        $("#recentCall").modal("show");
+                        $interval(playAudio, 120000);
+                        playAudio();
+                    }
+                });
+        }
+        function playAudio() {
+            var audio = new Audio('../tune.mp3');
+            audio.play();
+        };
+        function stopAudio() {
+            $interval.cancel(playAudio);
+            audio.stop();
+        }
         vm.logout = function(){
             vm.inUser = null;
             UserService.DeleteInUser();

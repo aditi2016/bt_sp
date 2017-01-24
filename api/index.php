@@ -65,6 +65,7 @@ require_once "resources/service_provider/expanses/getExpansesTypes.php";
 require_once "resources/mobac/insertCallLogs.php";
 require_once "resources/mobac/getCallLogs.php";
 require_once "resources/mobac/updateCallLogs.php";
+require_once "resources/mobac/getRecentCall.php";
 
 
 //app
