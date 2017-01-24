@@ -16,7 +16,7 @@ function getServiceProviderInvoice($id){
     else
         $d=date("Y-m-d");
 
-    $sql = "SELECT * FROM `invoice` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
+    $sql = "SELECT a.id, a.customer_name, a.customer_mobile, b.name as service_name, a.amount, a.creation FROM `invoice` as a inner join services as b WHERE a.service_id = b.id and service_provider_id = :id AND Month( creation ) = Month( :month_year )";
 
     $sqlExpanse = "SELECT * FROM `expanses` WHERE service_provider_id = :id AND Month( creation ) = Month( :month_year )";
 
