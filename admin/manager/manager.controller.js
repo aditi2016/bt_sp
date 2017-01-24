@@ -5,8 +5,8 @@
         .module('app')
         .controller('ManagerController', ManagerController);
 
-    ManagerController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location','$interval'];
-    function ManagerController(UserService, CandidateService,  $rootScope, FlashService,$location,$interval) {
+    ManagerController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location'];
+    function ManagerController(UserService, CandidateService,  $rootScope, FlashService,$location) {
         var vm = this;
 
         vm.user = null;
@@ -14,10 +14,9 @@
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
         vm.loadUser = loadUser;
-        vm.stopAudio = stopAudio;
-        var audio = new Audio('./tune.mp3');
+
         initController();
-        $interval(getRecentCall, 120000);
+
         function initController() {
             loadUser();
             loadNotInstallApps();
@@ -25,8 +24,8 @@
             getSearchResults();
             loadAllSPNotFound();
             getInterestedServices();
-            getRecentCall();
         }
+
 
         vm.logout = function(){
             vm.inUser = null;
@@ -95,28 +94,6 @@
             .then(function () {
                 loadAllUsers();
             });
-        }
-        function getRecentCall() {
-            CandidateService.getRecentCall()
-                .then(function (response) {
-                    if(response.mobiles[0].id){
-                        vm.recentCall = response.mobiles;
-                        $("#recentCallModal").modal("show");
-                        playAudio();
-                    }
-                    else{
-                        console.log('error');
-                    }
-                });
-        }
-        function playAudio() {
-            audio.loop  = true;
-            audio.play();
-        };
-        function stopAudio() {
-            console.log("hi");
-            audio.pause();
-            audio.currentTime = 0;
         }
     }
 

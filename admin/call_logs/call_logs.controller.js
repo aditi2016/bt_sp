@@ -5,8 +5,8 @@
         .module('app')
         .controller('CallLogsController', CallLogsController);
 
-    CallLogsController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location'];
-    function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location) {
+    CallLogsController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location', '$interval'];
+    function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location, $interval) {
         var vm = this;
         vm.registered = true;
         vm.user = null;
@@ -14,14 +14,37 @@
         vm.allUsers = [];
         vm.data = [];
         vm.updateMobile = updateMobile;
-        
+        vm.stopAudio = stopAudio;
+        var audio = new Audio('./tune.mp3');
         initController();
-        
+        $interval(getRecentCall, 120000);
         function initController() {
             loadUser();            
-            getAllCallDetails();            
+            getAllCallDetails();
+            getRecentCall();
         }
-        
+        function getRecentCall() {
+            CandidateService.getRecentCall()
+                .then(function (response) {
+                    if(response.mobiles[0].id){
+                        vm.recentCall = response.mobiles;
+                        $("#recentCallModal").modal("show");
+                        playAudio();
+                    }
+                    else{
+                        console.log('error');
+                    }
+                });
+        }
+        function playAudio() {
+            audio.loop  = true;
+            audio.play();
+        };
+        function stopAudio() {
+            console.log("hi");
+            audio.pause();
+            audio.currentTime = 0;
+        }
         vm.logout = function(){
             vm.inUser = null;
             UserService.DeleteInUser();
@@ -36,6 +59,8 @@
         }
         
         function updateMobile(id, name, mobile, mobile_id) {
+            stopAudio();
+            $("#recentCallModal").modal("hide");
             vm.data.id = id;
             vm.data.name = name;
             vm.data.mobile = mobile;

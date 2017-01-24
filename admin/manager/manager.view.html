@@ -282,26 +282,3 @@
     <!-- /#page-wrapper -->
 
 </div>
-<div id="recentCallModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-  <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Calling</h4>
-      </div>
-      <div class="modal-body" style="background-color: skyblue;">
-        <a class="btn btn-primary pull-right" ng-click="vm.stopAudio()">Stop Audio</a>
-        <span></span>
-        <div ng-repeat="call in vm.recentCall" >
-            <span>{{call.name}}</span>
-            <span>{{call.mobile}}</span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
