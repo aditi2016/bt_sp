@@ -5,8 +5,8 @@
         .module('app')
         .controller('ManagerController', ManagerController);
 
-    ManagerController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location'];
-    function ManagerController(UserService, CandidateService,  $rootScope, FlashService,$location) {
+    ManagerController.$inject = ['UserService',  'CandidateService', '$rootScope', 'FlashService','$location','$interval'];
+    function ManagerController(UserService, CandidateService,  $rootScope, FlashService,$location,$interval) {
         var vm = this;
 
         vm.user = null;
@@ -14,21 +14,19 @@
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
         vm.loadUser = loadUser;
-
+        vm.stopAudio = stopAudio;
+        var audio = new Audio('./tune.mp3');
         initController();
-
+        $interval(getRecentCall, 120000);
         function initController() {
-          //  loadCurrentUser();
-           // loadAllUsers();
-
             loadUser();
             loadNotInstallApps();
             loadNotUsingApps();
             getSearchResults();
             loadAllSPNotFound();
             getInterestedServices();
+            getRecentCall();
         }
-
 
         vm.logout = function(){
             vm.inUser = null;
@@ -43,7 +41,6 @@
                     vm.toFindServices = response.services;
                     vm.dataLoading = false;
                 });
-
         }
 
         function loadUser(){
@@ -85,12 +82,6 @@
                     vm.dataLoading = false;
                 });
         }
-        /*function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                });
-        }*/
 
         function loadAllUsers() {
             UserService.GetAll()
@@ -105,11 +96,28 @@
                 loadAllUsers();
             });
         }
-
-
-
-
-
+        function getRecentCall() {
+            CandidateService.getRecentCall()
+                .then(function (response) {
+                    if(response.mobiles[0].id){
+                        vm.recentCall = response.mobiles;
+                        $("#recentCallModal").modal("show");
+                        playAudio();
+                    }
+                    else{
+                        console.log('error');
+                    }
+                });
+        }
+        function playAudio() {
+            audio.loop  = true;
+            audio.play();
+        };
+        function stopAudio() {
+            console.log("hi");
+            audio.pause();
+            audio.currentTime = 0;
+        }
     }
 
 })();
