@@ -9,6 +9,7 @@
     function CallLogsController(UserService, CandidateService,  $rootScope, FlashService,$location, $interval) {
         var vm = this;
         vm.registered = true;
+        vm.requested = true;
         vm.user = null;
         vm.inUser = null;
         vm.allUsers = [];
@@ -68,21 +69,7 @@
             $("#statusUpdate").modal("show");
         }
         vm.changeStatus = function() {
-            var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile +'","name": "'+ vm.data.name
-                        +'", "mobile_id": "'+ vm.data.mobile_id+'", "remarks": "'+ vm.data.remarks+'" }';
-            CandidateService.changeType(vm.data.id, data)
-                .then(function (response) {
-                    $("#statusUpdate").modal("hide");
-                    getAllCallDetails();
-            });
-        }
-        vm.typeChanged = function(){
-            vm.dataLoading = true;
-            if(vm.data.type !== 'lead'){
-                vm.registered = false;
-            }
-            else {
-                vm.registered = true;
+            if(vm.registered !== false){
                 var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile
                             +'", "mobile_id": "'+ vm.data.mobile_id+'","name": "'+ vm.data.name+'" }';
                 CandidateService.changeType(vm.data.id, data)
@@ -90,6 +77,26 @@
                         $("#statusUpdate").modal("hide");
                         $location.path('/addServiceRequests').search({'mobile': vm.data.mobile,'name': vm.data.name});
                     });
+            }
+            else {
+                var data = '{"type": "'+vm.data.type+'","mobile": "'+ vm.data.mobile +'","name": "'+ vm.data.name
+                            +'", "mobile_id": "'+ vm.data.mobile_id+'", "remarks": "'+ vm.data.remarks+'" }';
+                CandidateService.changeType(vm.data.id, data)
+                    .then(function (response) {
+                        $("#statusUpdate").modal("hide");
+                        getAllCallDetails();
+                });
+            }
+        }
+        vm.typeChanged = function(){
+            vm.dataLoading = true;
+            if(vm.data.type !== 'lead'){
+                vm.registered = false;
+                vm.requested = false;
+            }
+            else {
+                vm.registered = true;
+                vm.requested = false;
             }
         }
         function getAllCallDetails(){
