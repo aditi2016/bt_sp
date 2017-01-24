@@ -15,10 +15,11 @@
         vm.allUsers = [];
         vm.data = [];
         vm.updateMobile = updateMobile;
+        vm.lastId = 0;
         vm.stopAudio = stopAudio;
         var audio = new Audio('./tune.mp3');
         initController();
-        $interval(getRecentCall, 120000);
+        $interval(getRecentCall, 60000);
         function initController() {
             loadUser();            
             getAllCallDetails();
@@ -27,7 +28,8 @@
         function getRecentCall() {
             CandidateService.getRecentCall()
                 .then(function (response) {
-                    if(response.mobiles[0].id){
+                    if(paerseInt(response.mobiles[0].id) > vm.lastId){
+                        vm.lastId = response.mobiles[0].id;
                         vm.recentCall = response.mobiles;
                         $("#recentCallModal").modal("show");
                         playAudio();

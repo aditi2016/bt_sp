@@ -8,7 +8,7 @@
 
 function getRecentCall(){
 
-    $sql = "SELECT b.id, b.mobile_id, a.name, a.mobile, b.creation FROM phone_details.mobiles as a inner join phone_details.call_logs as b WHERE a.id = b.mobile_id and b.creation BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 2 MINUTE)) AND timestamp(NOW()) AND b.type = 'other' LIMIT 1";
+    $sql = "SELECT b.id, b.mobile_id, a.name, a.mobile, b.creation FROM phone_details.mobiles as a inner join phone_details.call_logs as b WHERE a.id = b.mobile_id and b.creation BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) AND b.type = 'other' LIMIT 1";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
