@@ -12,6 +12,7 @@ function getLocationDetails($id){
     
     $p = explode(",",$id);
     $point = $p[0]." ".$p[1];
+    $db = getDB();
     //GeomFromText( 'POINT(:location)' )
     $areaUrl = "SELECT a.id, a.name, a.city_id, CalculateDistanceKm(".$p[0].", ".$p[1].", X( a.gps_location ) , Y( a.gps_location )) AS diatance, b.name as city_name FROM areas as a join cities as b WHERE CalculateDistanceKm(".$p[0].", ".$p[1].", X( a.gps_location ) , Y( a.gps_location )) < 1 and a.city_id=b.id ORDER BY diatance ASC LIMIT 1";
     $stmt = $db->prepare($areaUrl);
@@ -33,8 +34,7 @@ function getLocationDetails($id){
         $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(".$point.")' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(".$point.")' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
 
         try {
-            $db = getDB();
-
+            
             $stmt = $db->prepare($sqlCountry);
             $stmt->bindParam("country", $locDetails['country']['name']);
             $stmt->execute();
