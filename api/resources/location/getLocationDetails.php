@@ -64,7 +64,7 @@ function getLocationDetails($id){
 
 
 function getGPSLocationDetails($loc){
-    $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$loc&sensor=true";
+    $url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=".$loc."&sensor=true";
     $details = json_decode(httpGet($url));
     $return = array();
     $area_accuracy = 1;
