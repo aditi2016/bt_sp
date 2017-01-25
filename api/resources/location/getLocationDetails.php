@@ -13,50 +13,63 @@ function getLocationDetails($id){
     $p = explode(",",$id);
     $point = $p[0]." ".$p[1];
     //GeomFromText( 'POINT(:location)' )
+    $areaUrl = "SELECT a.id, a.name, a.city_id, CalculateDistanceKm(".$p[0].", ".$p[1].", X( a.gps_location ) , Y( a.gps_location )) AS diatance, b.name as city_name FROM areas as a join cities as b WHERE CalculateDistanceKm(".$p[0].", ".$p[1].", X( a.gps_location ) , Y( a.gps_location )) < 1 and a.city_id=b.id ORDER BY diatance ASC LIMIT 1";
+    $stmt = $db->prepare($areaUrl);
+    $stmt->execute();
+    $areaData = $stmt->fetchAll(PDO::FETCH_OBJ);
     
-    $locDetails = getGPSLocationDetails($id);
-    $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
-    $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(".$point.")' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(".$point.")' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
+    if($areaData !== NULL){
+       $data['city']['name'] =  $areaData[0]->city_name;
+       $data['city']['id'] =  $areaData[0]->city_id;
+       $data['area']['id'] =  $areaData[0]->id;
+       $data['area']['name'] =  $areaData[0]->name;
+       echo '{"location_details": ' . json_encode($data) . '}';
+    }
+    else {
+        $locDetails = getGPSLocationDetails($id);
+        $sqlCountry = "INSERT INTO `countries`(`name`) VALUES (:country) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+        $sqlState = "INSERT INTO `states`(`name`, `country_id`) VALUES (:name,:country_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+        $sqlCity = "INSERT INTO `cities`(`name`, `state_id`) VALUES (:name,:state_id) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id);";
+        $sqlArea = "INSERT INTO `areas`(`city_id`, `name`, `postal_code`, `gps_location`) VALUES (:city_id, :name, :postal_code, GeomFromText( 'POINT(".$point.")' )) ON DUPLICATE KEY UPDATE gps_location = GeomFromText( 'POINT(".$point.")' ), postal_code = :postal_code1, id=LAST_INSERT_ID(id);";
 
-    try {
-        $db = getDB();
+        try {
+            $db = getDB();
 
-        $stmt = $db->prepare($sqlCountry);
-        $stmt->bindParam("country", $locDetails['country']['name']);
-        $stmt->execute();
-        $locDetails['country']['id'] = $db->lastInsertId();
+            $stmt = $db->prepare($sqlCountry);
+            $stmt->bindParam("country", $locDetails['country']['name']);
+            $stmt->execute();
+            $locDetails['country']['id'] = $db->lastInsertId();
 
-        $stmt = $db->prepare($sqlState);
-        $stmt->bindParam("name", $locDetails['state']['name']);
-        $stmt->bindParam("country_id", $locDetails['country']['id']);
-        $stmt->execute();
-        $locDetails['state']['id'] = $db->lastInsertId();
+            $stmt = $db->prepare($sqlState);
+            $stmt->bindParam("name", $locDetails['state']['name']);
+            $stmt->bindParam("country_id", $locDetails['country']['id']);
+            $stmt->execute();
+            $locDetails['state']['id'] = $db->lastInsertId();
 
-        $stmt = $db->prepare($sqlCity);
-        $stmt->bindParam("name", $locDetails['city']['name']);
-        $stmt->bindParam("state_id", $locDetails['state']['id']);
-        $stmt->execute();
-        $locDetails['city']['id'] = $db->lastInsertId();
+            $stmt = $db->prepare($sqlCity);
+            $stmt->bindParam("name", $locDetails['city']['name']);
+            $stmt->bindParam("state_id", $locDetails['state']['id']);
+            $stmt->execute();
+            $locDetails['city']['id'] = $db->lastInsertId();
 
-        $stmt = $db->prepare($sqlArea);
-        $stmt->bindParam("name", $locDetails['area']['name']);
-        $stmt->bindParam("city_id", $locDetails['city']['id']);
-        $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
-        $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
-        /*$stmt->bindParam("location", $point);
-        $stmt->bindParam("location1", $point);*/
-        $stmt->execute();
-        $locDetails['area']['id'] = $db->lastInsertId();
+            $stmt = $db->prepare($sqlArea);
+            $stmt->bindParam("name", $locDetails['area']['name']);
+            $stmt->bindParam("city_id", $locDetails['city']['id']);
+            $stmt->bindParam("postal_code", $locDetails['postal_code']['name']);
+            $stmt->bindParam("postal_code1", $locDetails['postal_code']['name']);
+            /*$stmt->bindParam("location", $point);
+            $stmt->bindParam("location1", $point);*/
+            $stmt->execute();
+            $locDetails['area']['id'] = $db->lastInsertId();
 
 
-        $db = null;
+            $db = null;
 
-        echo '{"location_details": ' . json_encode($locDetails) . '}';
-    } catch (PDOException $e) {
-        //error_log($e->getMessage(), 3, '/var/tmp/php.log');
-        echo '{"error":{"text":' . $e->getMessage() . '}}';
+            echo '{"location_details": ' . json_encode($locDetails) . '}';
+        } catch (PDOException $e) {
+            //error_log($e->getMessage(), 3, '/var/tmp/php.log');
+            echo '{"error":{"text":' . $e->getMessage() . '}}';
+        }
     }
 
 }
