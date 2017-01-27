@@ -103,7 +103,7 @@
 <div id="statusUpdate" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-<!-- Modal content-->
+  <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -120,9 +120,9 @@
                     <option value='lead'>New Service Request Call</option>
                 </select>
             </div>
-            <div class="form-group" ng-hide="vm.registered" >
+            <div class="form-group" ng-hide="vm.requested" >
                 <label>Contact Name</label>
-                <input type="text" name="name" class="form-control" ng-hide="vm.registered" ng-model="vm.data.name" required />
+                <input type="text" name="name" class="form-control" ng-hide="vm.requested" ng-model="vm.data.name" required />
             </div>
             <div class="form-group" ng-hide="vm.registered" >
                 <label>Called About</label>
@@ -130,6 +130,30 @@
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="recentCallModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+  <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Calling</h4>
+      </div>
+      <div class="modal-body" style="background-color: skyblue;">
+        <a class="btn btn-primary pull-right" ng-click="vm.stopAudio()">Stop Audio</a>
+        <span><img src="./call.gif"></span>
+        <div ng-repeat="call in vm.recentCall" >
+            <span>{{call.name}}</span>
+            <span>{{call.mobile}}</span>
+            <a class="btn btn-primary pull-right" ng-click="vm.updateMobile(call.id, call.name, call.mobile, call.mobile_id)">Update</a>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

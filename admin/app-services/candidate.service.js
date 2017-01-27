@@ -45,6 +45,7 @@
         service.getSearchResults = getSearchResults;
         service.getAllCallDetails = getAllCallDetails;
         service.changeType = changeType;
+        service.getRecentCall = getRecentCall;
 
         return service;
 
@@ -146,6 +147,9 @@
         }
         function getAllCallDetails() {
             return $http.get(urlSP + '/mobac').then(handleSuccess, handleError('Error getting contacts'));
+        }
+        function getRecentCall() {
+            return $http.get(urlSP + '/mobac/recent').then(handleSuccess, handleError('Error getting contacts'));
         }
         function getAllServices() {
             return $http.get(urlSP + '/services').then(handleSuccess, handleError('Error getting cities'));

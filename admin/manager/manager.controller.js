@@ -18,9 +18,6 @@
         initController();
 
         function initController() {
-          //  loadCurrentUser();
-           // loadAllUsers();
-
             loadUser();
             loadNotInstallApps();
             loadNotUsingApps();
@@ -43,7 +40,6 @@
                     vm.toFindServices = response.services;
                     vm.dataLoading = false;
                 });
-
         }
 
         function loadUser(){
@@ -85,12 +81,6 @@
                     vm.dataLoading = false;
                 });
         }
-        /*function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                });
-        }*/
 
         function loadAllUsers() {
             UserService.GetAll()
@@ -105,11 +95,6 @@
                 loadAllUsers();
             });
         }
-
-
-
-
-
     }
 
 })();
