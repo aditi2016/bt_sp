@@ -91,10 +91,12 @@ while ($company = mysqli_fetch_array($companies)){
 
 //var_dump($post);
         if($post['link']){
+            //&#39;
+            $post['description'] = str_replace('&#39;', "//'",$post['description']);
             $data['picture'] = "http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'];
             $data['link'] = "http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
             $data['message'] = $post['description']." http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-f';
-            $data['place'] = "596434263827904";
+            $data['place'] = $page_id;
 
             if($tags != "")
                 $data['tags'] = $tags;
