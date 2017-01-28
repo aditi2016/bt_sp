@@ -122,11 +122,11 @@
             </div>
             <div class="form-group" ng-hide="vm.requested" >
                 <label>Contact Name</label>
-                <input type="text" name="name" class="form-control" ng-hide="vm.requested" ng-model="vm.data.name" required />
+                <input type="text" name="name" class="form-control" ng-hide="vm.requested" ng-model="vm.data.name" />
             </div>
             <div class="form-group" ng-hide="vm.registered" >
                 <label>Called About</label>
-                <input type="text" name="remarks" class="form-control" ng-hide="vm.registered" ng-model="vm.data.remarks" required />
+                <input type="text" name="remarks" class="form-control" ng-hide="vm.registered" ng-model="vm.data.remarks" />
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
