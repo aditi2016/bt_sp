@@ -22,7 +22,7 @@ X( a.gps_location ) , Y( a.gps_location ) , X( sp.gps_location ) , Y( sp.gps_loc
 
 */
 
-function getServicesGeo($areaId = 0){
+function getServicesGeo($areaId){
 
 
     $sql = "SELECT DISTINCT s.id as service_id, s.name as service,X( a.gps_location ) as lat , Y( a.gps_location ) as lng
