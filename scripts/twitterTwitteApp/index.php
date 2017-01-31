@@ -58,13 +58,12 @@ $accessToken = '292829217-mmSdUyy92ZF6qOVs1v2qJ5NQ3ztpAn7im7axROuJ';
 $accessTokenSecret = 'Sg4qeC7CO1L6sBC4otiQUihexIPYVK4nqpDHoEOF4wTOt';*/
 
 
-$consumerKey = 'MPboILZOxGkHMJJ3uE9R8sza1';
+/*$consumerKey = 'MPboILZOxGkHMJJ3uE9R8sza1';
 $consumerSecret = 'qugVOpu1xgCqNnVAVyp1D94coKIpP8OWBZHzbbtpqBxhqnSCon';
 $accessToken = '810109676230758400-FKet7dBddu5zXhLIWHOycyFxiueg1Fw';
-$accessTokenSecret = 'OQLGNYplpgKmB1sV0hLkYvfKHdTmFoH8dswe866mpJwTf';
+$accessTokenSecret = 'OQLGNYplpgKmB1sV0hLkYvfKHdTmFoH8dswe866mpJwTf';*/
 
-$tweet = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
-$tweet->setTimeouts(10, 15);
+
 //$content = $connection->get("account/verify_credentials");
 
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
@@ -78,6 +77,9 @@ while ($company = mysqli_fetch_array($companies)){
     $accessToken = $company['access_token'];
     $accessTokenSecret = $company['access_token_secret'];
     $companyId = $company['company_id'];
+
+    $tweet = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+    $tweet->setTimeouts(10, 15);
 
     $posts = mysqli_query($dbHandle, "
                 SELECT
