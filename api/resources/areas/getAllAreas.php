@@ -8,7 +8,7 @@
 
 function getAllAreas(){
 
-    $sql = "SELECT id,area FROM areas WHERE 1";
+    $sql = "SELECT a.id,a.area,b.name FROM areas as a INNER JOIN cities as b WHERE a.city_id = b.id";
     try {
         $db = getDB();
         $stmt = $db->query($sql);

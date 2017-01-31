@@ -24,10 +24,15 @@ $accessToken = '292829217-mmSdUyy92ZF6qOVs1v2qJ5NQ3ztpAn7im7axROuJ';
 $accessTokenSecret = 'Sg4qeC7CO1L6sBC4otiQUihexIPYVK4nqpDHoEOF4wTOt';*/
 
 
-$consumerKey = 'MPboILZOxGkHMJJ3uE9R8sza1';
+/*$consumerKey = 'MPboILZOxGkHMJJ3uE9R8sza1';
 $consumerSecret = 'qugVOpu1xgCqNnVAVyp1D94coKIpP8OWBZHzbbtpqBxhqnSCon';
 $accessToken = '810109676230758400-FKet7dBddu5zXhLIWHOycyFxiueg1Fw';
-$accessTokenSecret = 'OQLGNYplpgKmB1sV0hLkYvfKHdTmFoH8dswe866mpJwTf';
+$accessTokenSecret = 'OQLGNYplpgKmB1sV0hLkYvfKHdTmFoH8dswe866mpJwTf';*/
+
+$consumerKey = '1Ie0eEA23yai4KZ9RSfqmMJOW';
+$consumerSecret = 'G4xPml0qc926edOWBcVXOyBhczvxe4MuWCbYkUDqVKFHvgVnqv';
+$accessToken = '824188395123511297-7GLY8zwjTHcuon6tPznMs5tp6xBVTV7';
+$accessTokenSecret = 'PDAkqMdrpYhJDtBufxn9liZEaq496ayZlGTnCXmRiVc9x';
 
 $tweet = new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
 $tweet->setTimeouts(10, 15);

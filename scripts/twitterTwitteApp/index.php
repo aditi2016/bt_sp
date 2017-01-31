@@ -69,65 +69,77 @@ $tweet->setTimeouts(10, 15);
 
 $dbHandle = mysqli_connect("localhost","root","redhat@11111p","ragnar_social");
 
-$posts = mysqli_query($dbHandle, "
+$companies = mysqli_query($dbHandle, "SELECT * FROM `auth_keys` WHERE social_network_id = 2 and status = 0");
+
+while ($company = mysqli_fetch_array($companies)){
+
+    $consumerKey = $company['consumer_key'];
+    $consumerSecret = $company['consumer_secret'];
+    $accessToken = $company['access_token'];
+    $accessTokenSecret = $company['access_token_secret'];
+    $companyId = $company['company_id'];
+
+    $posts = mysqli_query($dbHandle, "
                 SELECT
                   a.`id`, a.`company_id`, a.user_id, a.`title`, a.`description`, a.`link`, a.`raw_img_id`,
                   a.gen_img_id, b.logo_id
                 FROM `posts` as a
                   inner join companies as b
                   WHERE a.gen_img_id != 0
+                      and a.company_id = ".$companyId."
                       and a.`status` = 'approved'
                       and a.id NOT IN (SELECT post_id FROM post_tracks WHERE social_network_id = 2)
                       and a.company_id = b.id and a.gen_img_id != 0 ORDER BY RAND() limit 0,1");
 
-$post = mysqli_fetch_array($posts);
+    $post = mysqli_fetch_array($posts);
 //str_replace("world","Peter","Hello world!")
-$keywords = extractCommonWords($post['description']);
+    $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
-foreach($keywords as $word => $t){
-    //echo $word."\n";
-    $post['description'] = str_ireplace($word,"#".$word,$post['description']);
-}
-$post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
+    foreach($keywords as $word => $t){
+        //echo $word."\n";
+        $post['description'] = str_ireplace($word,"#".$word,$post['description']);
+    }
+    $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
 
 //echo $post['description'];
 //die();
 // Set status message
 
-if(strlen($tweetMessage) <= 100)
-    $tweetMessage = $post['description']." http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-t';
-else
-$tweetMessage = $post['description']." http://".$post['link'];
+    if(strlen($tweetMessage) <= 100)
+        $tweetMessage = $post['description']." http://ragnarsocial.com/l/?p=".$post['company_id'].'-'.$post['user_id'].'-'.$post['id'].'-t';
+    else
+        $tweetMessage = $post['description']." http://".$post['link'];
 
-while(strlen($tweetMessage) >= 140){
-    $tweetMessage = substr($tweetMessage, 0, -5);
-}
+    while(strlen($tweetMessage) >= 140){
+        $tweetMessage = substr($tweetMessage, 0, -5);
+    }
 //var_dump($tweetMessage);die();
-unlink("Tmpfile.png");
-file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'],'r'));
+    unlink("Tmpfile.png");
+    file_put_contents("Tmpfile.png", fopen("http://api.file-dog.shatkonlabs.com/files/rahul/".$post['gen_img_id'],'r'));
 
 
 
-$media1 = $tweet->upload('media/upload', ['media' => 'Tmpfile.png']);
+    $media1 = $tweet->upload('media/upload', ['media' => 'Tmpfile.png']);
 
-$twitte = [
-    'status' => $tweetMessage,
-    'media_ids' => implode(',', [$media1->media_id_string])
-];
+    $twitte = [
+        'status' => $tweetMessage,
+        'media_ids' => implode(',', [$media1->media_id_string])
+    ];
 
 // Check for 140 characters
 
-if(strlen($tweetMessage) <= 140) {
-    // Post the status message
-    $return  = $tweet->post('statuses/update', $twitte);
-    var_dump($return);
-    $id = $return->id_str;
-    if($id){
-        $sql = "INSERT INTO
+    if(strlen($tweetMessage) <= 140) {
+        // Post the status message
+        $return  = $tweet->post('statuses/update', $twitte);
+        var_dump($return);
+        $id = $return->id_str;
+        if($id){
+            $sql = "INSERT INTO
                 `post_tracks`(`post_id`, `social_network_id`, `publish_id`, `publish_datatime`, `creation`)
               VALUES (".$post['id'].",2,'".$id."','".date("Y-m-d H:i:s")."','".date("Y-m-d H:i:s")."')";
-        mysqli_query($dbHandle, $sql);
-    }
+            mysqli_query($dbHandle, $sql);
+        }
 
+    }
 }
 mysqli_close($dbHandle);
