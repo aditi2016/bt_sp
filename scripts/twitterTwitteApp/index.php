@@ -95,6 +95,7 @@ while ($company = mysqli_fetch_array($companies)){
 
     $post = mysqli_fetch_array($posts);
 //str_replace("world","Peter","Hello world!")
+    $post['description'] = str_replace('&#39;', "//'",$post['description']);
     $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
     foreach($keywords as $word => $t){
