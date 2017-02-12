@@ -1003,7 +1003,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ";
                 }
                 if(count($allServiceProviders) <= 0){
-                    echo "<div class='service box lightblue wow fadeInUp'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
+                    echo "<div class='box'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
 							We have taken your request for this area.<br/>
 							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
 							Process of adding service provider<br/>
