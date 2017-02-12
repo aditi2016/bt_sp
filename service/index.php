@@ -770,25 +770,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
         $("#bookNow").modal("hide");
     }
 
-    function validatePhone(fld) {
-        var res = fld.split(",");
-        var filter = /^([7-9][0-9]{9})+$/;
-        var result = "" ;
-        for(var i = 0; i < res.length; i++) {
-            var stripped = res[i];
-            if (stripped.value == "") {
-                result = false;
-            }
-            else if (!(filter.test(stripped))) {
-                result = false ;
-            }
-            else if (!(stripped.length == 10)) {
-                result = false;
-            }
-            else result = true ;
-        }
-        return result;
-    }
+
 
     function showMap(serviceN,serviceI) {
         serviceName = serviceN;
@@ -1021,7 +1003,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ";
                 }
                 if(count($allServiceProviders) <= 0){
-                    echo "<div class='fancy box'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
+                    echo "<div class='service box lightblue wow fadeInUp'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
 							We have taken your request for this area.<br/>
 							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
 							Process of adding service provider<br/>
@@ -1032,8 +1014,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 							5. Profile Creation<br/>
 							Give us chance to reach you, after process compilation<br/>
 							Thank You <br/><br/></span>
-							<input id='requestName' type='text' placeholder='Plese enter your Name'>
-		  					<input id='requestMobile' type='text' placeholder='Enter your mobile number'><br/><br/>
+							<input id='requestName' type='text' placeholder='Name'><br/>
+		  					<input id='requestMobile' type='text' placeholder='Mobile'><br/><br/>
 		  					<button type='button' id='addService' class='btn btn-info' onclick='request(\"".$lookUpId."\");'>Submit</button>
 		  				</div>";
 
@@ -1741,6 +1723,57 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     String.prototype.capitalizeFirstLetter = function() {
         return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    function request(id) {
+        $("#addService").attr('disabled','disabled');
+        var mobile = $('#requestMobile').val();
+        var name = replaceAll('\\s', '', $('#requestName').val());
+        if(name.length < 3){
+            alert('Please enter valid name');
+        }
+        else if(!validatePhone(mobile)){
+            alert("Please enter valid mobile number");
+        }
+        else {
+            setCookie('mobile', mobile, 10);
+            setCookie('name', name, 10);
+            $.ajax({
+                type: "POST",
+                url: "ajax/add_services.php",
+                data: 'name='+ name+'&mobile='+mobile+'&lookup_id='+id,
+                cache: false,
+                success: function(result){
+                    if(result=='Succesfully'){
+                        alert("Thanks for your help. \n We will connect with you Shortly");
+                    }
+                }
+            });
+            $('#requestMobile').val("");
+            $('#requestName').val("");
+        }
+        $("#addService").removeAttr('disabled');
+        return false;
+    }
+
+    function validatePhone(fld) {
+        var res = fld.split(",");
+        var filter = /^([7-9][0-9]{9})+$/;
+        var result = "" ;
+        for(var i = 0; i < res.length; i++) {
+            var stripped = res[i];
+            if (stripped.value == "") {
+                result = false;
+            }
+            else if (!(filter.test(stripped))) {
+                result = false ;
+            }
+            else if (!(stripped.length == 10)) {
+                result = false;
+            }
+            else result = true ;
+        }
+        return result;
     }
 
 
