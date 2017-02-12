@@ -968,13 +968,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 <section id="hire0" class="section padding-bottom" style="  overflow-y: hidden ! important;
                                                             overflow-x: hidden ! important;
                                                         background-image: url('<?= $serviceImg ?>');
-                                                        background-size:     contain;                      /* <------ */
+                                                        background-size:     cover;                      /* <------ */
                                                         background-repeat: no-repeat;
                                                             background-position: top;">
     <header class="container text-center">
-        <h3 class="fancy box"><img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;padding-bottom:20px; '>Yoga Trainer</h3>
-        <p class="main-text" itemprop="name" style="font-size: 14px;word-break: normal;width:70%">
-            <?=$serviceData['name']; ?><br/><?=$serviceData['description']; ?>
+        <h3 class="fancy box"><img src="<?=$profilePic;?>" style='max-width: 50px;max-height: 50px; '><?=$serviceData['name']; ?></h3>
+        <p >
+           <?=$serviceData['description']; ?>
         </p>
 
     </header>
