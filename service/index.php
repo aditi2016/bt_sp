@@ -799,6 +799,15 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     }
 
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function(m,key,value) {
+                vars[key] = value;
+            });
+        return vars;
+    }
+
     function loadServicePage(){
         if(serviceName == 'search')
             search();
