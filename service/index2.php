@@ -1062,272 +1062,30 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
             <center>
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('Water Purifier Repair',6)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/906" alt="Maid" style="width: 50px;height: 50px">
+                <?php
+                while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
+
+                    if($allRecommendedServices['pic_id']== 0) $img = 1075;
+                    else $img = $allRecommendedServices['pic_id'] ;
+                    echo "
+                    <div class=\"col-md-2 col-sm-4\">
+                    <a href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."'  >
+                        <center>
+                            <div class=\"service box lightblue wow fadeInUp\" data-wow-delay=\"0.75s\">
+                                <div class=\"service-header\">
+                                <span class=\"service-icon\" style='background-color: #fff'>
+                                    <img class=\"service-request-image\" src=\"http://api.file-dog.shatkonlabs.com/files/rahul/".$img."\" alt=\"Maid\" style=\"width: 50px;height: 50px\">
                                 </span>
 
                                 </div>
-                                <p>Water Purifier Repair</p><br/>
+                                <p>".$allRecommendedServices['name']."</p><br/>
                             </div>
+                        </center>
                     </a>
                 </div>
-
-
-
-
-
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('Washing Machine Repair',7)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/907" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                                </div>
-                                <p>Washing Machine Repair</p><br/>
-                            </div>
-                    </a>
-                </div>
-
-
-
-
-
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('Refrigerator Repair',8)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/908" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                                </div>
-                                <p>Refrigerator Repair</p><br/>
-                            </div>
-                    </a>
-                </div>
-
-
-
-
-
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('Microwave Repair',9)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/909" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                                </div>
-                                <p>Microwave Repair</p><br/>
-                            </div>
-                    </a>
-                </div>
-
-
-
-
-
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('Laptop Repair',10)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/910" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                                </div>
-                                <p>Laptop Repair</p><br/>
-                            </div>
-                    </a>
-                </div>
-
-
-
-
-
-                <div class="col-md-2 col-sm-4">
-                    <a onclick="showMap('AC Service',11)"  ><center>
-                            <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                                <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/911" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                                </div>
-                                <p>AC Service</p><br/>
-                            </div>
-                    </a>
-                </div>
-
-
-
-
-            </center></div><div class='row'>
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Carpenter',13)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/913" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Carpenter</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Plumber',14)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/914" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Plumber</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Electrician',15)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/915" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Electrician</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Apple Product Repair',19)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/919" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Apple Product Repair</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Television Installation',20)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/920" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Television Installation</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Geyser Repair',21)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/921" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Geyser Repair</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-            </center></div><div class='row'>
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Laundry',22)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/922" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Laundry</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Mobile Repair',12)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/912" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Mobile Repair</p><br/>
-                        </div>
-                </a>
-            </div>
-
-
-
-
-
-            <div class="col-md-2 col-sm-4">
-                <a onclick="showMap('Printer Repair',94)"  ><center>
-                        <div class="service box lightblue wow fadeInUp" data-wow-delay="0.75s">
-                            <div class="service-header">
-                                <span class="service-icon" style='background-color: #fff'>
-                                    <img class="service-request-image" src="http://api.file-dog.shatkonlabs.com/files/rahul/1606" alt="Maid" style="width: 50px;height: 50px">
-                                </span>
-
-                            </div>
-                            <p>Printer Repair</p><br/>
-                        </div>
-                </a>
-            </div>
-
+";
+                }
+                ?>
 
 
 
