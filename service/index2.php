@@ -972,10 +972,12 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                                         background-repeat: no-repeat;
                                                             background-position: top;">
     <header class="container text-center">
-        <h3 class="fancy box"><img src="<?=$profilePic;?>" style='max-width: 50px;max-height: 50px; '><?=$serviceData['name']; ?></h3>
+        <div class="fancy box">
+        <h3 ><img src="<?=$profilePic;?>" style='max-width: 50px;max-height: 50px; '><?=$serviceData['name']; ?></h3>
         <p >
            <?=$serviceData['description']; ?>
         </p>
+        </div>
 
     </header>
 
@@ -1004,7 +1006,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                 </span>
 
                                 </div>
-                                <p><span style=\"font-size: 20px;font-weight: bold;\">".$serviceProvider->name."</span><br/>
+                                <p><span style=\"font-size: 15px;font-weight: bold;\">".$serviceProvider->name."</span><br/>
                                 <span style=\"font-size: 15px;color: gray;\">Quality: 89%<br/>
                                 Reliability: 89%</span><br/>
                                 Price: ".$price."<i class='fa fa-rupee'></i>".$perHour."<br/>
