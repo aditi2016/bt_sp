@@ -281,7 +281,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                                     </span>
                                                 </a> -->
 
-                    <a href="home" class="navbar-brand" style="padding-top: 0px;"><span class="logo" style="color: #ff2e8a06;">
+                    <a href="http://blueteam.in/home" class="navbar-brand" style="padding-top: 0px;"><span class="logo" style="color: #ff2e8a06;">
                             <img src="//blueteam.in/static/images/logo.png" style="height: 68px; width: 68px;"></span></a>
                 </div>
 
@@ -302,9 +302,9 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                             </div>
 
                         </li>
-                        <li ><a href="aboutus">About Us</a></li>
-                        <li ><a href="terms&Conditions">T&Cs</a></li>
-                        <li ><a href="blueteamVerified">BlueTeam Verification</a></li>
+                        <li ><a href="http://blueteam.in/aboutus">About Us</a></li>
+                        <li ><a href="http://blueteam.in/terms&Conditions">T&Cs</a></li>
+                        <li ><a href="http://blueteam.in/blueteamVerified">BlueTeam Verification</a></li>
                         <li ><a href="" >
                                 <i class="fa fa-phone" ></i> or
                                 <i class="fa fa-whatsapp" >
@@ -1815,7 +1815,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po
             });
         }
     });
+    function getLocation() {
+        $('#myModal').modal('toggle');
+        setTimeout(initAutocomplete, 2000);
+    }
+
+    var locationDetails = getUrlVars()["l"];
+    if(locationDetails == undefined || locationDetails == null || locationDetails == ""){
+        setTimeout(getLocation,2000);
+    }
 </script>
+
+
 
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
