@@ -39,7 +39,7 @@ $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
                                             JOIN services AS b WHERE a.service_id = b.id
-                                            AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
+                                            AND b.status = 'active' ORDER BY RAND() LIMIT 6;");
 $locationDetails = json_decode(httpGet("http://api.sp.blueteam.in/location/".$_GET['l']), true)[location_details];
 $areaName = str_replace('-',', ',$locationDetails[area]['name']);
 $cityName = str_replace('-',', ',$locationDetails[city]['name']);
@@ -651,7 +651,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Please select your location</h4>
+                <h4 class="modal-title" id="myModalLabel">Help us to locate you!</h4>
             </div>
             <div class="modal-body">
                 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -660,7 +660,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="loadServicePage()">Take Loction</button>
+                <button type="button" class="btn btn-primary" onclick="loadServicePage()">Take Location</button>
             </div>
         </div>
     </div>
@@ -1021,7 +1021,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ";
                 }
                 if(count($allServiceProviders) <= 0){
-                    echo "<div class='flat-container'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
+                    echo "<div class='fancy box'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
 							We have taken your request for this area.<br/>
 							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
 							Process of adding service provider<br/>
