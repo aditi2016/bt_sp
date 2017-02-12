@@ -1003,7 +1003,9 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 ";
                 }
                 if(count($allServiceProviders) <= 0){
-                    echo "<div style='background-color: #ffffff'><span style='font-size:12px;'>Sorry! No Service Provider in this Area<br/>
+                    echo "<div style='background-color: #ffffff'>
+                            <span style='font-size:12px;'>
+                                Sorry! No Service Provider in this Area<br/>
 							We have taken your request for this area.<br/>
 							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
 							Process of adding service provider<br/>
@@ -1013,7 +1015,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 							4. Document Verification<br/>
 							5. Profile Creation<br/>
 							Give us chance to reach you, after process compilation<br/>
-							Thank You <br/><br/></span>
+							Thank You <br/><br/>
+							</span>
 							<input id='requestName' type='text' placeholder='Name'><br/>
 		  					<input id='requestMobile' type='text' placeholder='Mobile'><br/><br/>
 		  					<button type='button' id='addService' class='btn btn-info' onclick='request(\"".$lookUpId."\");'>Submit</button>
@@ -1668,6 +1671,27 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
         }
         return false;
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
     }
 
     function postGetInTouch(fields) {
