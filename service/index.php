@@ -818,7 +818,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
             $('#bookNow').modal('toggle');
         }
         else
-            window.location.href = 'http://blueteam.in/service/index.php?load='+serviceName+'-'+serviceId+'&l='+lat+','+lng;
+            var serviceData = getUrlVars()["load"];
+        window.location.href = 'http://blueteam.in/service/index.php?load='+serviceData+'&l='+lat+','+lng;
 
     }
 
