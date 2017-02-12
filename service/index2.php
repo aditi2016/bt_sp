@@ -988,7 +988,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
             <center>
                 <?php
                 foreach ($allServiceProviders as $serviceProvider ) {
-                    if($serviceProvider->hourly =='yes') $perHour = "/ Hour";
+                    if($serviceProvider->hourly =='yes') $perHour = "/Hr";
                     else $perHour ="";
                     if($serviceProvider->price=="") $price = 0;
                     else $price = $serviceProvider->price;
@@ -1004,10 +1004,10 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                 </span>
 
                                 </div>
-                                <p>".$serviceProvider->name."<br/>
-                                Quility: 89%<br/>
-                                Reliablity: 89%<br/>
-                                Price: ".$price."<i class='icon icon-rupee'></i> ".$perHour."<br/>
+                                <p><span style=\"font-size: 20px;font-weight: bold;\">".$serviceProvider->name."</span><br/>
+                                <span style=\"font-size: 15px;color: gray;\">Quality: 89%<br/>
+                                Reliability: 89%</span><br/>
+                                Price: ".$price."<i class='fa fa-rupee'></i>".$perHour."<br/>
                                 <button class='btn btn-info'>View Details</button><br/></p><br/>
                             </div>
                     </a>
