@@ -43,7 +43,7 @@ $serviceImg = "http://api.file-dog.shatkonlabs.com/files/rahul/".$serviceData['s
 $recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
                                             JOIN services AS b WHERE a.service_id = b.id
-                                            AND b.status = 'active' ORDER BY RAND() LIMIT 4;");
+                                            AND b.status = 'active' ORDER BY RAND() LIMIT 6;");
 
 $commentsCountUrl = "http://api.wazir.shatkonlabs.com/feedbacks/".$userId."/".$objectId."/count";
 $commentsCounts = json_decode(httpGet($commentsCountUrl), true)['counts'];
@@ -1102,8 +1102,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
 
-                Name:<input id="userName" class="form-control inpul-lg" type="text" placeholder="Type your Name">
-                Mobile:<input id="userMobile" class="form-control inpul-lg" type="text" placeholder="Type your mobile number"> <br/><br/>
+                Name:<input id="userName" class="form-control" type="text" placeholder="Type your Name">
+                Mobile:<input id="userMobile" class="form-control" type="text" placeholder="Type your mobile number"> Comment:
                 <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
                 <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Awesome</button>
                 <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
@@ -1113,6 +1113,10 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
             </div>
+        <Br>
+        <Br>
+        <Br>
+        <Br>
 
 </section>
 
@@ -1154,7 +1158,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                 <p>".$allServicesOfVendor['name']."</p><br/>
 
                                 <span class='value'>".$price."
-									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
+									    <i class='fa fa-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
 									    <span class='btn btn-info'>Book Now</span>
 									  </span>
                             </div>
@@ -1176,7 +1180,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 <section id="hire2" class="section padding-bottom">
     <header class="container text-center">
-        <h3 class="fancy box">Recommended Services</h3>
+        <h3 class="fancy box lightblue">Recommended Services</h3>
 
     </header>
 

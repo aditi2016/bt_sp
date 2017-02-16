@@ -957,7 +957,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                                         background-repeat: no-repeat;
                                                             background-position: top;">
     <header class="container text-center">
-        <div class="fancy box">
+        <div class="fancy box lightblue">
         <h3 ><img src="<?=$profilePic;?>" style='max-width: 50px;max-height: 50px; '><?=$serviceData['name']; ?></h3>
         <p >
            <?=$serviceData['description']; ?>
@@ -1034,7 +1034,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 <section id="hire1" class="section padding-bottom">
     <header class="container text-center">
-        <h3 class="fancy box">Recommended Services</h3>
+        <h3 class="fancy box lightblue">Recommended Services</h3>
 
     </header>
 
