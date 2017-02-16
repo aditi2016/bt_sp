@@ -1155,12 +1155,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                 </span>
 
                                 </div>
-                                <p>".$allServicesOfVendor['name']."</p><br/>
+                                <p>".$allServicesOfVendor['name']."<br/>
 
-                                <span class='value'>".$price."
-									    <i class='fa fa-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
+                                ".$price." <i class='fa fa-rupee'></i> ".$perHour." <br/>
+                                Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/>
 									    <span class='btn btn-info'>Book Now</span>
 									  </span>
+									  </p>
                             </div>
                         </center>
                     </a>
