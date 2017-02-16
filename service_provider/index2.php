@@ -983,7 +983,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     background-position: top;">
     <header class="container text-center">
 
-            <div class="contact-info-box box yellow text-center">
+            <div class="contact-info-box box lightblue text-center">
                 <div class="row">
                     <div class="col-md-3">
 
@@ -1020,7 +1020,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
     </header>
-    <header class="container text-center box yellow">
+    <header class="container text-center box lightblue">
         <h3 class="contact-info-box ">Lets Hear From others About My Services</h3>
         <div class="row">
             <div class="col-md-3 col-sm-6"><i class="glyphicon glyphicon-star"></i>
@@ -1045,7 +1045,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
     <div class="container">
-        <div class='row contact-info-box box yellow'>
+        <div class='row contact-info-box box lightblue'>
 
 
 
@@ -1067,8 +1067,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
 <section id="hire3" class="section padding-bottom">
-    <header class="container text-center">
-        <h3 class="fancy box">My Other Services</h3>
+    <header class="container text-center ">
+        <h3 class="fancy box lightblue">My Other Services</h3>
 
     </header>
 
