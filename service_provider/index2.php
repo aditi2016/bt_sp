@@ -1021,8 +1021,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     </header>
     <header class="container text-center">
-        <h3 class="contact-info-box box yellow">Lets Hear From others About My Services</h3>
-        <div class="contact-info-box box yellow project-info-container">
+        <div class="contact-info-box box yellow">
+            <h3>Lets Hear From others About My Services</h3>
             <div class="info-col"><i class="glyphicon glyphicon-star"></i>
                 <div class="info-value">Awesome</div>
                 <div class="info-description"><?php echo (isset($marvelous)) ? $marvelous : "0";?></div>
@@ -1040,6 +1040,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                 <div class="info-description"><?php echo (isset($complain)) ? $complain : "0";  ?></div>
             </div>
         </div>
+
 
     </header>
 
