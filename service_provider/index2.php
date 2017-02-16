@@ -1022,7 +1022,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     </header>
     <header class="container text-center">
         <h3 class="fancy box">Lets Hear From others About My Services</h3>
-        <div class="project-info-container">
+        <div class="fancy box project-info-container">
             <div class="info-col"><i class="glyphicon glyphicon-star"></i>
                 <div class="info-value">Awesome</div>
                 <div class="info-description"><?php echo (isset($marvelous)) ? $marvelous : "0";?></div>
@@ -1045,10 +1045,10 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
     <div class="container">
-        <div class='row'>
+        <div class='row fancy box'>
 
 
-            <center>
+
 
 
                 <input id="userName" type="text" placeholder="Type your Name">
@@ -1058,10 +1058,10 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                 <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
                 <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;&nbsp;Suggestion</button>
                 <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;&nbsp;Complain</button>
-                <hr/>
 
 
-            </center></div>
+
+            </div>
 
 </section>
 
