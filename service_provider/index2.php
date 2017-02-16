@@ -1074,13 +1074,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 <section id="hire1" class="section padding-bottom">
     <header class="container text-center">
-        <h3 class="fancy box">Recommended Services</h3>
-
-    </header>
-
-
-
-    <div class="container">
+        <h3 class="fancy box">People Says About Me</h3>
         <div class="project-info-container">
             <div class="info-col"><i class="glyphicon glyphicon-star"></i>
                 <div class="info-value">Awesome</div>
@@ -1099,6 +1093,13 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                 <div class="info-description"><?php echo (isset($complain)) ? $complain : "0";  ?></div>
             </div>
         </div>
+
+    </header>
+
+
+
+    <div class="container">
+
 
         <div class="body-elem">
             <div class="inner-body mw">
@@ -1140,7 +1141,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                             </div>
                         </div>
                     </div>
-                    <div class="hide-embed" id="similar-card">
+                  <?php /*  <div class="hide-embed" id="similar-card">
                         <div class="bordered-card card-cont mw similar-flat-card">
                             <h2 class="header-cont">Other Services through same Service Provider</h2>
                             <div class="body-cont">
@@ -1204,72 +1205,81 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */ ?>
                 </div>
-                <div class="right-elem sticky" >
-                    <div id="booking-container-card"></div>
-                    <div class="bordered-card" id="card-contact">
-                        <div class="container">
-                            <div class="top-container">
-                                <div class="clearfix person-controls">
-                                    <div class="pull-left seller-count"></div>
-                                    <div class="navbar pull-right" data-length="0">
-                                        <div class="disabled icon-arrow-left left-nav nav" data-action="prev"></div>
-                                        <div class="icon-arrow-right nav right-nav" data-action="next"></div>
-                                    </div>
-                                </div>
-                                <div class="all-person-holder">
-                                    <div class="all-person-translator">
-                                        <div class="person-container selected" >
-                                            <img class="img normal" src="index_files/icon.png" alt="BlueTeam logo">
-                                            <div class="info">
-                                                <a class="name" href=""  data-bypass="">BlueTeam.in</a>
-                                                <div class="type">Shatkon Labs Pvt Ltd</div>
-                                            </div>
-                                            <div class="select-contact">
-                                                <i class="icon icon-checkbox"></i>
-                                                <i class="icon icon-checkbox-filled"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-container">
-                                <div class="not-sent">
-                                    <div class="dd-bhk-container tags">
-                                        <div class="prev-text tl">I would like to know more about</div>
-                                        <div class="generic-tag-container">
-                                            <div class="dummy-form-elem form-element">
-                                                <div class="input-helper">
-                                                    <div class="up-arrow"></div>
-                                                    <div class="helper-text">Please select a preference</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-element with-country-code invalid filled">
-                                        <div class="placeholder">Phone</div>
-                                        <input class="input country-code"  value="+91" name="country_code" readonly="readonly" data-text="true" data-length="3" data-url_name="in" type="select">
-                                        <input class="input phone" id="inputContact" required="" name="phone" country-code="true" pattern="^[0-9]{10}$" type="tel">
-                                    </div>
-
-                                    <div class="form-field sent-button-container">
-                                        <button id="getInTouch" class="btn btn-info" onclick="getInTouch();">Get In Touch</button>
-                                    </div>
-                                    <div class="hide on-error-container"></div>
-                                </div>
-
-                            </div>
-                            <div class="otp-container"></div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
         </div>
+
+
+</section>
+<section id="hire3" class="section padding-bottom">
+    <header class="container text-center">
+        <h3 class="fancy box">My Other Services</h3>
+
+    </header>
+
+
+
+    <div class="container">
         <div class='row'>
 
+
+            <center>
+                <?php
+                while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
+
+                    if($allRecommendedServices['hourly']=='yes') $perHour = "/ Hour";
+                    else $perHour ="";
+                    if($allServicesOfVendor['price']=="") $price = 0;
+                    else $price = $allServicesOfVendor['price'] ;
+                    if($allServicesOfVendor['pic_id']== 0) $pic = 1075;
+                    else $pic = $allServicesOfVendor['pic_id'] ;
+
+                    echo "
+                    <div class=\"col-md-2 col-sm-4\">
+                    <a onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\",\"".$location."\");'  >
+                        <center>
+                            <div class=\"service box lightblue wow fadeInUp\" data-wow-delay=\"0.75s\">
+                                <div class=\"service-header\">
+                                <span class=\"service-icon\" style='background-color: #fff'>
+                                    <img class=\"service-request-image\" src=\"http://api.file-dog.shatkonlabs.com/files/rahul/".$pic."\" alt=\"Maid\" style=\"width: 50px;height: 50px\">
+                                </span>
+
+                                </div>
+                                <p>".$allServicesOfVendor['name']."</p><br/>
+                                <p>".$allServicesOfVendor['description']."</p><br/>
+                                <span class='value'>".$price."
+									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
+									    <span class='btn btn-info'>Book Now</span>
+									  </span>
+                            </div>
+                        </center>
+                    </a>
+                </div>
+";
+
+                }
+                ?>
+
+
+
+
+
+            </center></div>
+
+</section>
+
+<section id="hire2" class="section padding-bottom">
+    <header class="container text-center">
+        <h3 class="fancy box">Recommended Services</h3>
+
+    </header>
+
+
+
+    <div class="container">
+        <div class='row'>
 
 
             <center>
