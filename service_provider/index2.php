@@ -987,9 +987,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                 <div class="row">
                     <div class="col-md-3">
 
-                <span class="contact-info-icon yellowbg">
-                    <img src="<?=$profilePic;?>" style='max-width: 100px;max-height: 100px;'>
-                </span>
+                    <img src="<?=$icon;?>" style='max-width: 100px;max-height: 100px;'>
                         <h3><b><?=$serviceName ;?></b></h3>
                         </div>
                     <div class="col-md-3">
