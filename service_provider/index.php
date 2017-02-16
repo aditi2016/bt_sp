@@ -195,7 +195,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 										margin-bottom: 10px;padding: 20px;">
 			  <div class="price-details" style="padding: 10px;">
 				<span class="price-info" >
-			  	  <span class="price-display-type">Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?></span>
+			  	  <span class="price-display-type">
+					  Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?></span>
 				</span>
 				<div class="pp-container">
 				  <span class="">Quality Score: <?php echo $quality."/".$qualityTotal." ( ".$qualityScore." % )" ; ?></span>
@@ -205,7 +206,9 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 			  	<span class="prifile-img">
 			  		<img src="<?=$profilePic;?>" style='max-width: 150px;max-height: 150px;'>
 			  	</span>
-				<p class="main-text" itemprop="name" style="font-size: 16px;"><?=$serviceProviderData['name']; ?><br/><?=$serviceProviderData['organization']; ?><br/><?=$serviceProviderData['description']; ?>
+				<p class="main-text" itemprop="name" style="font-size: 16px;">
+					<?=$serviceProviderData['name']; ?><br/>
+					<?=$serviceProviderData['organization']; ?><br/><?=$serviceProviderData['description']; ?>
 				</p>
 			  </div>
 			</div>
