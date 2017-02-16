@@ -1097,8 +1097,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
     <div class="container">
-        <div class="contact-info-box box lightblue text-center">
-        <div class='row contact-info-box box lightblue'>
+        <div class="contact-info-box box lightblue">
+        <div class='row'>
 
 
 
