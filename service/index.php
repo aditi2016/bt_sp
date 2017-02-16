@@ -36,7 +36,7 @@ $allServiceProviders = mysqli_query($dbHandle, "SELECT a.name, a.organization, a
 											JOIN service_provider_service_mapping AS b WHERE
 											a.id = b.service_provider_id AND b.service_id = '$serviceId' ;");*/
 
-$recommendedServices = mysqli_query($dbHandle, "SELECT a.price,a.negotiable,a.hourly,b.name,b.pic_id,
+$recommendedServices = mysqli_query($dbHandle, "SELECT a.service_id,  a.price,a.negotiable,a.hourly,b.name,b.pic_id,
 											b.description FROM service_provider_service_mapping AS a
                                             JOIN services AS b WHERE a.service_id = b.id
                                             AND b.status = 'active' ORDER BY RAND() LIMIT 6;");
@@ -1052,7 +1052,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
                     else $img = $allRecommendedServices['pic_id'] ;
                     echo "
                     <div class=\"col-md-2 col-sm-4\">
-                    <a href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."'  >
+                    <a href='../service/index.php?load=".$allRecommendedServices['name']."-".$allRecommendedServices['service_id']."-gurgaon&l=".$location."'  >
                         <center>
                             <div class=\"service box lightblue wow fadeInUp\" data-wow-delay=\"0.75s\">
                                 <div class=\"service-header\">
