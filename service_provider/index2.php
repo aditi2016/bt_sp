@@ -1013,57 +1013,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
             <center>
-                <?php
-                foreach ($allServiceProviders as $serviceProvider ) {
-                    if($serviceProvider->hourly =='yes') $perHour = "/Hr";
-                    else $perHour ="";
-                    if($serviceProvider->price=="") $price = 0;
-                    else $price = $serviceProvider->price;
-                    if($serviceProvider->profile_pic_id== 0) $img2 = 1075;
-                    else $img2 = $serviceProvider->profile_pic_id ;
-                    echo "
-<div class=\"col-md-2 col-sm-4\">
-                    <a href='../service_provider/index.php?load=".$serviceProvider->name."-".$serviceProvider->id."-gurgaon&s= ".$serviceName."-".$serviceId."&l=".$location."'  ><center>
-                            <div class=\"service box lightblue wow fadeInUp\" data-wow-delay=\"0.75s\">
-                                <div class=\"service-header\">
-                                <span class=\"service-icon\" style='background-color: #fff'>
-                                    <img class=\"service-request-image\" src='http://api.file-dog.shatkonlabs.com/files/rahul/".$img2."' alt=\"Maid\" style=\"width: 50px;height: 50px\">
-                                </span>
 
-                                </div>
-                                <p><span style=\"font-size: 15px;font-weight: bold;\">".$serviceProvider->name."</span><br/>
-                                <span style=\"font-size: 15px;color: gray;\">Quality: 89%<br/>
-                                Reliability: 89%</span><br/>
-                                Price: ".$price."<i class='fa fa-rupee'></i>".$perHour."<br/>
-                                <button class='btn btn-info'>View Details</button><br/></p><br/>
-                            </div>
-                    </a>
-                </div>
-
-";
-                }
-                if(count($allServiceProviders) <= 0){
-                    echo "<div style='background-color: #ffffff'>
-                            <span style='font-size:12px;'>
-                                Sorry! No Service Provider in this Area<br/>
-							We have taken your request for this area.<br/>
-							We are committed to add 3 service providers in this area in next 48 hrs.<br/>
-							Process of adding service provider<br/>
-							1. Enqueuing 10 service providers in the area<br/>
-							2. Interviewing every service provider<br/>
-							3. Shot listing <br/>
-							4. Document Verification<br/>
-							5. Profile Creation<br/>
-							Give us chance to reach you, after process compilation<br/>
-							Thank You <br/><br/>
-							</span>
-							<input id='requestName' type='text' placeholder='Name'><br/>
-		  					<input id='requestMobile' type='text' placeholder='Mobile'><br/><br/>
-		  					<button type='button' id='addService' class='btn btn-info' onclick='request(\"".$lookUpId."\");'>Submit</button>
-		  				</div>";
-
-                }
-                ?>
 
 
 
@@ -1101,28 +1051,23 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     <div class="container">
 
 
-        <div class="body-elem">
-            <div class="inner-body mw">
-                <div class="main-layout">
-                    <div class="bordered-card card-cont hide" id="discussions-card"></div>
-                    <div class="hide-embed" id="similar-card">
-                        <div class="bordered-card card-cont mw similar-flat-card">
-                            <h2 class="header-cont">Comments</h2>
-                            <div class="body-cont">
-                                <div class="flat-container">
-                                    <input id="userName" type="text" placeholder="Type your Name">
-                                    <input id="userMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
-                                    <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
-                                    <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Awesome</button>
-                                    <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
-                                    <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;&nbsp;Suggestion</button>
-                                    <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;&nbsp;Complain</button>
-                                    <hr/>
+        <div class="bordered-card card-cont mw similar-flat-card">
+            <h2 class="header-cont">Comments</h2>
+            <div class="body-cont">
+                <div class="flat-container">
+                    <input id="userName" type="text" placeholder="Type your Name">
+                    <input id="userMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
+                    <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
+                    <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Awesome</button>
+                    <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
+                    <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;&nbsp;Suggestion</button>
+                    <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;&nbsp;Complain</button>
+                    <hr/>
 
-                                    <?php
-                                    foreach ($comments as $key => $value) {
+                    <?php
+                    foreach ($comments as $key => $value) {
 
-                                        echo "<div class='left clearfix'>
+                        echo "<div class='left clearfix'>
 
 		                            <div class='chat-body'>
 		                                <strong >".strtoupper($value['name'])."</strong>
@@ -1134,12 +1079,18 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 		                                </p>
 		                            </div>
 		                        </div><hr/>" ;
-                                    }
-                                    ?>
+                    }
+                    ?>
 
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="body-elem">
+            <div class="inner-body mw">
+                <div class="main-layout">
+                    <div class="bordered-card card-cont hide" id="discussions-card"></div>
+                    <div class="hide-embed" id="similar-card">
+
                     </div>
                   <?php /*  <div class="hide-embed" id="similar-card">
                         <div class="bordered-card card-cont mw similar-flat-card">
@@ -1248,7 +1199,7 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
                                 </div>
                                 <p>".$allServicesOfVendor['name']."</p><br/>
-                                <p>".$allServicesOfVendor['description']."</p><br/>
+
                                 <span class='value'>".$price."
 									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
 									    <span class='btn btn-info'>Book Now</span>
