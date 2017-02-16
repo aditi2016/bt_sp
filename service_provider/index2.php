@@ -1020,26 +1020,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
     </header>
-
-
-
-    <div class="container">
-        <div class='row'>
-
-
-            <center>
-
-
-
-
-
-            </center></div>
-
-</section>
-
-<section id="hire1" class="section padding-bottom">
     <header class="container text-center">
-        <h3 class="fancy box">People Says About Me</h3>
+        <h3 class="fancy box">Lets Hear From others About My Services</h3>
         <div class="project-info-container">
             <div class="info-col"><i class="glyphicon glyphicon-star"></i>
                 <div class="info-value">Awesome</div>
@@ -1062,123 +1044,21 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
     </header>
 
 
-
     <div class="container">
+        <div class='row'>
 
 
-        <div class="bordered-card card-cont mw similar-flat-card">
-            <h2 class="header-cont">Comments</h2>
-            <div class="body-cont">
-                <div class="flat-container">
-                    <input id="userName" type="text" placeholder="Type your Name">
-                    <input id="userMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
-                    <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
-                    <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Awesome</button>
-                    <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
-                    <button type="submit" id="suggestion" onclick="postComment('suggestion');" class='btn btn-info'><i class="glyphicon glyphicon-ok-circle"></i>&nbsp;&nbsp;Suggestion</button>
-                    <button type="submit" id="complain" onclick="postComment('complain');"  class='btn btn-info'><i class="glyphicon glyphicon-thumbs-down"></i>&nbsp;&nbsp;Complain</button>
-                    <hr/>
+            <center>
 
-                    <?php
-                    foreach ($comments as $key => $value) {
 
-                        echo "<div class='left clearfix'>
 
-		                            <div class='chat-body'>
-		                                <strong >".strtoupper($value['name'])."</strong>
-		                                <small class='pull-right text-muted' style='margin-top:-25px;'>
-		                                    <i class='glyphicon glyphicon-time'></i> ".$value['creation']."
-		                                </small>
-		                                <p style='margin-top:10px;'>
-		                                    ".$value['feedback']."
-		                                </p>
-		                            </div>
-		                        </div><hr/>" ;
-                    }
-                    ?>
 
-                </div>
-            </div>
-        </div>
-        <div class="body-elem">
-            <div class="inner-body mw">
-                <div class="main-layout">
-                    <div class="bordered-card card-cont hide" id="discussions-card"></div>
-                    <div class="hide-embed" id="similar-card">
 
-                    </div>
-                  <?php /*  <div class="hide-embed" id="similar-card">
-                        <div class="bordered-card card-cont mw similar-flat-card">
-                            <h2 class="header-cont">Other Services through same Service Provider</h2>
-                            <div class="body-cont">
-                                <div class="flat-container">
-                                    <?php
-                                    while ($allServicesOfVendor = mysqli_fetch_array($allServices)) {
-
-                                        if($allRecommendedServices['hourly']=='yes') $perHour = "/ Hour";
-                                        else $perHour ="";
-                                        if($allServicesOfVendor['price']=="") $price = 0;
-                                        else $price = $allServicesOfVendor['price'] ;
-                                        if($allServicesOfVendor['pic_id']== 0) $pic = 1075;
-                                        else $pic = $allServicesOfVendor['pic_id'] ;
-                                        echo "<a class='flat-link' onclick='book(\"".$serviceProviderId."\",\"".$allServicesOfVendor['name']."\",\"".$location."\");' style='text-decoration:none;'>
-	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
-
-								  	</div>
-								  	<div class='name-info'>
-									  	<div class='project-info'>".$allServicesOfVendor['name']."</div>
-									</div>
-	                                <div class='apt-info text'>".$allServicesOfVendor['description']."</div>
-									<div class='loct-info text'></div>
-									<div class='price'>
-									  <span class='value'>".$price."
-									    <i class='icon icon-rupee'></i> ".$perHour." <br/>Nagotiable : ".strtoupper($allServicesOfVendor['negotiable'])."<br/><br/>
-									    <span class='btn btn-info'>Book Now</span>
-									  </span>
-									</div>
-
-								  </a>";
-                                    }
-                                    ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hide-embed" id="similar-card">
-                        <div class="bordered-card card-cont mw similar-flat-card">
-                            <h2 class="header-cont">Recommended Services</h2>
-                            <div class="body-cont">
-                                <div class="flat-container">
-                                    <?php
-                                    while ($allRecommendedServices = mysqli_fetch_array($recommendedServices)) {
-
-                                        if($allRecommendedServices['pic_id']== 0) $pic = 1075;
-                                        else $pic = $allRecommendedServices['pic_id'] ;
-                                        echo "<a class='flat-link' href='../service/index.php?load=".$allRecommendedServices['name']."-gurgaon&l=".$location."' style='text-decoration:none;'>
-	                                <div class='flat-img'>
-	                                  <div class='img'  style='background-image:url(http://api.file-dog.shatkonlabs.com/files/rahul/".$pic.")'></div>
-								  	</div>
-								  	<div class='name-info'>
-									  	<div class='project-info'>".$allRecommendedServices['name']."</div>
-									</div>
-	                                <div class='apt-info text'>".$allRecommendedServices['description']."</div>
-								  </a>";
-                                    }
-                                    ?>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> */ ?>
-                </div>
-
-            </div>
-        </div>
-
+            </center></div>
 
 </section>
+
+
 <section id="hire3" class="section padding-bottom">
     <header class="container text-center">
         <h3 class="fancy box">My Other Services</h3>
