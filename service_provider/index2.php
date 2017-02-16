@@ -986,19 +986,18 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
             <div class="contact-info-box box yellow text-center">
                 <div class="row">
                     <div class="col-md-3">
-                <h3><b><?=$serviceName ;?></b></h3>
+
                 <span class="contact-info-icon yellowbg">
                     <img src="<?=$profilePic;?>" style='max-width: 100px;max-height: 100px;'>
                 </span>
+                        <h3><b><?=$serviceName ;?></b></h3>
                         </div>
                     <div class="col-md-3">
+                        <img src="<?=$profilePic;?>" style='max-width: 100px;max-height: 100px;'>
                 <h3><?=$serviceProviderData['name']; ?></h3>
-                        <button class='btn btn-info' onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
-                            Book Now
-                        </button>
+
                     </div><div class="col-md-3">
                 <ul class="contact-info-list">
-                    <li><?=$servicePrice ;?><i class='icon icon-rupee'></i> <?=$servicePerHour ;?></li>
                     <li><?=$serviceProviderData['organization']; ?></li>
                     <li><?=$serviceProviderData['description']; ?></li>
                     <li>Reliability Score: <?php echo  $serviceProviderData['reliability_score']."/".(4*$serviceProviderData['reliability_count'])." (".$reliabilityScore." % )"; ?></li>
@@ -1006,6 +1005,16 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
                 </ul>
                         </div>
+                    <div class="col-md-3">
+                        <ul class="contact-info-list">
+                            <li><?=$servicePrice ;?><i class='fa fa-rupee'></i> <?=$servicePerHour ;?></li>
+
+                        </ul>
+                        <button class='btn btn-info' onclick='book(<?php echo'"'.$serviceProviderId.'","'.$serviceName.'","'.$location.'"';?>);'>
+                            Book Now
+                        </button>
+                    </div>
+
 
                 </div>
             </div><!-- End .contact-info-box -->
