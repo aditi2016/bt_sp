@@ -1021,26 +1021,25 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
     </header>
     <header class="container text-center">
-        <div class="contact-info-box box yellow">
-            <h3>Lets Hear From others About My Services</h3>
-            <div class="info-col"><i class="glyphicon glyphicon-star"></i>
+        <h3 class="contact-info-box box yellow">Lets Hear From others About My Services</h3>
+        <div class="contact-info-box box yellow row">
+            <div class="col-md-3 col-sm-6"><i class="glyphicon glyphicon-star"></i>
                 <div class="info-value">Awesome</div>
                 <div class="info-description"><?php echo (isset($marvelous)) ? $marvelous : "0";?></div>
             </div>
-            <div class="info-col"><i class="glyphicon glyphicon-heart"></i>
+            <div class="col-md-3 col-sm-6"><i class="glyphicon glyphicon-heart"></i>
                 <div class="info-value">Good</div>
                 <div class="info-description"><?php echo (isset($appreciation)) ? $appreciation : "0";?></div>
             </div>
-            <div class="info-col"><i class="glyphicon glyphicon-ok-circle"></i>
+            <div class="col-md-3 col-sm-6"><i class="glyphicon glyphicon-ok-circle"></i>
                 <div class="info-value"><span>Average</span></div>
                 <div class="info-description"><?php echo (isset($suggestion)) ? $suggestion : "0";?></div>
             </div>
-            <div class="info-col"><i class="glyphicon glyphicon-thumbs-down"></i>
+            <div class="col-md-3 col-sm-6"><i class="glyphicon glyphicon-thumbs-down"></i>
                 <div class="info-value">Not Good</div>
                 <div class="info-description"><?php echo (isset($complain)) ? $complain : "0";  ?></div>
             </div>
         </div>
-
 
     </header>
 
@@ -1052,8 +1051,8 @@ $metaDescription = implode(',', array_keys(extractCommonWords($metaData)));
 
 
 
-                <input id="userName" type="text" placeholder="Type your Name">
-                <input id="userMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
+                Name:<input id="userName" type="text" placeholder="Type your Name">
+                Mobile:<input id="userMobile" type="text" placeholder="Type your mobile number"> <br/><br/>
                 <textarea id="comment" type="text" class="form-control inpul-lg" placeholder="Type your message to send..." ></textarea><br/>
                 <button type="submit" id="marvelous" onclick="postComment('marvelous');" class='btn btn-info'><i class="glyphicon glyphicon-star"></i>&nbsp;&nbsp; Awesome</button>
                 <button type="submit" id="appreciation" onclick="postComment('appreciation');" class='btn btn-info'><i class="glyphicon glyphicon-heart"></i>&nbsp;&nbsp; Good</button>
