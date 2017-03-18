@@ -89,7 +89,7 @@ while ($company = mysqli_fetch_array($companies)){
             $post['description'] = str_replace('&#39;', "//'",$post['description']);
             $data['picture'] = $post['img'];
             $data['link'] = $post['url'];
-            $data['message'] = "Get Upto date with all exam news and and Learn & Earn at https://www.examhans.com";
+            $data['message'] = "Get updated with all exam news and and Learn & Earn at https://www.examhans.com";
             $data['place'] = $page_id;
 
             if($tags != "")
