@@ -84,7 +84,7 @@ while ($company = mysqli_fetch_array($companies)){
         $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
 
 //var_dump($post);
-        if($post['link']){
+        if($post['url']){
             //&#39;
             $post['description'] = str_replace('&#39;', "//'",$post['description']);
             $data['picture'] = $post['img'];
