@@ -75,13 +75,13 @@ while ($company = mysqli_fetch_array($companies)){
 
     var_dump($post);
     if(isset($post)){
-        $keywords = extractCommonWords($post['description']);
+     /*   $keywords = extractCommonWords($post['description']);
 //var_dump($keywords);
         foreach($keywords as $word => $t){
             //echo $word."\n";
             $post['description'] = str_ireplace($word,"#".$word,$post['description']);
         }
-        $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];
+        $post['description'] = "#".str_replace(' ', '',ucwords($post['title'])) . ": " .$post['description'];*/
 
 //var_dump($post);
         if($post['url']){
@@ -89,7 +89,7 @@ while ($company = mysqli_fetch_array($companies)){
             $post['description'] = str_replace('&#39;', "//'",$post['description']);
             $data['picture'] = $post['img'];
             $data['link'] = $post['url'];
-            $data['message'] = $post['description'];
+            $data['message'] = "Get Upto date with all exam news and and Learn & Earn at https://www.examhans.com";
             $data['place'] = $page_id;
 
             if($tags != "")
