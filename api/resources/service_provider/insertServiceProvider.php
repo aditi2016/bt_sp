@@ -48,6 +48,8 @@ function insertServiceProvider(){
                       (:name, :organization, :description, :mobile, :password, :ref_id, :experience,  :address, :email, :profile_pic_id, :area, :city)
                     ON DUPLICATE KEY UPDATE
                       name = :name1, organization = :organization1, password = :password1, ref_id = :ref_id1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
+    $otherContacts = "INSERT INTO `other_contact`( `service_provider_id`, `mobile_no`) VALUES (:service_provider_id,:mobile)";
+    $otherEmails = "INSERT INTO `other_emails`( `service_provider_id`, `mobile_no`) VALUES (:service_provider_id,:email)";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -80,6 +82,33 @@ function insertServiceProvider(){
         $stmt->execute();
 
         $serviceProvider->id = $db->lastInsertId();
+
+        if(count($serviceProvider->mobiles) >= 1){
+
+            foreach($serviceProvider->mobiles as $mobile){
+            $stmt = $db->prepare($otherContacts);
+
+            $stmt->bindParam("service_provider_id", $serviceProvider->id);
+            $stmt->bindParam("mobile", $mobile);
+
+            $stmt->execute();
+            }
+
+        }
+
+        if(count($serviceProvider->emails) >= 1){
+
+            foreach($serviceProvider->emails as $email){
+                $stmt = $db->prepare($otherContacts);
+
+                $stmt->bindParam("service_provider_id", $serviceProvider->id);
+                $stmt->bindParam("mobile", $email);
+
+                $stmt->execute();
+            }
+
+        }
+
         $db = null;
         echo '{"service_providers": ' . json_encode($serviceProvider) . '}';
     } catch (PDOException $e) {
