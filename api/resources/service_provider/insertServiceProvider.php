@@ -83,7 +83,7 @@ function insertServiceProvider(){
 
         $serviceProvider->id = $db->lastInsertId();
 
-        if(!isset($serviceProvider->mobiles) && count($serviceProvider->mobiles) >= 1){
+        if(isset($serviceProvider->mobiles) && count($serviceProvider->mobiles) >= 1){
 
             foreach($serviceProvider->mobiles as $mobile){
             $stmt = $db->prepare($otherContacts);
@@ -96,7 +96,7 @@ function insertServiceProvider(){
 
         }
 
-        if( !isset($serviceProvider->emails) && count($serviceProvider->emails) >= 1){
+        if( isset($serviceProvider->emails) && count($serviceProvider->emails) >= 1){
 
             foreach($serviceProvider->emails as $email){
                 $stmt = $db->prepare($otherEmails);
