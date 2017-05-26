@@ -20,7 +20,7 @@ function insertServiceProvider(){
       die();
     }
 
-    if(!isset($serviceProvider->organization)&&$serviceProvider->organization== "")
+    if(!isset($serviceProvider->organization) || $serviceProvider->organization== "")
         $serviceProvider->organization = $serviceProvider->name;
     if(!isset($serviceProvider->description))
         $serviceProvider->description = $serviceProvider->name;
@@ -49,7 +49,7 @@ function insertServiceProvider(){
                     ON DUPLICATE KEY UPDATE
                       name = :name1, organization = :organization1, password = :password1, ref_id = :ref_id1, experience = :experience1, profile_pic_id = :profile_pic_id1, id=LAST_INSERT_ID(id);";
     $otherContacts = "INSERT INTO `other_contact`( `service_provider_id`, `mobile_no`) VALUES (:service_provider_id,:mobile)";
-    $otherEmails = "INSERT INTO `other_emails`( `service_provider_id`, `mobile_no`) VALUES (:service_provider_id,:email)";
+    $otherEmails = "INSERT INTO `other_emails`( `service_provider_id`, `email`) VALUES (:service_provider_id,:email)";
     try {
         $db = getDB();
         $stmt = $db->prepare($sql);
@@ -83,7 +83,7 @@ function insertServiceProvider(){
 
         $serviceProvider->id = $db->lastInsertId();
 
-        if(count($serviceProvider->mobiles) >= 1){
+        if(!isset($serviceProvider->mobiles) && count($serviceProvider->mobiles) >= 1){
 
             foreach($serviceProvider->mobiles as $mobile){
             $stmt = $db->prepare($otherContacts);
@@ -96,7 +96,7 @@ function insertServiceProvider(){
 
         }
 
-        if(count($serviceProvider->emails) >= 1){
+        if( !isset($serviceProvider->emails) && count($serviceProvider->emails) >= 1){
 
             foreach($serviceProvider->emails as $email){
                 $stmt = $db->prepare($otherEmails);
