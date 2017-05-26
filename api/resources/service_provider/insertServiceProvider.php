@@ -102,7 +102,7 @@ function insertServiceProvider(){
                 $stmt = $db->prepare($otherEmails);
 
                 $stmt->bindParam("service_provider_id", $serviceProvider->id);
-                $stmt->bindParam("mobile", $email);
+                $stmt->bindParam("email", $email);
 
                 $stmt->execute();
             }
