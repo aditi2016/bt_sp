@@ -99,7 +99,7 @@ function insertServiceProvider(){
         if(count($serviceProvider->emails) >= 1){
 
             foreach($serviceProvider->emails as $email){
-                $stmt = $db->prepare($otherContacts);
+                $stmt = $db->prepare($otherEmails);
 
                 $stmt->bindParam("service_provider_id", $serviceProvider->id);
                 $stmt->bindParam("mobile", $email);
